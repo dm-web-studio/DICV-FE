@@ -1,6 +1,8 @@
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { Placeholder } from '../pages/Placeholder';
+import { LoginPage } from '../features/auth/pages/LoginPage';
+import { RequireAuth } from '../features/auth/components/RequireAuth';
 
 function Layout() {
   return (
@@ -28,6 +30,17 @@ export const router = createBrowserRouter([
       { path: 'annual-exam', element: <Placeholder title="Annual Exam" /> },
       { path: 'half-yearly-exam', element: <Placeholder title="Half-Yearly Exam" /> },
       { path: 'contact', element: <Placeholder title="Contact" /> },
+    ],
+  },
+  {
+    path: '/login',
+    element: <LoginPage />,
+  },
+  {
+    path: '/admin',
+    element: <RequireAuth />,
+    children: [
+      { index: true, element: <Placeholder title="Admin Dashboard" /> },
     ],
   },
 ]);
