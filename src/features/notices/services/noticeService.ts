@@ -1,0 +1,27 @@
+import { apiClient } from '../../../shared/api/apiClient';
+import type { ApiSuccess } from '../../../shared/api/types';
+import type { Notice } from '../types';
+
+interface GetNoticesParams {
+  category?: string;
+  page?: number;
+  limit?: number;
+  isPinned?: boolean;
+}
+
+export const noticeService = {
+  async getNotices(params?: GetNoticesParams): Promise<ApiSuccess<Notice[]>> {
+    const { data } = await apiClient.get<ApiSuccess<Notice[]>>('/notices', { params });
+    return data;
+  },
+
+  async getPinnedNotices(): Promise<Notice[]> {
+    const { data } = await apiClient.get<ApiSuccess<Notice[]>>('/notices/ticker');
+    return data.data;
+  },
+
+  async getNoticeBySlug(slug: string): Promise<Notice> {
+    const { data } = await apiClient.get<ApiSuccess<Notice>>(`/notices/${slug}`);
+    return data.data;
+  }
+};

@@ -150,7 +150,6 @@ export const ColumnDivider = styled(Box)<{ isLast?: boolean }>(({ theme, isLast 
 export const FooterContainer = styled(Box)(({ theme }) => ({
   paddingLeft: theme.spacing(6),
   paddingRight: theme.spacing(6),
-  maxWidth: theme.breakpoints.values.lg,
   marginLeft: 'auto',
   marginRight: 'auto',
 }));
