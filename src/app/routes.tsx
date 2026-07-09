@@ -1,21 +1,13 @@
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
-import Box from '@mui/material/Box';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Placeholder } from '../pages/Placeholder';
 import { LoginPage } from '../features/auth/pages/LoginPage';
 import { RequireAuth } from '../features/auth/components/RequireAuth';
-
-function Layout() {
-  return (
-    <Box>
-      <Outlet />
-    </Box>
-  );
-}
+import { AppLayout } from '../shared/components/Layout/AppLayout';
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: <AppLayout />,
     children: [
       { index: true, element: <Placeholder title="Home" /> },
       { path: 'about', element: <Placeholder title="About" /> },

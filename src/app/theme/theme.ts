@@ -1,8 +1,26 @@
 import { createTheme } from '@mui/material/styles';
 
+declare module '@mui/material/styles' {
+  interface TypographyVariants {
+    heroTitle: React.CSSProperties;
+    footerTitle: React.CSSProperties;
+  }
+  interface TypographyVariantsOptions {
+    heroTitle?: React.CSSProperties;
+    footerTitle?: React.CSSProperties;
+  }
+}
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    heroTitle: true;
+    footerTitle: true;
+  }
+}
+
 export const theme = createTheme({
   palette: {
-    primary: { main: '#0B3D91' },      // example — replace with real brand colors
+    primary: { main: '#0B3D91', dark: '#06255C' },      // example — replace with real brand colors
     secondary: { main: '#F5A623' },
     background: { default: '#F7F8FA', paper: '#FFFFFF' },
     text: { primary: '#1A1A1A', secondary: '#5F6368' },
@@ -19,6 +37,8 @@ export const theme = createTheme({
     body2: { fontSize: 12 },
     caption: { fontSize: 12 },
     button: { fontSize: 14, textTransform: 'none' },
+    heroTitle: { fontSize: 40, fontWeight: 700, lineHeight: 1.15 },
+    footerTitle: { fontSize: 20, lineHeight: 1.2 },
   },
   components: {
     // global defaults so agents don't need to repeat size props everywhere
