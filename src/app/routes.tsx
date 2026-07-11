@@ -4,6 +4,8 @@ import { LoginPage } from '../features/auth/pages/LoginPage';
 import { RequireAuth } from '../features/auth/components/RequireAuth';
 import { AppLayout } from '../shared/components/Layout/AppLayout';
 import NoticesPage from '../features/notices/pages/NoticesPage';
+import PrincipalDeskPage from '../features/staff-desk/pages/PrincipalDeskPage';
+import PresidentDeskPage from '../features/staff-desk/pages/PresidentDeskPage';
 
 export const router = createBrowserRouter([
   {
@@ -12,8 +14,8 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Placeholder title="Home" /> },
       { path: 'about', element: <Placeholder title="About" /> },
-      { path: 'principals-desk', element: <Placeholder title="Principal's Desk" /> },
-      { path: 'presidents-desk', element: <Placeholder title="President's Desk" /> },
+      { path: 'principals-desk', element: <PrincipalDeskPage /> },
+      { path: 'presidents-desk', element: <PresidentDeskPage /> },
       { path: 'admission-procedure', element: <Placeholder title="Admission Procedure" /> },
       { path: 'fees', element: <Placeholder title="Fees" /> },
       { path: 'gallery', element: <Placeholder title="Gallery" /> },
