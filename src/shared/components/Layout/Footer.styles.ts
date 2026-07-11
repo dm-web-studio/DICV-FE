@@ -133,7 +133,9 @@ export const FooterCaption = styled(Typography)(({ theme }) => ({
   color: alpha(theme.palette.common.white, 0.5),
 }));
 
-export const ColumnDivider = styled(Box)<{ isLast?: boolean }>(({ theme, isLast }) => ({
+export const ColumnDivider = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'isLast',
+})<{ isLast?: boolean }>(({ theme, isLast }) => ({
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
