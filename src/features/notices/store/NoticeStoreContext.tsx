@@ -1,4 +1,5 @@
 import { createContext, useContext, useRef, useEffect, type FC, type PropsWithChildren } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { NoticeRootStore } from './NoticeRootStore';
 
 const NoticeStoreContext = createContext<NoticeRootStore | null>(null);
@@ -6,11 +7,13 @@ const NoticeStoreContext = createContext<NoticeRootStore | null>(null);
 export const NoticeStoreProvider: FC<PropsWithChildren> = ({ children }) => {
   const storeRef = useRef<NoticeRootStore | null>(null);
   const isMountedRef = useRef(false);
+  const [searchParams] = useSearchParams();
 
   // Lazy initialization ensures the store is created exactly once,
   // avoiding Strict Mode's double-invocation of useState initializers.
   if (!storeRef.current) {
-    storeRef.current = new NoticeRootStore();
+    const highlight = searchParams.get('highlight');
+    storeRef.current = new NoticeRootStore(highlight);
   }
 
   useEffect(() => {
@@ -18,7 +21,8 @@ export const NoticeStoreProvider: FC<PropsWithChildren> = ({ children }) => {
 
     // Failsafe: if it somehow did get disposed, recreate it
     if (storeRef.current?.isDisposed) {
-      storeRef.current = new NoticeRootStore();
+      const highlight = searchParams.get('highlight');
+      storeRef.current = new NoticeRootStore(highlight);
     }
 
     return () => {

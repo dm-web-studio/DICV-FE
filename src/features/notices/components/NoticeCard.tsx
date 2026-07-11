@@ -52,7 +52,7 @@ export const NoticeCard = observer(function NoticeCard({ notice, isLatest }: Not
   const colorConfig = theme.badgeColors?.[badgeType] || theme.badgeColors?.grey || { bg: 'transparent', text: 'inherit' };
 
   return (
-    <CardContainer isSelected={isSelected}>
+    <CardContainer id={`notice-item-${notice.slug}`} isSelected={isSelected}>
       <HeaderArea onClick={handleClick}>
         <DateBox>
           <DayText color="primary">{notice.displayDay}</DayText>

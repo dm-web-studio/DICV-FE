@@ -7,10 +7,12 @@ export class NoticeRootStore {
   domain: NoticeDomainStore;
   private disposers: Array<() => void> = [];
   isDisposed = false;
+  private initialHighlightSlug: string | null;
 
-  constructor() {
+  constructor(initialHighlightSlug: string | null = null) {
     this.ui = new NoticeUIStore();
     this.domain = new NoticeDomainStore(this.ui);
+    this.initialHighlightSlug = initialHighlightSlug;
 
     // Reaction 1: Fetch notices when filters change
     this.disposers.push(
@@ -35,7 +37,13 @@ export class NoticeRootStore {
         () => this.domain.notices,
         (notices) => {
           if (notices.length > 0) {
-            this.ui.setSelectedNotice(notices[0]?.slug ?? null);
+            if (this.initialHighlightSlug && notices.some(n => n.slug === this.initialHighlightSlug)) {
+              this.ui.setSelectedNotice(this.initialHighlightSlug);
+              this.domain.scrollTargetSlug = this.initialHighlightSlug;
+              this.initialHighlightSlug = null;
+            } else {
+              this.ui.setSelectedNotice(notices[0]?.slug ?? null);
+            }
           } else {
             this.ui.setSelectedNotice(null);
           }

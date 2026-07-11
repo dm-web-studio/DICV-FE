@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -17,12 +18,13 @@ import {
 
 export const AnnouncementBar = observer(function AnnouncementBar() {
   const { pinnedNotices, isDismissed } = announcementBarStore;
+  const location = useLocation();
 
   useEffect(() => {
     void announcementBarStore.fetchPinnedNotices();
   }, []);
 
-  if (pinnedNotices.length === 0 || isDismissed) {
+  if (pinnedNotices.length === 0 || isDismissed || location.pathname.startsWith('/notices')) {
     return null;
   }
 
@@ -37,7 +39,7 @@ export const AnnouncementBar = observer(function AnnouncementBar() {
   // before the animation loops (transform: translateX(-50%) shifts exactly half the total width).
   const renderNotices = () => {
     return pinnedNotices.map((notice: Notice, idx: number) => (
-      <NoticeLink key={`${notice.slug}-${idx}`} to={`/notices/${notice.slug}`}>
+      <NoticeLink key={`${notice.slug}-${idx}`} to={`/notices?highlight=${notice.slug}`}>
         <CampaignIcon color="secondary" fontSize="inherit" sx={{ mr: 0.5, opacity: 0.8 }} />
         {notice.title}
       </NoticeLink>
@@ -50,7 +52,7 @@ export const AnnouncementBar = observer(function AnnouncementBar() {
     <BarContainer role="region" aria-label="School announcements">
       {!hasMultiple && firstNotice ? (
         <SingleNoticeWrapper>
-          <NoticeLink to={`/notices/${firstNotice.slug}`}>
+          <NoticeLink to={`/notices?highlight=${firstNotice.slug}`}>
             <CampaignIcon color="secondary" fontSize="inherit" sx={{ mr: 0.5, opacity: 0.8 }} />
             {firstNotice.title}
           </NoticeLink>

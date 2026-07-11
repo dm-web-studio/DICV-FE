@@ -9,6 +9,7 @@ export class NoticeDomainStore {
   @observable accessor limit = 20;
   @observable accessor isLoading = false;
   @observable accessor error: string | null = null;
+  @observable accessor scrollTargetSlug: string | null = null;
   uiStore: NoticeUIStore;
 
   constructor(uiStore: NoticeUIStore) {
@@ -24,6 +25,11 @@ export class NoticeDomainStore {
   @computed
   get totalPages(): number {
     return Math.ceil(this.total / this.limit);
+  }
+
+  @action
+  clearScrollTarget(): void {
+    this.scrollTargetSlug = null;
   }
 
   @action

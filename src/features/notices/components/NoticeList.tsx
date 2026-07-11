@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import Pagination from '@mui/material/Pagination';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -16,6 +17,16 @@ import {
 
 export const NoticeList = observer(function NoticeList() {
   const { domain, ui } = useNoticeStore();
+
+  useEffect(() => {
+    if (domain.scrollTargetSlug) {
+      const element = document.getElementById(`notice-item-${domain.scrollTargetSlug}`);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+      domain.clearScrollTarget();
+    }
+  }, [domain.scrollTargetSlug, domain]);
 
   const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     ui.setPage(value);
