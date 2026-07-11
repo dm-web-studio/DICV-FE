@@ -1,13 +1,6 @@
 import { apiClient } from '../../../shared/api/apiClient';
 import type { ApiSuccess } from '../../../shared/api/types';
-import type { Notice } from '../types';
-
-interface GetNoticesParams {
-  category?: string;
-  page?: number;
-  limit?: number;
-  isPinned?: boolean;
-}
+import type { Notice, GetNoticesParams } from '../types';
 
 export const noticeService = {
   async getNotices(params?: GetNoticesParams): Promise<ApiSuccess<Notice[]>> {

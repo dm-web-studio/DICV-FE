@@ -9,6 +9,24 @@ declare module '@mui/material/styles' {
     heroTitle?: React.CSSProperties;
     footerTitle?: React.CSSProperties;
   }
+  interface Theme {
+    badgeColors: {
+      blue: { bg: string; text: string };
+      green: { bg: string; text: string };
+      purple: { bg: string; text: string };
+      orange: { bg: string; text: string };
+      grey: { bg: string; text: string };
+    };
+  }
+  interface ThemeOptions {
+    badgeColors?: {
+      blue: { bg: string; text: string };
+      green: { bg: string; text: string };
+      purple: { bg: string; text: string };
+      orange: { bg: string; text: string };
+      grey: { bg: string; text: string };
+    };
+  }
 }
 
 declare module '@mui/material/Typography' {
@@ -20,10 +38,22 @@ declare module '@mui/material/Typography' {
 
 export const theme = createTheme({
   palette: {
-    primary: { main: '#0B3D91', dark: '#06255C' },      // example — replace with real brand colors
+    primary: { main: '#0B3D91', dark: '#0B1A40' },
     secondary: { main: '#F5A623' },
+    warning: { main: '#FFB800' },
     background: { default: '#F7F8FA', paper: '#FFFFFF' },
     text: { primary: '#1A1A1A', secondary: '#5F6368' },
+    grey: {
+      50: '#F5F6F8',
+      100: '#F7F9FC',
+    },
+  },
+  badgeColors: {
+    blue: { bg: '#E3F2FD', text: '#1976D2' },
+    green: { bg: '#E8F5E9', text: '#2E7D32' },
+    purple: { bg: '#F3E5F5', text: '#7B1FA2' },
+    orange: { bg: '#FFF3E0', text: '#E65100' },
+    grey: { bg: '#F5F5F5', text: '#616161' },
   },
   spacing: 4, // base unit 4px, not MUI's default 8px — compact by default,
               // so theme.spacing(1) = 4px, theme.spacing(2) = 8px, etc.

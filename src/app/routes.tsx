@@ -3,6 +3,7 @@ import { Placeholder } from '../pages/Placeholder';
 import { LoginPage } from '../features/auth/pages/LoginPage';
 import { RequireAuth } from '../features/auth/components/RequireAuth';
 import { AppLayout } from '../shared/components/Layout/AppLayout';
+import NoticesPage from '../features/notices/pages/NoticesPage';
 
 export const router = createBrowserRouter([
   {
@@ -16,8 +17,8 @@ export const router = createBrowserRouter([
       { path: 'admission-procedure', element: <Placeholder title="Admission Procedure" /> },
       { path: 'fees', element: <Placeholder title="Fees" /> },
       { path: 'gallery', element: <Placeholder title="Gallery" /> },
-      { path: 'notice-board', element: <Placeholder title="Notice Board" /> },
-      { path: 'notice-board/:slug', element: <Placeholder title="Notice Detail" /> },
+      { path: 'notices', element: <NoticesPage /> },
+      { path: 'notices/:slug', element: <NoticesPage /> },
       { path: 'holidays', element: <Placeholder title="Holidays" /> },
       { path: 'annual-exam', element: <Placeholder title="Annual Exam" /> },
       { path: 'half-yearly-exam', element: <Placeholder title="Half-Yearly Exam" /> },

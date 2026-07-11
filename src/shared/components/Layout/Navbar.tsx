@@ -30,7 +30,7 @@ const NAV_LINKS = [
   { label: 'Academics', path: '/academics' },
   { label: 'Admissions', path: '/admissions' },
   { label: 'Gallery', path: '/gallery' },
-  { label: 'Notice Board', path: '/notice-board' },
+  { label: 'Notice Board', path: '/notices' },
   { label: 'Contact Us', path: '/contact' },
 ];
 
@@ -99,8 +99,8 @@ export const Navbar = observer(function Navbar() {
               <ListItem key={link.path} disablePadding>
                 <MobileNavLink to={link.path}>
                   <StyledListItemButton>
-                    <ListItemText 
-                      primary={<Typography variant="body2" sx={{ fontWeight: 600 }}>{link.label}</Typography>} 
+                    <ListItemText
+                      primary={<Typography variant="body2" sx={{ fontWeight: 600 }}>{link.label}</Typography>}
                     />
                   </StyledListItemButton>
                 </MobileNavLink>
