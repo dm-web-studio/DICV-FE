@@ -8,7 +8,7 @@ export class StaffDeskDomainStore {
   @observable accessor error: string | null = null;
 
   @action
-  async fetchByType(type: 'principal' | 'president'): Promise<void> {
+  async fetchByType(type: 'principal' | 'president' | 'vice-principal'): Promise<void> {
     this.isLoading = true;
     this.error = null;
     try {

@@ -23,7 +23,7 @@ import {
 } from './StaffDeskContent.styles';
 
 interface StaffDeskContentProps {
-  type: 'principal' | 'president';
+  type: 'principal' | 'president' | 'vice-principal';
 }
 
 const StaffDeskSkeleton = () => (

@@ -1,5 +1,5 @@
 export interface StaffDesk {
-  type: 'principal' | 'president';
+  type: 'principal' | 'president' | 'vice-principal';
   name: string;
   photoUrl: string;
   signatureUrl?: string;

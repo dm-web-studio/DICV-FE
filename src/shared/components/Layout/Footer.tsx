@@ -42,6 +42,7 @@ const QUICK_LINKS = [
   { label: 'About Us', path: '/about' },
   { label: "Principal's Desk", path: '/principals-desk' },
   { label: "President's Desk", path: '/presidents-desk' },
+  { label: "Vice Principal's Desk", path: '/vice-principals-desk' },
   { label: 'Gallery', path: '/gallery' },
   { label: 'Notice Board', path: '/notice-board' },
 ];
