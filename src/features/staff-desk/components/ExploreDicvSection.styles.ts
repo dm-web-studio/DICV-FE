@@ -1,4 +1,4 @@
-import { styled } from '@mui/material/styles';
+import { styled, alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -97,6 +97,7 @@ export const CardIconWrapperSecondary = styled(CardIconWrapper)(({ theme }) => (
 
 export const CardTitle = styled(Typography)(({ theme }) => ({
   fontWeight: 700,
+  color: theme.palette.primary.contrastText,
   position: 'relative',
   [theme.breakpoints.up('md')]: {
     marginBottom: theme.spacing(2),
@@ -112,7 +113,7 @@ export const CardTitle = styled(Typography)(({ theme }) => ({
 }));
 
 export const CardDescription = styled(Typography)(({ theme }) => ({
-  color: 'rgba(255, 255, 255, 0.8)',
+  color: alpha(theme.palette.primary.contrastText, 0.8),
   lineHeight: 1.6,
   marginBottom: theme.spacing(4),
 }));
@@ -124,7 +125,7 @@ export const CardButton = styled(Button)(({ theme }) => ({
   fontWeight: 600,
   padding: theme.spacing(1, 3),
   '&:hover': {
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    backgroundColor: alpha(theme.palette.background.paper, 0.9),
   },
 }));
 

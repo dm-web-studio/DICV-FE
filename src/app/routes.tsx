@@ -8,6 +8,8 @@ import PrincipalDeskPage from '../features/staff-desk/pages/PrincipalDeskPage';
 import PresidentDeskPage from '../features/staff-desk/pages/PresidentDeskPage';
 import VicePrincipalDeskPage from '../features/staff-desk/pages/VicePrincipalDeskPage';
 
+import AdmissionPage from '../features/admission/pages/AdmissionPage';
+
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -18,7 +20,7 @@ export const router = createBrowserRouter([
       { path: 'principals-desk', element: <PrincipalDeskPage /> },
       { path: 'presidents-desk', element: <PresidentDeskPage /> },
       { path: 'vice-principals-desk', element: <VicePrincipalDeskPage /> },
-      { path: 'admission-procedure', element: <Placeholder title="Admission Procedure" /> },
+      { path: 'admission', element: <AdmissionPage /> },
       { path: 'fees', element: <Placeholder title="Fees" /> },
       { path: 'gallery', element: <Placeholder title="Gallery" /> },
       { path: 'notices', element: <NoticesPage /> },
