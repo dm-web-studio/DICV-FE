@@ -1,9 +1,12 @@
+import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import type * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
+import { observer } from 'mobx-react-lite';
 import { Header } from './Header';
 import { Footer } from './Footer';
+import { siteSettingsStore } from '../../stores/SiteSettingsStore';
 
 const AppRoot = styled(Box)({
   display: 'flex',
@@ -15,7 +18,11 @@ const MainContent = styled('main')({
   flexGrow: 1,
 });
 
-export function AppLayout(): React.JSX.Element {
+export const AppLayout = observer(function AppLayout(): React.JSX.Element {
+  useEffect(() => {
+    void siteSettingsStore.fetchSettings();
+  }, []);
+
   return (
     <AppRoot>
       <Header />
@@ -25,4 +32,4 @@ export function AppLayout(): React.JSX.Element {
       <Footer />
     </AppRoot>
   );
-}
+});

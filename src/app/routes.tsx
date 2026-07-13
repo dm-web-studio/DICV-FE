@@ -9,6 +9,7 @@ import PresidentDeskPage from '../features/staff-desk/pages/PresidentDeskPage';
 import VicePrincipalDeskPage from '../features/staff-desk/pages/VicePrincipalDeskPage';
 
 import AdmissionPage from '../features/admission/pages/AdmissionPage';
+import ContactPage from '../features/contact/pages/ContactPage';
 
 export const router = createBrowserRouter([
   {
@@ -28,7 +29,7 @@ export const router = createBrowserRouter([
       { path: 'holidays', element: <Placeholder title="Holidays" /> },
       { path: 'annual-exam', element: <Placeholder title="Annual Exam" /> },
       { path: 'half-yearly-exam', element: <Placeholder title="Half-Yearly Exam" /> },
-      { path: 'contact', element: <Placeholder title="Contact" /> },
+      { path: 'contact', element: <ContactPage /> },
     ],
   },
   {

@@ -11,7 +11,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
-
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import dicvLogo from '../../../assets/dicv-logo.png';
 
 import {
@@ -55,7 +55,17 @@ const ACADEMIC_LINKS = [
   { label: 'Half-Yearly Examination', path: '/half-yearly-exam' },
 ];
 
-export function Footer(): React.JSX.Element {
+import { observer } from 'mobx-react-lite';
+import { siteSettingsStore } from '../../stores/SiteSettingsStore';
+
+export const Footer = observer(function Footer(): React.JSX.Element {
+  const { settings } = siteSettingsStore;
+  
+  // Provide safe fallbacks if settings hasn't loaded yet
+  const address = settings?.address || 'Loading...';
+  const phone = settings?.phone || 'Loading...';
+  const email = settings?.email || 'Loading...';
+
   return (
     <FooterRoot>
       <FooterContainer>
@@ -139,7 +149,7 @@ export function Footer(): React.JSX.Element {
                     <LocationOnIcon />
                   </ContactIconWrapper>
                   <ContactText variant="body2">
-                    School Rd, A-Zone, Durgapur, West Bengal 713204
+                    {address}
                   </ContactText>
                 </ContactRow>
                 <ContactRow>
@@ -147,7 +157,7 @@ export function Footer(): React.JSX.Element {
                     <PhoneIcon />
                   </ContactIconWrapper>
                   <ContactText variant="body2">
-                    +91-94751 51236
+                    {phone}
                   </ContactText>
                 </ContactRow>
                 <ContactRow>
@@ -155,7 +165,16 @@ export function Footer(): React.JSX.Element {
                     <EmailIcon />
                   </ContactIconWrapper>
                   <ContactText variant="body2">
-                    dicvpublicschool@gmail.com
+                    {email}
+                  </ContactText>
+                </ContactRow>
+                <ContactRow>
+                  <ContactIconWrapper>
+                    <AccessTimeIcon />
+                  </ContactIconWrapper>
+                  <ContactText variant="body2">
+                    Mon - Sat: 9:00 AM - 4:00 PM<br />
+                    Sunday: Closed
                   </ContactText>
                 </ContactRow>
               </Box>
@@ -174,5 +193,4 @@ export function Footer(): React.JSX.Element {
       </FooterContainer>
     </FooterRoot>
   );
-}
-
+});
