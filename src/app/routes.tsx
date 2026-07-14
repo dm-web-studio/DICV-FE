@@ -10,6 +10,8 @@ import VicePrincipalDeskPage from '../features/staff-desk/pages/VicePrincipalDes
 
 import AdmissionPage from '../features/admission/pages/AdmissionPage';
 import ContactPage from '../features/contact/pages/ContactPage';
+import { AboutPage } from '../features/about/pages/AboutPage';
+
 
 export const router = createBrowserRouter([
   {
@@ -17,7 +19,7 @@ export const router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       { index: true, element: <Placeholder title="Home" /> },
-      { path: 'about', element: <Placeholder title="About" /> },
+      { path: 'about', element: <AboutPage /> },
       { path: 'principals-desk', element: <PrincipalDeskPage /> },
       { path: 'presidents-desk', element: <PresidentDeskPage /> },
       { path: 'vice-principals-desk', element: <VicePrincipalDeskPage /> },
