@@ -4,20 +4,29 @@ import type { Album, GalleryImage } from '../types';
 
 export class GalleryDomainStore {
   @observable accessor albums: Album[] = [];
-  @observable accessor images: GalleryImage[] = [];
-  @observable accessor totalImages = 0;
-  @observable accessor isAlbumsLoading = false;
-  @observable accessor isImagesLoading = false;
+  @observable accessor albumImages: Record<string, GalleryImage[]> = {};
+  @observable accessor imagesMeta: { page: number; limit: number; total: number } | null = null;
+  @observable accessor isLoadingAlbums = false;
+  @observable accessor hasFetchedAlbums = false;
+  @observable accessor isLoadingImages = false;
   @observable accessor error: string | null = null;
+  @observable accessor latestImages: GalleryImage[] = [];
+
+  constructor() {}
+
+  getAlbumBySlug(slug: string): Album | undefined {
+    return this.albums.find((a) => a.slug === slug);
+  }
 
   @action
   async fetchAlbums(): Promise<void> {
-    this.isAlbumsLoading = true;
+    this.isLoadingAlbums = true;
     this.error = null;
     try {
-      const { data } = await galleryService.getAlbums();
+      const { data } = await galleryService.fetchAlbums();
       runInAction(() => {
         this.albums = data;
+        this.hasFetchedAlbums = true;
       });
     } catch (err) {
       runInAction(() => {
@@ -25,20 +34,25 @@ export class GalleryDomainStore {
       });
     } finally {
       runInAction(() => {
-        this.isAlbumsLoading = false;
+        this.isLoadingAlbums = false;
       });
     }
   }
 
   @action
-  async fetchImages(params: { album?: string; page?: number; limit?: number } = {}): Promise<void> {
-    this.isImagesLoading = true;
+  async fetchAlbumImages(albumId: string, page: number): Promise<void> {
+    this.isLoadingImages = true;
     this.error = null;
     try {
-      const { data, meta } = await galleryService.getGallery(params);
+      const { data, meta } = await galleryService.fetchAlbumImages(albumId, page);
       runInAction(() => {
-        this.images = data;
-        this.totalImages = meta?.total ?? 0;
+        // If it's the first page, replace. Otherwise, append (for infinite scroll / load more)
+        if (page === 1) {
+          this.albumImages[albumId] = data;
+        } else {
+          this.albumImages[albumId] = [...(this.albumImages[albumId] || []), ...data];
+        }
+        this.imagesMeta = meta || null;
       });
     } catch (err) {
       runInAction(() => {
@@ -46,8 +60,20 @@ export class GalleryDomainStore {
       });
     } finally {
       runInAction(() => {
-        this.isImagesLoading = false;
+        this.isLoadingImages = false;
       });
+    }
+  }
+
+  @action
+  async fetchImages(params?: { limit?: number }): Promise<void> {
+    try {
+      const { data } = await galleryService.fetchAlbumImages(undefined as any, 1, params?.limit || 4); // We'll update the service to handle undefined albumId
+      runInAction(() => {
+        this.latestImages = data;
+      });
+    } catch (err) {
+      console.error('Failed to load latest images', err);
     }
   }
 }

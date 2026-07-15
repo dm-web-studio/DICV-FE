@@ -12,6 +12,8 @@ import AdmissionPage from '../features/admission/pages/AdmissionPage';
 import ContactPage from '../features/contact/pages/ContactPage';
 import { AboutPage } from '../features/about/pages/AboutPage';
 import { HomePage } from '../features/home/pages/HomePage';
+import GalleryPage from '../features/gallery/pages/GalleryPage';
+import AlbumDetailPage from '../features/gallery/pages/AlbumDetailPage';
 
 
 export const router = createBrowserRouter([
@@ -26,7 +28,8 @@ export const router = createBrowserRouter([
       { path: 'vice-principals-desk', element: <VicePrincipalDeskPage /> },
       { path: 'admission', element: <AdmissionPage /> },
       { path: 'fees', element: <Placeholder title="Fees" /> },
-      { path: 'gallery', element: <Placeholder title="Gallery" /> },
+      { path: 'gallery', element: <GalleryPage /> },
+      { path: 'gallery/:slug', element: <AlbumDetailPage /> },
       { path: 'notices', element: <NoticesPage /> },
       { path: 'notices/:slug', element: <NoticesPage /> },
       { path: 'holidays', element: <Placeholder title="Holidays" /> },

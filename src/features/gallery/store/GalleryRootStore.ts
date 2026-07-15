@@ -1,14 +1,16 @@
+import { GalleryUIStore } from './GalleryUIStore';
 import { GalleryDomainStore } from './GalleryDomainStore';
 
 export class GalleryRootStore {
+  ui: GalleryUIStore;
   domain: GalleryDomainStore;
-  isDisposed = false;
 
   constructor() {
+    this.ui = new GalleryUIStore();
     this.domain = new GalleryDomainStore();
   }
 
   dispose(): void {
-    this.isDisposed = true;
+    // Clean up any autoruns or reactions if added in the future
   }
 }

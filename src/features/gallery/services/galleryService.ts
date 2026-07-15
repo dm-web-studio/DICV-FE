@@ -2,18 +2,16 @@ import { apiClient } from '../../../shared/api/apiClient';
 import type { ApiSuccess } from '../../../shared/api/types';
 import type { Album, GalleryImage } from '../types';
 
-interface GetGalleryParams {
-  album?: string;
-  page?: number;
-  limit?: number;
-}
-
 export const galleryService = {
-  async getAlbums(): Promise<ApiSuccess<Album[]>> {
+  async fetchAlbums(): Promise<ApiSuccess<Album[]>> {
     const { data } = await apiClient.get<ApiSuccess<Album[]>>('/gallery/albums');
     return data;
   },
-  async getGallery(params: GetGalleryParams): Promise<ApiSuccess<GalleryImage[]>> {
+
+  async fetchAlbumImages(albumId?: string, page = 1, limit = 20): Promise<ApiSuccess<GalleryImage[]>> {
+    const params: Record<string, any> = { page, limit };
+    if (albumId) params.album = albumId;
+
     const { data } = await apiClient.get<ApiSuccess<GalleryImage[]>>('/gallery', { params });
     return data;
   },

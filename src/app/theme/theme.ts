@@ -4,10 +4,12 @@ declare module '@mui/material/styles' {
   interface TypographyVariants {
     heroTitle: React.CSSProperties;
     footerTitle: React.CSSProperties;
+    pageTitle: React.CSSProperties;
   }
   interface TypographyVariantsOptions {
     heroTitle?: React.CSSProperties;
     footerTitle?: React.CSSProperties;
+    pageTitle?: React.CSSProperties;
   }
   interface Theme {
     badgeColors: {
@@ -33,6 +35,7 @@ declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     heroTitle: true;
     footerTitle: true;
+    pageTitle: true;
   }
 }
 
@@ -69,6 +72,7 @@ export const theme = createTheme({
     button: { fontSize: 14, textTransform: 'none' },
     heroTitle: { fontSize: 40, fontWeight: 700, lineHeight: 1.15 },
     footerTitle: { fontSize: 20, lineHeight: 1.2 },
+    pageTitle: { fontSize: 32, fontWeight: 700, lineHeight: 1.2 },
   },
   components: {
     // global defaults so agents don't need to repeat size props everywhere

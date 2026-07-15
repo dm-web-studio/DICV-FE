@@ -15,7 +15,7 @@ export interface GalleryImage {
     slug: string;
   };
   imageUrl: string;
-  caption?: string;
+  caption: string;
   order: number;
   createdAt: string;
   updatedAt: string;
