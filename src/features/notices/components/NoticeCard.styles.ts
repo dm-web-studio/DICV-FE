@@ -74,11 +74,12 @@ export const TitleRow = styled(Box)(({ theme }) => ({
   flexWrap: 'wrap',
 }));
 
-export const TitleText = styled(Typography)(() => ({
+export const TitleText = styled(Typography)(({ theme }) => ({
   lineHeight: 1.3,
   wordBreak: 'break-word',
   fontSize: 16,
   fontWeight: 700,
+  color: theme.palette.primary.main,
 }));
 
 export const MetaRow = styled(Box)(({ theme }) => ({

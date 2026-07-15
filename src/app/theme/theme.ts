@@ -38,8 +38,8 @@ declare module '@mui/material/Typography' {
 
 export const theme = createTheme({
   palette: {
-    primary: { main: '#0B3D91', dark: '#0B1A40' },
-    secondary: { main: '#F5A623' },
+    primary: { main: '#0B3D91', dark: '#0B1A40', light: '#E7ECF4' },
+    secondary: { main: '#F5A623', light: '#FFF8E7' },
     warning: { main: '#FFB800' },
     background: { default: '#F7F8FA', paper: '#FFFFFF' },
     text: { primary: '#1A1A1A', secondary: '#5F6368' },

@@ -22,8 +22,6 @@ export const HeaderRow = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   gap: theme.spacing(2),
   marginBottom: theme.spacing(4),
-  paddingBottom: theme.spacing(2),
-  borderBottom: `1px solid ${theme.palette.divider}`,
 }));
 
 export const PaginationWrapper = styled(Box)(({ theme }) => ({
@@ -35,12 +33,24 @@ export const PaginationWrapper = styled(Box)(({ theme }) => ({
 }));
 
 export const ListTitleIcon = styled(CalendarMonthIcon)(({ theme }) => ({
-  color: theme.palette.primary.dark,
+  color: theme.palette.primary.main,
 }));
 
 export const ListTitle = styled(Typography)(({ theme }) => ({
-  color: theme.palette.primary.dark,
+  color: theme.palette.primary.main,
+  position: 'relative',
+  textTransform: 'uppercase',
   fontWeight: 700,
+  paddingBottom: theme.spacing(2),
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    bottom: -1,
+    left: 0,
+    width: 40,
+    height: 2,
+    backgroundColor: theme.palette.secondary.main,
+  }
 }));
 
 export const LoadingContainer = styled(Box)(({ theme }) => ({

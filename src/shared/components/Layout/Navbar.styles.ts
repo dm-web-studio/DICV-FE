@@ -5,14 +5,18 @@ import ListItemButton from '@mui/material/ListItemButton';
 import { NavLink } from 'react-router-dom';
 
 export const NavRow = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
+  backgroundColor: alpha(theme.palette.background.paper, 0.85),
+  backdropFilter: 'blur(16px)',
+  WebkitBackdropFilter: 'blur(16px)',
   padding: theme.spacing(2, 6),
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  boxShadow: theme.shadows[1],
+  boxShadow: '0 4px 30px rgba(0, 0, 0, 0.03)',
+  borderBottom: `1px solid ${alpha(theme.palette.divider, 0.08)}`,
+  transition: 'all 0.3s ease',
   [theme.breakpoints.down('md')]: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(1.5, 3),
   },
 }));
 
