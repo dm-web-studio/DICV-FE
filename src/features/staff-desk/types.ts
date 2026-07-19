@@ -4,4 +4,5 @@ export interface StaffDesk {
   photoUrl: string;
   signatureUrl?: string;
   message: string;
+  homeMessage: string;
 }

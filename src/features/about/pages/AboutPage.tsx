@@ -5,7 +5,8 @@ import { AboutMissionVision } from '../components/AboutMissionVision';
 import { AboutWhyChooseUs } from '../components/AboutWhyChooseUs';
 import { AboutSports } from '../components/AboutSports';
 import { AboutAchievementsFaculty } from '../components/AboutAchievementsFaculty';
-import { AboutCTA } from '../components/AboutCTA';
+import { CtaBanner } from '../../../shared/components/CtaBanner';
+import EventAvailableOutlinedIcon from '@mui/icons-material/EventAvailableOutlined';
 import { PageContainer } from './AboutPage.styles';
 import { AboutStoreProvider } from '../store/AboutStoreContext';
 
@@ -21,7 +22,13 @@ function AboutPageContent() {
         <AboutWhyChooseUs />
         <AboutSports />
         <AboutAchievementsFaculty />
-        <AboutCTA />
+        <CtaBanner 
+          title="Ready to see the campus for yourself?"
+          subtitle="Book a visit or start your child's admission for the upcoming academic year."
+          buttonText="Start admission"
+          buttonLink="/admission"
+          icon={<EventAvailableOutlinedIcon />}
+        />
       </PageContainer>
     </Box>
   );

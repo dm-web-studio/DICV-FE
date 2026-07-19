@@ -30,14 +30,14 @@ export const StatBox = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   textAlign: 'center',
   gap: theme.spacing(1),
-  
+
   // Add right border divider for all except last
   borderRight: `1px solid rgba(255, 255, 255, 0.2)`,
-  
+
   '&:last-child': {
     borderRight: 'none',
   },
-  
+
   [theme.breakpoints.down('md')]: {
     borderRight: 'none',
   },
@@ -64,6 +64,7 @@ export const StatValue = styled(Typography)(({ theme }) => ({
   fontWeight: 700,
   lineHeight: 1,
   marginBottom: theme.spacing(1),
+  color: 'inherit',
 }));
 
 export const StatLabel = styled(Typography)(({ theme }) => ({

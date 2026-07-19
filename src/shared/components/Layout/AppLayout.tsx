@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, ScrollRestoration } from 'react-router-dom';
 import type * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -25,6 +25,7 @@ export const AppLayout = observer(function AppLayout(): React.JSX.Element {
 
   return (
     <AppRoot>
+      <ScrollRestoration />
       <Header />
       <MainContent>
         <Outlet />

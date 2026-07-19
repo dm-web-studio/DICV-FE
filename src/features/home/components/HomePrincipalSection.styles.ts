@@ -90,8 +90,8 @@ export const StudentsImage = styled('img')({
 
 export const QuotationBox = styled(Paper)(({ theme }) => ({
   position: 'absolute',
-  bottom: 0, 
-  right: 0, 
+  bottom: 0,
+  right: 0,
   padding: theme.spacing(4),
   backgroundColor: theme.palette.primary.dark, // Deeper blue
   color: theme.palette.common.white,
@@ -145,7 +145,7 @@ export const SectionTitle = styled(Typography)(({ theme }) => ({
 
 export const PrincipalMessageText = styled(Typography)({
   display: '-webkit-box',
-  WebkitLineClamp: 5,
+  WebkitLineClamp: 8,
   WebkitBoxOrient: 'vertical',
   overflow: 'hidden',
   lineHeight: 1.6,

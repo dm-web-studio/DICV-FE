@@ -15,4 +15,9 @@ export const galleryService = {
     const { data } = await apiClient.get<ApiSuccess<GalleryImage[]>>('/gallery', { params });
     return data;
   },
+
+  async fetchGalleryHighlights(): Promise<ApiSuccess<GalleryImage[]>> {
+    const { data } = await apiClient.get<ApiSuccess<GalleryImage[]>>('/gallery-highlights');
+    return data;
+  },
 };

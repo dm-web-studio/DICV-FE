@@ -36,13 +36,13 @@ export const HomePrincipalSection = observer(function HomePrincipalSection() {
       <LeftColumn>
         {isLoading && <CircularProgress size={24} />}
         {error && <Alert severity="error">{error}</Alert>}
-        
+
         {principalData && !isLoading && !error && (
           <>
             <PrincipalPhotoWrapper>
               <PrincipalPhoto src={principalData.photoUrl} alt={principalData.name} />
             </PrincipalPhotoWrapper>
-            
+
             <PrincipalContent>
               <Box>
                 <SectionSubtitle variant="subtitle2">
@@ -53,13 +53,13 @@ export const HomePrincipalSection = observer(function HomePrincipalSection() {
                 </SectionTitle>
               </Box>
 
-              <PrincipalMessageText 
-                variant="body1" 
-                color="text.secondary" 
+              <PrincipalMessageText
+                variant="body1"
+                color="text.secondary"
               >
-                {principalData.message}
+                {principalData.homeMessage}
               </PrincipalMessageText>
-              
+
               <Box sx={{ mt: 'auto' }}>
                 <SignatureText>{principalData.name}</SignatureText>
                 <Typography variant="subtitle2" color="text.primary" sx={{ fontWeight: 700 }}>
@@ -70,10 +70,10 @@ export const HomePrincipalSection = observer(function HomePrincipalSection() {
                 </Typography>
               </Box>
 
-              <ReadMoreButton 
+              <ReadMoreButton
                 component={Link}
                 to="/principals-desk"
-                variant="text" 
+                variant="text"
                 endIcon={<ArrowForwardIcon />}
                 disableRipple
               >

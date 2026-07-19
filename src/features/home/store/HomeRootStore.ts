@@ -20,7 +20,7 @@ export class HomeRootStore {
     // Fetch initial data needed for home page
     void this.staffDesk.domain.fetchByType('principal');
     // NoticeRootStore automatically fetches on init via its UI store defaults
-    void this.gallery.domain.fetchImages({ limit: 4 }); // fetch 4 images for preview
+    void this.gallery.domain.fetchHighlights();
   }
 
   dispose(): void {

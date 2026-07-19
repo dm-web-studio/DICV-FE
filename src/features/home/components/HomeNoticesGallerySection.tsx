@@ -36,20 +36,16 @@ import { badgeCategoryMapping } from '../../notices/store/NoticeUIStore';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
-import img1 from '../../../assets/home-hero.png';
-import img2 from '../../../assets/about-hero.png';
-import img3 from '../../../assets/admission-hero.png';
-import img4 from '../../../assets/notice-hero-bg.png';
-
 export const HomeNoticesGallerySection = observer(function HomeNoticesGallerySection() {
 
-  const { notices, domain } = useHomeStore();
+  const { notices, domain, gallery } = useHomeStore();
   const theme = useTheme();
   
   const noticesData = domain.latestNotices;
   const { isLoading: noticesLoading, error: noticesError } = notices.domain;
 
-  const galleryImages = [img1, img2, img3, img4];
+  const highlights = gallery.domain.highlights;
+  const isLoadingGallery = gallery.domain.isLoadingImages;
 
   return (
     <SectionContainer>
@@ -142,13 +138,21 @@ export const HomeNoticesGallerySection = observer(function HomeNoticesGallerySec
           </ViewAllLink>
         </SectionHeader>
 
-        <GalleryGrid>
-          {galleryImages.map((src, index) => (
-            <GalleryImageWrapper key={index}>
-              <img src={src} alt={`Gallery Highlight ${index + 1}`} loading="lazy" />
-            </GalleryImageWrapper>
-          ))}
-        </GalleryGrid>
+        {isLoadingGallery && <CircularProgress size={24} sx={{ display: 'block', m: 'auto' }} />}
+        {!isLoadingGallery && highlights.length === 0 && (
+          <EmptyStateText variant="body1" color="text.secondary">
+            No gallery highlights available.
+          </EmptyStateText>
+        )}
+        {!isLoadingGallery && highlights.length > 0 && (
+          <GalleryGrid>
+            {highlights.map((image, index) => (
+              <GalleryImageWrapper key={image._id || index}>
+                <img src={image.imageUrl} alt={image.caption || `Gallery Highlight ${index + 1}`} loading="lazy" />
+              </GalleryImageWrapper>
+            ))}
+          </GalleryGrid>
+        )}
       </GalleryColumn>
     </SectionContainer>
   );

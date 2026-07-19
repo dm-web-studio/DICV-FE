@@ -182,6 +182,7 @@ export const GalleryColumn = styled(ColumnCard)(({ theme }) => ({
 
 export const EmptyStateText = styled(Typography)(({ theme }) => ({
   padding: theme.spacing(2, 0),
+  alignItems: 'center',
 }));
 
 export const NoticeLinkWrapper = styled(RouterLink)({

@@ -10,7 +10,7 @@ export class GalleryDomainStore {
   @observable accessor hasFetchedAlbums = false;
   @observable accessor isLoadingImages = false;
   @observable accessor error: string | null = null;
-  @observable accessor latestImages: GalleryImage[] = [];
+  @observable accessor highlights: GalleryImage[] = [];
 
   constructor() {}
 
@@ -66,14 +66,19 @@ export class GalleryDomainStore {
   }
 
   @action
-  async fetchImages(params?: { limit?: number }): Promise<void> {
+  async fetchHighlights(): Promise<void> {
+    this.isLoadingImages = true;
     try {
-      const { data } = await galleryService.fetchAlbumImages(undefined as any, 1, params?.limit || 4); // We'll update the service to handle undefined albumId
+      const { data } = await galleryService.fetchGalleryHighlights();
       runInAction(() => {
-        this.latestImages = data;
+        this.highlights = data;
       });
     } catch (err) {
-      console.error('Failed to load latest images', err);
+      console.error('Failed to load gallery highlights', err);
+    } finally {
+      runInAction(() => {
+        this.isLoadingImages = false;
+      });
     }
   }
 }

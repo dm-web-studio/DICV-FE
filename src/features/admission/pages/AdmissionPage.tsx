@@ -5,7 +5,8 @@ import { StepsSection } from '../components/StepsSection';
 import { NoticeCallout } from '../components/NoticeCallout';
 import { DocumentsRequiredCard } from '../components/DocumentsRequiredCard';
 import { FaqCard } from '../components/FaqCard';
-import { ContactCallout } from '../components/ContactCallout';
+import { CtaBanner } from '../../../shared/components/CtaBanner';
+import MessageIcon from '@mui/icons-material/MessageOutlined';
 import { PageContainer, TwoColumnSection } from './AdmissionPage.styles';
 
 function AdmissionPageContent() {
@@ -19,7 +20,13 @@ function AdmissionPageContent() {
           <DocumentsRequiredCard />
           <FaqCard />
         </TwoColumnSection>
-        <ContactCallout />
+        <CtaBanner 
+          title="Have more questions?"
+          subtitle="Our admission team is here to help you."
+          buttonText="Contact Admission Office"
+          buttonLink="/contact"
+          icon={<MessageIcon />}
+        />
       </PageContainer>
     </Box>
   );
