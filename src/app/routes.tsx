@@ -14,6 +14,7 @@ import { AboutPage } from '../features/about/pages/AboutPage';
 import { HomePage } from '../features/home/pages/HomePage';
 import GalleryPage from '../features/gallery/pages/GalleryPage';
 import AlbumDetailPage from '../features/gallery/pages/AlbumDetailPage';
+import FacultyPage from '../features/faculty/pages/FacultyPage';
 
 
 export const router = createBrowserRouter([
@@ -30,6 +31,7 @@ export const router = createBrowserRouter([
       { path: 'fees', element: <Placeholder title="Fees" /> },
       { path: 'gallery', element: <GalleryPage /> },
       { path: 'gallery/:slug', element: <AlbumDetailPage /> },
+      { path: 'faculty', element: <FacultyPage /> },
       { path: 'notices', element: <NoticesPage /> },
       { path: 'notices/:slug', element: <NoticesPage /> },
       { path: 'holidays', element: <Placeholder title="Holidays" /> },
