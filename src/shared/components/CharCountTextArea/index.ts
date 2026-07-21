@@ -1,0 +1,1 @@
+export { CharCountTextArea } from './CharCountTextArea';

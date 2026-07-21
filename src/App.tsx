@@ -7,6 +7,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { theme } from './app/theme/theme';
 import { AppRoutes } from './app/routes';
 import { Toast } from './shared/components/Toast/Toast';
+import { ConfirmDialog } from './shared/components/ConfirmDialog';
 import { authStore } from './features/auth/store/AuthStore';
 
 const LoadingContainer = styled(Box)({
@@ -42,6 +43,7 @@ const App = observer(function App() {
       <CssBaseline />
       <AppRoutes />
       <Toast />
+      <ConfirmDialog />
     </ThemeProvider>
   );
 });
