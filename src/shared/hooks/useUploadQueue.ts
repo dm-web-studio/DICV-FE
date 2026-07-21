@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import type { UploadItem } from '../components/MultiImageUploader/types';
 
 export function useUploadQueue(
@@ -10,16 +10,21 @@ export function useUploadQueue(
   const [finalImages, setFinalImages] = useState<{ url: string; publicId: string }[]>(existingImages);
   const [isProcessingQueue, setIsProcessingQueue] = useState(false);
 
-  // Clean up object URLs on unmount or item removal
+  const itemsRef = useRef(items);
+  useEffect(() => {
+    itemsRef.current = items;
+  }, [items]);
+
+  // Clean up object URLs only on unmount (handleRemoveNew handles active removals)
   useEffect(() => {
     return () => {
-      items.forEach((item) => {
+      itemsRef.current.forEach((item) => {
         if (item.previewUrl && !item.previewUrl.startsWith('http')) {
           URL.revokeObjectURL(item.previewUrl);
         }
       });
     };
-  }, [items]);
+  }, []);
 
   const checkCompletion = useCallback(
     (currentItems: UploadItem[]) => {

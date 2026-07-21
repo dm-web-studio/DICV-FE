@@ -15,6 +15,7 @@ import { HomePage } from '../features/home/pages/HomePage';
 import GalleryPage from '../features/gallery/pages/GalleryPage';
 import AlbumDetailPage from '../features/gallery/pages/AlbumDetailPage';
 import FacultyPage from '../features/faculty/pages/FacultyPage';
+import NoticeAdminPage from '../features/admin-notices/pages/NoticeAdminPage';
 
 
 export const router = createBrowserRouter([
@@ -45,6 +46,7 @@ export const router = createBrowserRouter([
     element: <RequireAuth />,
     children: [
       { index: true, element: <div>Admin Dashboard</div> },
+      { path: 'notices', element: <NoticeAdminPage /> },
     ],
   },
 ]);

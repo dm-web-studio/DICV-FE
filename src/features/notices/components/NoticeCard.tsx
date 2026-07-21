@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react-lite';
-import { useTheme } from '@mui/material/styles';
+
 import Collapse from '@mui/material/Collapse';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useNoticeStore } from '../store/NoticeStoreContext';
 import type { ParsedNotice } from '../types';
-import { badgeCategoryMapping } from '../store/NoticeUIStore';
+import { NoticeCategoryBadge } from '../../../shared/components/NoticeCategoryBadge';
 import {
   CardContainer,
   HeaderArea,
@@ -23,7 +23,6 @@ import {
   TimeIcon,
   NewBadge,
   RightColumn,
-  Badge,
   ExpandButton,
   ExpandedContentArea,
   ContentInner,
@@ -41,15 +40,11 @@ const stripHtml = (html: string) => {
 
 export const NoticeCard = observer(function NoticeCard({ notice, isLatest }: NoticeCardProps) {
   const { ui } = useNoticeStore();
-  const theme = useTheme();
   const isSelected = ui.selectedNoticeSlug === notice.slug;
 
   const handleClick = () => {
     ui.setSelectedNotice(isSelected ? null : notice.slug);
   };
-
-  const badgeType = notice.category ? badgeCategoryMapping[notice.category.toLowerCase()] || 'grey' : 'grey';
-  const colorConfig = theme.badgeColors?.[badgeType] || theme.badgeColors?.grey || { bg: 'transparent', text: 'inherit' };
 
   return (
     <CardContainer id={`notice-item-${notice.slug}`} isSelected={isSelected}>
@@ -82,9 +77,7 @@ export const NoticeCard = observer(function NoticeCard({ notice, isLatest }: Not
 
         <RightColumn>
           {notice.category && (
-            <Badge colorConfig={colorConfig}>
-              {notice.category.charAt(0).toUpperCase() + notice.category.slice(1)}
-            </Badge>
+            <NoticeCategoryBadge category={notice.category} />
           )}
           
           <ExpandButton size="small">

@@ -139,18 +139,6 @@ export const RightColumn = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const Badge = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'colorConfig',
-})<{ colorConfig: { bg?: string; text?: string } }>(({ theme, colorConfig }) => {
-  return {
-    backgroundColor: colorConfig.bg || theme.badgeColors?.grey?.bg,
-    color: colorConfig.text || theme.badgeColors?.grey?.text,
-    padding: theme.spacing(0.5, 1.5),
-    borderRadius: theme.shape.borderRadius,
-    fontSize: 11,
-    fontWeight: 600,
-  };
-});
 
 export const ExpandButton = styled(IconButton)(({ theme }) => ({
   border: '1px solid',

@@ -20,15 +20,33 @@ export interface GalleryAlbum {
   imageCount: number;
 }
 
+export const NOTICE_CATEGORIES = [
+  'admission', 'examination', 'holiday', 'circular', 'event', 'result', 'scholarship', 'tender', 'general'
+] as const;
+export type NoticeCategory = typeof NOTICE_CATEGORIES[number];
+
+export const NOTICE_CATEGORY_LABELS: Record<NoticeCategory, string> = {
+  admission: 'Admissions',
+  examination: 'Examinations',
+  holiday: 'Holiday',
+  circular: 'Circular',
+  event: 'Events',
+  result: 'Results',
+  scholarship: 'Scholarships',
+  tender: 'Tender',
+  general: 'General',
+};
+
 export interface Notice {
   _id?: ID;
   title: string;
   slug: string;
   excerpt: string;
   body: string;
-  category: string;
+  category: NoticeCategory;
   isPinned: boolean;
   imageUrl?: string;
+  imagePublicId?: string;
   showAsPopup: boolean;
   publishedAt: string;
   createdAt: string;

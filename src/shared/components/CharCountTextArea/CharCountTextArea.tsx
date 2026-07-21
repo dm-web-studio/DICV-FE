@@ -12,9 +12,10 @@ export function CharCountTextArea({ maxChars, allowExceed = false, value, ...pro
   const isOverLimit = maxChars !== undefined && length > maxChars;
 
   return (
-    <Box>
+    <Box sx={{ width: '100%' }}>
       <TextField
         {...props}
+        fullWidth
         multiline
         value={value}
         slotProps={{

@@ -18,6 +18,11 @@ declare module '@mui/material/styles' {
       purple: { bg: string; text: string };
       orange: { bg: string; text: string };
       grey: { bg: string; text: string };
+      red: { bg: string; text: string };
+      teal: { bg: string; text: string };
+      indigo: { bg: string; text: string };
+      pink: { bg: string; text: string };
+      cyan: { bg: string; text: string };
     };
   }
   interface ThemeOptions {
@@ -27,6 +32,11 @@ declare module '@mui/material/styles' {
       purple: { bg: string; text: string };
       orange: { bg: string; text: string };
       grey: { bg: string; text: string };
+      red: { bg: string; text: string };
+      teal: { bg: string; text: string };
+      indigo: { bg: string; text: string };
+      pink: { bg: string; text: string };
+      cyan: { bg: string; text: string };
     };
   }
 }
@@ -49,6 +59,7 @@ export const theme = createTheme({
     grey: {
       50: '#F5F6F8',
       100: '#F7F9FC',
+      200: '#F3F4F6',
     },
   },
   badgeColors: {
@@ -57,6 +68,11 @@ export const theme = createTheme({
     purple: { bg: '#F3E5F5', text: '#7B1FA2' },
     orange: { bg: '#FFF3E0', text: '#E65100' },
     grey: { bg: '#F5F5F5', text: '#616161' },
+    red: { bg: '#FFEBEE', text: '#C62828' },
+    teal: { bg: '#E0F2F1', text: '#00695C' },
+    indigo: { bg: '#E8EAF6', text: '#283593' },
+    pink: { bg: '#FCE4EC', text: '#AD1457' },
+    cyan: { bg: '#E0F7FA', text: '#006064' },
   },
   spacing: 4, // base unit 4px, not MUI's default 8px — compact by default,
               // so theme.spacing(1) = 4px, theme.spacing(2) = 8px, etc.

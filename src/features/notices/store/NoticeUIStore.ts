@@ -43,10 +43,3 @@ export class NoticeUIStore {
   }
 }
 
-export const badgeCategoryMapping: Record<string, 'blue' | 'green' | 'purple' | 'orange' | 'grey'> = {
-  admissions: 'blue',
-  examinations: 'blue',
-  holiday: 'green',
-  event: 'purple',
-  circular: 'orange',
-};

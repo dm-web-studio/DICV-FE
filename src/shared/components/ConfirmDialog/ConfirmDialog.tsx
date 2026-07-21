@@ -5,6 +5,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import WarningAmberOutlinedIcon from '@mui/icons-material/WarningAmberOutlined';
@@ -35,7 +36,9 @@ export const ConfirmDialog = observer(function ConfirmDialog() {
       <DialogTitle>
         <TitleContainer>
           <Icon color={color} />
-          {options.title}
+          <Typography variant="h2" sx={{ color: 'text.primary' }}>
+            {options.title}
+          </Typography>
         </TitleContainer>
       </DialogTitle>
       <DialogContent>

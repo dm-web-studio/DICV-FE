@@ -11,7 +11,7 @@ import {
   NoticeItemCard,
   DateBox,
   NewBadge,
-  NoticeCategoryBadge,
+
   GalleryGrid,
   GalleryImageWrapper,
   ViewAllLink,
@@ -31,15 +31,13 @@ import {
   NoticeMetaDivider,
 } from './HomeNoticesGallerySection.styles';
 
-import { useTheme } from '@mui/material/styles';
-import { badgeCategoryMapping } from '../../notices/store/NoticeUIStore';
+import { NoticeCategoryBadge } from '../../../shared/components/NoticeCategoryBadge';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 export const HomeNoticesGallerySection = observer(function HomeNoticesGallerySection() {
 
   const { notices, domain, gallery } = useHomeStore();
-  const theme = useTheme();
   
   const noticesData = domain.latestNotices;
   const { isLoading: noticesLoading, error: noticesError } = notices.domain;
@@ -73,8 +71,6 @@ export const HomeNoticesGallerySection = observer(function HomeNoticesGallerySec
         )}
 
         {noticesData.map((notice, index) => {
-          const badgeType = notice.category ? badgeCategoryMapping[notice.category.toLowerCase()] || 'grey' : 'grey';
-          const colorConfig = theme.badgeColors?.[badgeType] || theme.badgeColors?.grey || { bg: '#F5F5F5', text: '#616161' };
           
           return (
             <NoticeLinkWrapper key={notice.slug} to={`/notices/${notice.slug}`}>
@@ -95,9 +91,7 @@ export const HomeNoticesGallerySection = observer(function HomeNoticesGallerySec
                     <NoticeBadgesWrapper>
                       {index === 0 && <NewBadge sx={{ m: 0 }}>NEW</NewBadge>}
                       {notice.category && (
-                        <NoticeCategoryBadge colorConfig={colorConfig} sx={{ m: 0 }}>
-                          {notice.category.charAt(0).toUpperCase() + notice.category.slice(1)}
-                        </NoticeCategoryBadge>
+                        <NoticeCategoryBadge category={notice.category} />
                       )}
                     </NoticeBadgesWrapper>
                   </NoticeTitleRow>

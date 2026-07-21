@@ -98,19 +98,6 @@ export const NewBadge = styled(Box)(({ theme }) => ({
   alignItems: 'center',
 }));
 
-export const NoticeCategoryBadge = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'colorConfig',
-})<{ colorConfig: { bg?: string; text?: string } }>(({ theme, colorConfig }) => ({
-  backgroundColor: colorConfig.bg || theme.badgeColors?.grey?.bg,
-  color: colorConfig.text || theme.badgeColors?.grey?.text,
-  padding: theme.spacing(0.5, 1),
-  borderRadius: theme.shape.borderRadius,
-  fontSize: 10,
-  fontWeight: 600,
-  marginLeft: 'auto',
-  alignSelf: 'center',
-  whiteSpace: 'nowrap',
-}));
 
 export const GalleryGrid = styled(Box)(({ theme }) => ({
   display: 'grid',
