@@ -27,9 +27,9 @@ import {
 const NAV_LINKS = [
   { label: 'Home', path: '/' },
   { label: 'About Us', path: '/about' },
-  { label: 'Academics', path: '/academics' },
+  { label: 'Faculty', path: '/faculty' },
   { label: 'Admissions', path: '/admission' },
-  { label: 'Gallery', path: '/gallery' },
+  { label: 'Campus Life', path: '/gallery' },
   { label: 'Notice Board', path: '/notices' },
   { label: 'Contact Us', path: '/contact' },
 ];
@@ -46,7 +46,7 @@ export const Navbar = observer(function Navbar() {
   return (
     <>
       <NavRow>
-        <LogoContainer>
+        <LogoContainer to="/">
           <LogoImage src={dicvLogo} alt="DICV Logo" />
           <Box>
             <SchoolName variant="h2">DICV PUBLIC</SchoolName>

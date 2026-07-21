@@ -5,7 +5,6 @@ import { AlbumGrid } from '../components/AlbumGrid';
 import { GalleryTitle } from '../components/GalleryTitle';
 import { LayoutToggle } from '../components/LayoutToggle';
 import { PageWrapper, ContentWrapper, PageHeader } from './GalleryPage.styles';
-import { Footer } from '../../../shared/components/Layout/Footer';
 
 export const GalleryPageContent = observer(function GalleryPageContent() {
   return (
@@ -18,7 +17,6 @@ export const GalleryPageContent = observer(function GalleryPageContent() {
         </PageHeader>
         <AlbumGrid />
       </ContentWrapper>
-      <Footer />
     </PageWrapper>
   );
 });

@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Placeholder } from '../pages/Placeholder';
+
 import { LoginPage } from '../features/auth/pages/LoginPage';
 import { RequireAuth } from '../features/auth/components/RequireAuth';
 import { AppLayout } from '../shared/components/Layout/AppLayout';
@@ -28,15 +28,11 @@ export const router = createBrowserRouter([
       { path: 'presidents-desk', element: <PresidentDeskPage /> },
       { path: 'vice-principals-desk', element: <VicePrincipalDeskPage /> },
       { path: 'admission', element: <AdmissionPage /> },
-      { path: 'fees', element: <Placeholder title="Fees" /> },
       { path: 'gallery', element: <GalleryPage /> },
       { path: 'gallery/:slug', element: <AlbumDetailPage /> },
       { path: 'faculty', element: <FacultyPage /> },
       { path: 'notices', element: <NoticesPage /> },
       { path: 'notices/:slug', element: <NoticesPage /> },
-      { path: 'holidays', element: <Placeholder title="Holidays" /> },
-      { path: 'annual-exam', element: <Placeholder title="Annual Exam" /> },
-      { path: 'half-yearly-exam', element: <Placeholder title="Half-Yearly Exam" /> },
       { path: 'contact', element: <ContactPage /> },
     ],
   },
@@ -48,7 +44,7 @@ export const router = createBrowserRouter([
     path: '/admin',
     element: <RequireAuth />,
     children: [
-      { index: true, element: <Placeholder title="Admin Dashboard" /> },
+      { index: true, element: <div>Admin Dashboard</div> },
     ],
   },
 ]);

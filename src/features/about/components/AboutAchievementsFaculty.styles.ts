@@ -1,6 +1,7 @@
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
 
 export const SectionWrapper = styled(Box)({
   width: '100%',
@@ -143,7 +144,7 @@ export const RowDesc = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export const ActionLink = styled('a')(({ theme }) => ({
+export const ActionLink = styled(Link)(({ theme }) => ({
   display: 'inline-flex',
   alignItems: 'center',
   gap: theme.spacing(1.5),

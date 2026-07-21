@@ -4,7 +4,9 @@ import type { Faculty } from '../types';
 
 export class FacultyDomainStore {
   @observable accessor facultyList: Faculty[] = [];
+  @observable accessor leadershipList: Faculty[] = [];
   @observable accessor isLoading = false;
+  @observable accessor isLoadingLeadership = false;
   @observable accessor error: string | null = null;
 
   @action
@@ -23,6 +25,26 @@ export class FacultyDomainStore {
     } finally {
       runInAction(() => {
         this.isLoading = false;
+      });
+    }
+  }
+
+  @action
+  async fetchLeadership(): Promise<void> {
+    this.isLoadingLeadership = true;
+    try {
+      const data = await facultyService.getAll({ 
+        limit: 3, 
+        designation: 'President,Principal,Vice Principal,Vice-Principal' 
+      });
+      runInAction(() => {
+        this.leadershipList = data;
+      });
+    } catch (err) {
+      console.error('Failed to fetch leadership faculty', err);
+    } finally {
+      runInAction(() => {
+        this.isLoadingLeadership = false;
       });
     }
   }

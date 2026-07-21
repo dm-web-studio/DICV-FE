@@ -2,7 +2,7 @@ import { styled, alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import ListItemButton from '@mui/material/ListItemButton';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 export const NavRow = styled(Box)(({ theme }) => ({
   backgroundColor: alpha(theme.palette.background.paper, 0.85),
@@ -20,10 +20,12 @@ export const NavRow = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const LogoContainer = styled(Box)(({ theme }) => ({
+export const LogoContainer = styled(Link)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: theme.spacing(1.5),
+  textDecoration: 'none',
+  color: 'inherit',
 }));
 
 export const LogoImage = styled('img')({

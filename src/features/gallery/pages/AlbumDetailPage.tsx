@@ -10,7 +10,6 @@ import { PageWrapper, ContentWrapper } from './GalleryPage.styles'; // Reuse pag
 import { HeaderContainer, BackLink, AlbumHeaderRow } from './AlbumDetailPage.styles';
 import { GalleryTitle } from '../components/GalleryTitle';
 import { LayoutToggle } from '../components/LayoutToggle';
-import { Footer } from '../../../shared/components/Layout/Footer';
 
 const AlbumDetailPageContent = observer(function AlbumDetailPageContent() {
   const { slug } = useParams<{ slug: string }>();
@@ -65,7 +64,6 @@ const AlbumDetailPageContent = observer(function AlbumDetailPageContent() {
         
         {album && <ImageGrid albumId={album._id} />}
       </ContentWrapper>
-      <Footer />
     </PageWrapper>
   );
 });

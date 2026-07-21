@@ -44,7 +44,7 @@ export const ExploreDicvSection = () => {
             </CardDescription>
             <CardButton 
               endIcon={<ArrowForwardIcon />} 
-              onClick={() => navigate('/academics')}
+              onClick={() => navigate('/about')}
             >
               EXPLORE ACADEMICS
             </CardButton>
@@ -68,7 +68,7 @@ export const ExploreDicvSection = () => {
             </CardDescription>
             <CardButton 
               endIcon={<ArrowForwardIcon />}
-              onClick={() => navigate('/campus-life')}
+              onClick={() => navigate('/gallery')}
             >
               EXPLORE CAMPUS LIFE
             </CardButton>

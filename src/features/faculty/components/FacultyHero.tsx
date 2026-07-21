@@ -1,10 +1,17 @@
 import facultyHeroImage from '../../../assets/faculty-hero.png';
-import { HeroContainer, HeroImage } from './FacultyHero.styles';
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+
+const HeroImage = styled('img')({
+  width: '100%',
+  height: 'auto',
+  display: 'block',
+});
 
 export function FacultyHero() {
   return (
-    <HeroContainer>
+    <Box>
       <HeroImage src={facultyHeroImage} alt="Faculty Hero" />
-    </HeroContainer>
+    </Box>
   );
 }

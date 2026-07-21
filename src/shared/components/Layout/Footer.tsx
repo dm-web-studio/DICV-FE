@@ -40,19 +40,15 @@ import {
 const QUICK_LINKS = [
   { label: 'Home', path: '/' },
   { label: 'About Us', path: '/about' },
-  { label: "Principal's Desk", path: '/principals-desk' },
-  { label: "President's Desk", path: '/presidents-desk' },
-  { label: "Vice Principal's Desk", path: '/vice-principals-desk' },
-  { label: 'Gallery', path: '/gallery' },
-  { label: 'Notice Board', path: '/notice-board' },
+  { label: 'Campus Life', path: '/gallery' },
+  { label: 'Notice Board', path: '/notices' },
 ];
 
 const ACADEMIC_LINKS = [
-  { label: 'Admission Procedure', path: '/admission-procedure' },
-  { label: 'Fees Structure', path: '/fees' },
-  { label: 'Holidays', path: '/holidays' },
-  { label: 'Annual Examination', path: '/annual-exam' },
-  { label: 'Half-Yearly Examination', path: '/half-yearly-exam' },
+  { label: 'Admission Procedure', path: '/admission' },
+  { label: "Principal's Desk", path: '/principals-desk' },
+  { label: "President's Desk", path: '/presidents-desk' },
+  { label: "Vice Principal's Desk", path: '/vice-principals-desk' },
 ];
 
 import { observer } from 'mobx-react-lite';

@@ -56,7 +56,6 @@ export const AboutAchievementsFaculty = observer(() => {
               </Box>
             </Row>
           ))}
-          <ActionLink>View all achievements →</ActionLink>
         </Card>
 
         <Card>
@@ -66,7 +65,7 @@ export const AboutAchievementsFaculty = observer(() => {
               <PeopleOutlinedIcon />
             </CardHeaderIcon>
           </CardTop>
-          {domain.faculty.map((member) => (
+          {domain.topLeadership.map((member) => (
             <Row key={member.name}>
               <Dot className="row-dot">{member.initials}</Dot>
               <Box>
@@ -79,7 +78,7 @@ export const AboutAchievementsFaculty = observer(() => {
               </Box>
             </Row>
           ))}
-          <ActionLink>View full faculty →</ActionLink>
+          <ActionLink to="/faculty">View full faculty →</ActionLink>
         </Card>
       </GridContainer>
     </SectionWrapper>
