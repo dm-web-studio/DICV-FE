@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { NoticeAdminStoreProvider } from '../store/NoticeAdminStoreContext';
 import { NoticeAdminTable } from '../components/NoticeAdminTable';
 import { NoticeFormDrawer } from '../components/NoticeFormDrawer';
-import { PageLayout, MainContent } from './NoticeAdminPage.styles';
+import { PageLayout, MainContent } from '../../../shared/components/AdminTableLayout';
 
 const NoticeAdminPageContent = observer(function NoticeAdminPageContent() {
   return (

@@ -20,6 +20,17 @@ export interface GalleryAlbum {
   imageCount: number;
 }
 
+export interface StaffDesk {
+  type: 'principal' | 'president' | 'vice-principal';
+  name: string;
+  photoUrl: string;
+  photoPublicId?: string;
+  signatureUrl?: string;
+  signaturePublicId?: string;
+  message: string;
+  homeMessage?: string;
+}
+
 export const NOTICE_CATEGORIES = [
   'admission', 'examination', 'holiday', 'circular', 'event', 'result', 'scholarship', 'tender', 'general'
 ] as const;
