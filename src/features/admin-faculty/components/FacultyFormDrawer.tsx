@@ -58,54 +58,72 @@ export const FacultyFormDrawer = observer(function FacultyFormDrawer() {
       }
     >
       <DrawerContent>
-        <ImageUpload
-          title="Photo (Optional)"
-          previewUrl={ui.draftPreviewUrl}
-          onFileChange={handleFileChange}
-          onRemove={handleRemoveImage}
-          height={200}
-        />
-
-        {ui.textFieldsConfig.map((field) => (
-          <TextField
-            key={field.name}
-            label={field.label}
-            value={ui[field.name]}
-            onChange={(e) => ui.setDraftField(field.name, e.target.value)}
-            required={field.required}
-            fullWidth
-            placeholder={field.placeholder}
-          />
-        ))}
-
-        <Autocomplete
-          multiple
-          freeSolo
-          options={[]}
-          value={ui.draftDegrees}
-          onChange={(_event, newValue) => {
-            const processed = newValue.flatMap(val => 
-              typeof val === 'string' ? val.split(',').map(v => v.trim()).filter(Boolean) : val
+        {ui.formFieldsConfig.map((field) => {
+          if (field.type === 'image') {
+            return (
+              <ImageUpload
+                key={field.name}
+                title={field.label}
+                previewUrl={ui.draftPreviewUrl}
+                onFileChange={handleFileChange}
+                onRemove={handleRemoveImage}
+                height={200}
+              />
             );
-            ui.setDraftDegrees(processed as string[]);
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Degrees"
-              placeholder="Type and press enter or comma"
-              helperText="Press Enter or type a comma to add a degree"
-            />
-          )}
-        />
+          }
 
-        <CharCountTextArea
-          label="Description (Optional)"
-          value={ui.draftDescription}
-          onChange={(e) => ui.setDraftField('draftDescription', e.target.value)}
-          maxChars={1000}
-          minRows={4}
-        />
+          if (field.type === 'autocomplete') {
+            return (
+              <Autocomplete
+                key={field.name}
+                multiple
+                freeSolo
+                options={[]}
+                value={ui.draftDegrees}
+                onChange={(_event, newValue) => {
+                  const processed = newValue.flatMap(val => 
+                    typeof val === 'string' ? val.split(',').map(v => v.trim()).filter(Boolean) : val
+                  );
+                  ui.setDraftDegrees(processed as string[]);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={field.label}
+                    placeholder="Type and press enter or comma"
+                    helperText="Press Enter or type a comma to add a degree"
+                  />
+                )}
+              />
+            );
+          }
+
+          if (field.type === 'text') {
+            return (
+              <TextField
+                key={field.name}
+                label={field.label}
+                value={ui[field.name as 'draftName' | 'draftDesignation' | 'draftExperience' | 'draftDescription']}
+                onChange={(e) => ui.setDraftField(field.name as any, e.target.value)}
+                required={field.required}
+                fullWidth
+                placeholder={field.placeholder}
+              />
+            );
+          }
+
+          return (
+            <CharCountTextArea
+              key={field.name}
+              label={field.label}
+              value={ui[field.name as 'draftName' | 'draftDesignation' | 'draftExperience' | 'draftDescription']}
+              onChange={(e) => ui.setDraftField(field.name as any, e.target.value)}
+              maxChars={field.maxChars!}
+              {...(field.minRows !== undefined && { minRows: field.minRows })}
+              {...(field.required !== undefined && { required: field.required })}
+            />
+          );
+        })}
       </DrawerContent>
     </AdminDrawer>
   );

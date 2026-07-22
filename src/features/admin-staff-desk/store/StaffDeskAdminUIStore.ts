@@ -16,20 +16,78 @@ export class StaffDeskAdminUIStore {
   @computed
   get roleConfig() {
     return {
-      'principal': { label: 'Principal', color: 'primary' as const },
-      'president': { label: 'President', color: 'secondary' as const },
-      'vice-principal': { label: 'Vice Principal', color: 'info' as const },
+      'principal': { label: 'Principal', color: 'blue' as const },
+      'president': { label: 'President', color: 'purple' as const },
+      'vice-principal': { label: 'Vice Principal', color: 'teal' as const },
     };
   }
 
   @computed
+  get formFieldsConfig() {
+    type FieldConfig = {
+      name: 'photo' | 'signature' | 'draftName' | 'draftMessage' | 'draftHomeMessage';
+      label: string;
+      type: 'text' | 'textarea' | 'image';
+      required?: boolean;
+      maxChars?: number;
+      minRows?: number;
+      countInfoTooltip?: string;
+    };
+
+    const config: FieldConfig[] = [
+      {
+        name: 'photo' as const,
+        label: 'Photo (Required)',
+        type: 'image' as const,
+      },
+      {
+        name: 'signature' as const,
+        label: 'Signature (Required)',
+        type: 'image' as const,
+      },
+      {
+        name: 'draftName' as const,
+        label: 'Name',
+        type: 'text' as const,
+        required: true,
+      },
+      {
+        name: 'draftMessage' as const,
+        label: 'Message',
+        type: 'textarea' as const,
+        required: true,
+        maxChars: 1500,
+        minRows: 6,
+        countInfoTooltip: 'Max 1500 characters (with spaces)',
+      },
+    ];
+
+    if (this.editingDesk?.type === 'principal') {
+      config.push({
+        name: 'draftHomeMessage' as const,
+        label: 'Home Message',
+        type: 'textarea' as const,
+        required: true,
+        maxChars: 500,
+        minRows: 4,
+        countInfoTooltip: 'Max 500 characters (with spaces)',
+      });
+    }
+
+    return config;
+  }
+
+  @computed
   get isFormValid(): boolean {
-    const isMessageValid = this.draftMessage.length > 0 && this.draftMessage.length <= 1500;
+    const isMessageValid = this.draftMessage.trim().length > 0 && this.draftMessage.length <= 1500;
     const isHomeMessageValid = this.editingDesk?.type === 'principal' 
       ? this.draftHomeMessage.trim().length > 0 && this.draftHomeMessage.length <= 500 
       : true;
       
-    return this.draftName.trim() !== '' && isMessageValid && isHomeMessageValid;
+    const hasPhoto = this.draftPreviewUrl !== null;
+    const hasSignature = this.draftSignaturePreviewUrl !== null;
+      
+    return this.draftName.trim() !== '' && isMessageValid && isHomeMessageValid && hasPhoto && hasSignature;
   }
 
   @action
@@ -95,14 +153,10 @@ export class StaffDeskAdminUIStore {
     
     if (this.draftPhotoFile) {
       formData.append('photo', this.draftPhotoFile);
-    } else if (this.editingDesk?.photoUrl && !this.draftPreviewUrl) {
-      formData.append('removePhoto', 'true');
     }
     
     if (this.draftSignatureFile) {
       formData.append('signature', this.draftSignatureFile);
-    } else if (this.editingDesk?.signatureUrl && !this.draftSignaturePreviewUrl) {
-      formData.append('removeSignature', 'true');
     }
     
     return formData;

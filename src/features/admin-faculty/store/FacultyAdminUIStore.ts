@@ -4,10 +4,13 @@ import type { Faculty } from '../../../shared/api/apiTypes';
 export type DrawerMode = 'create' | 'edit';
 
 export interface FieldConfig {
-  name: 'draftName' | 'draftDesignation' | 'draftExperience';
+  name: 'photo' | 'draftName' | 'draftDesignation' | 'draftExperience' | 'draftDegrees' | 'draftDescription';
   label: string;
+  type: 'image' | 'text' | 'autocomplete' | 'textarea';
   required?: boolean;
   placeholder?: string;
+  maxChars?: number;
+  minRows?: number;
 }
 
 export class FacultyAdminUIStore {
@@ -26,11 +29,14 @@ export class FacultyAdminUIStore {
   @observable accessor draftPreviewUrl: string | null = null;
 
   @computed
-  get textFieldsConfig(): FieldConfig[] {
+  get formFieldsConfig(): FieldConfig[] {
     return [
-      { name: 'draftName', label: 'Name', required: true },
-      { name: 'draftDesignation', label: 'Designation', required: true },
-      { name: 'draftExperience', label: 'Experience', required: true, placeholder: 'e.g. 5 Years' },
+      { name: 'photo', label: 'Photo (Optional)', type: 'image' },
+      { name: 'draftName', label: 'Name', type: 'text', required: true },
+      { name: 'draftDesignation', label: 'Designation', type: 'text', required: true },
+      { name: 'draftExperience', label: 'Experience', type: 'text', required: true, placeholder: 'e.g. 5 Years' },
+      { name: 'draftDegrees', label: 'Degrees', type: 'autocomplete' },
+      { name: 'draftDescription', label: 'Description (Optional)', type: 'textarea', maxChars: 1000, minRows: 4 },
     ];
   }
 

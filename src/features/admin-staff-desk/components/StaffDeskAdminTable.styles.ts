@@ -22,15 +22,26 @@ export const StaffDeskSignature = styled('img')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 
-export const RoleBadge = styled(Chip)(({ theme }) => ({
-  fontWeight: 600,
-  fontSize: theme.typography.caption.fontSize,
-  height: 24,
-  borderWidth: 1,
-  textTransform: 'uppercase',
-  letterSpacing: 0.5,
-  '& .MuiChip-label': {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-  },
-}));
+export type BadgeColor = 'blue' | 'green' | 'purple' | 'orange' | 'red' | 'teal' | 'indigo' | 'pink' | 'cyan' | 'grey';
+
+export const RoleBadge = styled(Chip, {
+  shouldForwardProp: (prop) => prop !== 'badgeColor',
+})<{ badgeColor: BadgeColor }>(({ theme, badgeColor }) => {
+  const colorToken = theme.badgeColors[badgeColor] || theme.badgeColors.grey;
+  
+  return {
+    backgroundColor: colorToken.bg,
+    color: colorToken.text,
+    fontWeight: 600,
+    fontSize: 11,
+    height: 24,
+    border: 'none',
+    borderRadius: (theme.shape.borderRadius as number) * 3,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    '& .MuiChip-label': {
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+    },
+  };
+});

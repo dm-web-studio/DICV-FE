@@ -45,10 +45,10 @@ export function useStaffDeskAdminColumns(): GridColDef<StaffDesk>[] {
         minWidth: 150,
         renderCell: (params: GridRenderCellParams<StaffDesk>) => {
           const deskType = params.value as 'principal' | 'president' | 'vice-principal';
-          const config = ui.roleConfig[deskType] || { label: params.value as string, color: 'default' };
+          const config = ui.roleConfig[deskType] || { label: params.value as string, color: 'grey' };
           return (
             <TitleCellContainer>
-              <RoleBadge label={config.label} color={config.color} size="small" variant="outlined" />
+              <RoleBadge label={config.label} badgeColor={config.color as any} />
             </TitleCellContainer>
           );
         }

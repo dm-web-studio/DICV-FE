@@ -64,49 +64,46 @@ export const StaffDeskFormDrawer = observer(function StaffDeskFormDrawer() {
       }
     >
       <DrawerContent>
-        <ImageUpload
-          title="Photo (Required)"
-          previewUrl={ui.draftPreviewUrl}
-          onFileChange={handlePhotoChange}
-          onRemove={handleRemovePhoto}
-        />
+        {ui.formFieldsConfig.map((field) => {
+          if (field.type === 'image') {
+            const isPhoto = field.name === 'photo';
+            return (
+              <ImageUpload
+                key={field.name}
+                title={field.label}
+                previewUrl={isPhoto ? ui.draftPreviewUrl : ui.draftSignaturePreviewUrl}
+                onFileChange={isPhoto ? handlePhotoChange : handleSignatureChange}
+                onRemove={isPhoto ? handleRemovePhoto : handleRemoveSignature}
+              />
+            );
+          }
 
-        <ImageUpload
-          title="Signature (Optional)"
-          previewUrl={ui.draftSignaturePreviewUrl}
-          onFileChange={handleSignatureChange}
-          onRemove={handleRemoveSignature}
-        />
+          if (field.type === 'text') {
+            return (
+              <TextField
+                key={field.name}
+                label={field.label}
+                value={ui[field.name as 'draftName' | 'draftMessage' | 'draftHomeMessage']}
+                onChange={(e) => ui.setDraftField(field.name as any, e.target.value)}
+                required={field.required}
+                fullWidth
+              />
+            );
+          }
 
-        <TextField
-          label="Name"
-          value={ui.draftName}
-          onChange={(e) => ui.setDraftField('draftName', e.target.value)}
-          required
-          fullWidth
-        />
-
-        <CharCountTextArea
-          label="Message"
-          value={ui.draftMessage}
-          onChange={(e) => ui.setDraftField('draftMessage', e.target.value)}
-          maxChars={1500}
-          minRows={6}
-          countInfoTooltip="Max 1500 characters (with spaces)"
-          required
-        />
-
-        {ui.editingDesk.type === 'principal' && (
-          <CharCountTextArea
-            label="Home Message"
-            value={ui.draftHomeMessage}
-            onChange={(e) => ui.setDraftField('draftHomeMessage', e.target.value)}
-            maxChars={500}
-            minRows={4}
-            countInfoTooltip="Max 500 characters (with spaces)"
-            required
-          />
-        )}
+          return (
+            <CharCountTextArea
+              key={field.name}
+              label={field.label}
+              value={ui[field.name as 'draftName' | 'draftMessage' | 'draftHomeMessage']}
+              onChange={(e) => ui.setDraftField(field.name as any, e.target.value)}
+              maxChars={field.maxChars!}
+              {...(field.minRows !== undefined && { minRows: field.minRows })}
+              {...(field.countInfoTooltip !== undefined && { countInfoTooltip: field.countInfoTooltip })}
+              {...(field.required !== undefined && { required: field.required })}
+            />
+          );
+        })}
       </DrawerContent>
     </AdminDrawer>
   );
