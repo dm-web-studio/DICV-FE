@@ -18,6 +18,7 @@ import FacultyPage from '../features/faculty/pages/FacultyPage';
 import NoticeAdminPage from '../features/admin-notices/pages/NoticeAdminPage';
 import FacultyAdminPage from '../features/admin-faculty/pages/FacultyAdminPage';
 import StaffDeskAdminPage from '../features/admin-staff-desk/pages/StaffDeskAdminPage';
+import AdminGalleryPage from '../features/admin-gallery/pages/AdminGalleryPage';
 
 export const router = createBrowserRouter([
   {
@@ -50,6 +51,7 @@ export const router = createBrowserRouter([
       { path: 'notices', element: <NoticeAdminPage /> },
       { path: 'faculty', element: <FacultyAdminPage /> },
       { path: 'staff-desk', element: <StaffDeskAdminPage /> },
+      { path: 'gallery', element: <AdminGalleryPage /> },
     ],
   },
 ]);

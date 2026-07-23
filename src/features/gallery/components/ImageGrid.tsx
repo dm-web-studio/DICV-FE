@@ -6,7 +6,7 @@ import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import { useGalleryStore } from '../store/GalleryStoreContext';
 import { GalleryImageCard } from './GalleryImageCard';
 import { GridContainer, LoadingContainer, MessageText, LoadMoreContainer } from './ImageGrid.styles';
-import { ImageLightbox } from './ImageLightbox';
+import { Lightbox } from '../../../shared/components/Lightbox/Lightbox';
 import { GalleryEmptyState } from './GalleryEmptyState';
 
 interface ImageGridProps {
@@ -16,7 +16,8 @@ interface ImageGridProps {
 export const ImageGrid = observer(function ImageGrid({ albumId }: ImageGridProps) {
   const { domain, ui } = useGalleryStore();
 
-  const images = domain.albumImages[albumId] || [];
+  const album = domain.albums.find(a => a._id === albumId);
+  const images = (domain.albumImages[albumId] || []).filter(img => img.imageUrl !== album?.coverImageUrl);
 
   useEffect(() => {
     // Fetch initial page of images if not already loaded
@@ -86,7 +87,14 @@ export const ImageGrid = observer(function ImageGrid({ albumId }: ImageGridProps
       )}
 
       {/* Render the lightbox component here so it can access the images list */}
-      <ImageLightbox images={images} />
+      <Lightbox 
+        images={images}
+        isOpen={ui.isLightboxOpen}
+        activeIndex={ui.activeImageIndex}
+        onClose={() => ui.closeLightbox()}
+        onPrev={() => ui.prevImage(images.length)}
+        onNext={() => ui.nextImage(images.length)}
+      />
     </>
   );
 });

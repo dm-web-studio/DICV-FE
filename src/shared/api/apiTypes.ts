@@ -15,9 +15,20 @@ export interface GalleryAlbum {
   _id: ID;
   name: string;
   slug: string;
+  description?: string;
   coverImageUrl?: string;
   coverImagePublicId?: string;
   imageCount: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface GalleryImage {
+  _id: ID;
+  album: { _id: ID; name: string; slug: string };
+  imageUrl: string;
+  caption?: string;
+  order: number;
 }
 
 export interface StaffDesk {
