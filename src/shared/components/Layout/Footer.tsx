@@ -62,6 +62,15 @@ export const Footer = observer(function Footer(): React.JSX.Element {
   const phone = settings?.phone || 'Loading...';
   const email = settings?.email || 'Loading...';
 
+  const getSocialUrl = (platform: string) => {
+    return settings?.socialLinks?.find(l => l.platform.toLowerCase() === platform.toLowerCase())?.url;
+  };
+
+  const fbUrl = getSocialUrl('facebook');
+  const igUrl = getSocialUrl('instagram');
+  const ytUrl = getSocialUrl('youtube');
+  const twUrl = getSocialUrl('twitter');
+
   return (
     <FooterRoot>
       <FooterContainer>
@@ -88,18 +97,34 @@ export const Footer = observer(function Footer(): React.JSX.Element {
                   </TaglineText>
                 </Box>
                 <SocialStack direction="row" spacing={1.5}>
-                  <SocialIconButton aria-label="Facebook">
-                    <FacebookIcon fontSize="small" />
-                  </SocialIconButton>
-                  <SocialIconButton aria-label="Instagram">
-                    <InstagramIcon fontSize="small" />
-                  </SocialIconButton>
-                  <SocialIconButton aria-label="YouTube">
-                    <YouTubeIcon fontSize="small" />
-                  </SocialIconButton>
-                  <SocialIconButton aria-label="Twitter">
-                    <TwitterIcon fontSize="small" />
-                  </SocialIconButton>
+                  {fbUrl && (
+                    <a href={fbUrl} target="_blank" rel="noopener noreferrer">
+                      <SocialIconButton aria-label="Facebook">
+                        <FacebookIcon fontSize="small" />
+                      </SocialIconButton>
+                    </a>
+                  )}
+                  {igUrl && (
+                    <a href={igUrl} target="_blank" rel="noopener noreferrer">
+                      <SocialIconButton aria-label="Instagram">
+                        <InstagramIcon fontSize="small" />
+                      </SocialIconButton>
+                    </a>
+                  )}
+                  {ytUrl && (
+                    <a href={ytUrl} target="_blank" rel="noopener noreferrer">
+                      <SocialIconButton aria-label="YouTube">
+                        <YouTubeIcon fontSize="small" />
+                      </SocialIconButton>
+                    </a>
+                  )}
+                  {twUrl && (
+                    <a href={twUrl} target="_blank" rel="noopener noreferrer">
+                      <SocialIconButton aria-label="Twitter">
+                        <TwitterIcon fontSize="small" />
+                      </SocialIconButton>
+                    </a>
+                  )}
                 </SocialStack>
               </ColumnContent>
             </ColumnDivider>

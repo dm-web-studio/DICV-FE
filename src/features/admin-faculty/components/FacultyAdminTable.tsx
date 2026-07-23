@@ -3,14 +3,13 @@ import { observer } from 'mobx-react-lite';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import { useFacultyAdminStore } from '../store/FacultyAdminStoreContext';
 import { useFacultyAdminColumns } from './FacultyAdminTableColumns';
-import { FilterBar, TableWrapper, StyledDataTable, PageContainer, HeaderContainer, TitleGroup, PageTitle, TableCard } from '../../../shared/components/AdminTableLayout';
+import { FilterBar, TableWrapper, StyledDataTable, PageContainer, TableCard } from '../../../shared/components/AdminTableLayout';
 import type { Faculty } from '../../../shared/api/apiTypes';
-import { StyledSchoolIcon, FacultySearchField } from './FacultyAdminTable.styles';
+import { FacultySearchField } from './FacultyAdminTable.styles';
 
 export const FacultyAdminTable = observer(function FacultyAdminTable() {
   const { ui, domain } = useFacultyAdminStore();
@@ -22,23 +21,6 @@ export const FacultyAdminTable = observer(function FacultyAdminTable() {
 
   return (
     <PageContainer>
-      <HeaderContainer>
-        <TitleGroup>
-          <StyledSchoolIcon />
-          <Box>
-            <PageTitle variant="h2">Faculty</PageTitle>
-            <Typography variant="body2" color="text.secondary">Manage school faculty members.</Typography>
-          </Box>
-        </TitleGroup>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() => ui.openDrawer('create')}
-        >
-          Add Faculty
-        </Button>
-      </HeaderContainer>
-
       <TableWrapper>
         <FilterBar>
           <FacultySearchField
@@ -56,6 +38,14 @@ export const FacultyAdminTable = observer(function FacultyAdminTable() {
               }
             }}
           />
+          <Box sx={{ flex: 1 }} />
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={() => ui.openDrawer('create')}
+          >
+            Add Faculty
+          </Button>
         </FilterBar>
 
         <TableCard>

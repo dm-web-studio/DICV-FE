@@ -1,7 +1,5 @@
 import { type GridColDef, GridActionsCellItem } from '@mui/x-data-grid';
-import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
-import ListAltIcon from '@mui/icons-material/ListAlt';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -11,7 +9,7 @@ import { NoticeCategoryBadge } from '../../../shared/components/NoticeCategoryBa
 import { showConfirmation } from '../../../shared/stores/ConfirmDialogStore';
 import { type Notice } from '../../../shared/api/apiTypes';
 import { useNoticeAdminStore } from '../store/NoticeAdminStoreContext';
-import { TitleCellContainer, TitleText, IconCellContainer } from './NoticeAdminTable.styles';
+import { TitleCellContainer, TitleText, IconCellContainer, CategoryIcon, EmptyCellText } from './NoticeAdminTable.styles';
 
 export function useNoticeAdminColumns(): GridColDef<Notice>[] {
   const { ui, domain } = useNoticeAdminStore();
@@ -24,7 +22,7 @@ export function useNoticeAdminColumns(): GridColDef<Notice>[] {
       minWidth: 200,
       renderCell: (params) => (
         <TitleCellContainer>
-          <ListAltIcon sx={{ fontSize: 18, color: 'primary.main', flexShrink: 0 }} />
+          <CategoryIcon />
           <Tooltip title={params.value as string} placement="top" arrow>
             <TitleText variant="body2">
               {params.value}
@@ -67,7 +65,7 @@ export function useNoticeAdminColumns(): GridColDef<Notice>[] {
         <IconCellContainer>
           {params.value
             ? <OpenInNewIcon fontSize="small" color="warning" />
-            : <Box component="span" sx={{ typography: 'body2', color: 'text.secondary' }}>—</Box>}
+            : <EmptyCellText variant="body2">—</EmptyCellText>}
         </IconCellContainer>
       ),
     },

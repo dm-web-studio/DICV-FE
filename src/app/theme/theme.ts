@@ -79,9 +79,9 @@ export const theme = createTheme({
   typography: {
     fontFamily: '"Inter", "Roboto", sans-serif',
     // ONLY 12/14/16 anywhere — every variant maps to one of these three
-    h1: { fontSize: 16, fontWeight: 700 },
-    h2: { fontSize: 16, fontWeight: 600 },
-    h3: { fontSize: 14, fontWeight: 600 },
+    h1: { fontSize: 16, fontWeight: 700, color: '#1A1A1A' },
+    h2: { fontSize: 16, fontWeight: 600, color: '#1A1A1A' },
+    h3: { fontSize: 14, fontWeight: 600, color: '#1A1A1A' },
     body1: { fontSize: 14 },
     body2: { fontSize: 12 },
     caption: { fontSize: 12 },

@@ -69,7 +69,7 @@ export const AlbumPhotosPanel = observer(function AlbumPhotosPanel() {
   return (
     <PhotosPanelContainer>
       <HeaderStack>
-        <HeaderTitle variant="h2">
+        <HeaderTitle variant="h2" color="text.primary">
           Album Photos <Typography component="span" variant="body1" color="text.secondary">({photos.length})</Typography>
         </HeaderTitle>
 

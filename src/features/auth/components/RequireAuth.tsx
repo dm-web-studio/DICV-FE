@@ -1,8 +1,9 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { authStore } from '../store/AuthStore';
+import type { ReactNode } from 'react';
 
-export const RequireAuth = observer(function RequireAuth() {
+export const RequireAuth = observer(function RequireAuth({ children }: { children?: ReactNode }) {
   const location = useLocation();
 
   if (!authStore.isInitialized) {
@@ -13,5 +14,5 @@ export const RequireAuth = observer(function RequireAuth() {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  return <Outlet />;
+  return children ? <>{children}</> : <Outlet />;
 });

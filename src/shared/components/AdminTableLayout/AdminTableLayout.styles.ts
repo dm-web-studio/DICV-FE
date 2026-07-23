@@ -142,17 +142,18 @@ export const IconCellContainer = styled(Box)({
   height: '100%',
 });
 
-export const PageLayout = styled(Box)(({ theme }) => ({
+export const PageLayout = styled(Box)({
   display: 'flex',
-  height: '100vh',
-  backgroundColor: theme.palette.grey[50],
+  height: '100%',
+  width: '100%',
   overflow: 'hidden',
-}));
+});
 
 export const MainContent = styled(Box)(({ theme }) => ({
   flex: 1,
   minWidth: 0,
   height: '100%',
   padding: theme.spacing(4),
+  overflowY: 'auto',
   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
 }));

@@ -1,12 +1,9 @@
 import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { useStaffDeskAdminStore } from '../store/StaffDeskAdminStoreContext';
 import { useStaffDeskAdminColumns } from './StaffDeskAdminTableColumns';
-import { TableWrapper, StyledDataTable, PageContainer, HeaderContainer, TitleGroup, PageTitle, TableCard } from '../../../shared/components/AdminTableLayout';
+import { TableWrapper, StyledDataTable, PageContainer, TableCard } from '../../../shared/components/AdminTableLayout';
 import type { StaffDesk } from '../../../shared/api/apiTypes';
-import { StyledAssignmentIndIcon } from './StaffDeskAdminTable.styles';
 
 export const StaffDeskAdminTable = observer(function StaffDeskAdminTable() {
   const { domain } = useStaffDeskAdminStore();
@@ -18,15 +15,6 @@ export const StaffDeskAdminTable = observer(function StaffDeskAdminTable() {
 
   return (
     <PageContainer>
-      <HeaderContainer>
-        <TitleGroup>
-          <StyledAssignmentIndIcon />
-          <Box>
-            <PageTitle variant="h2">Staff Desk</PageTitle>
-            <Typography variant="body2" color="text.secondary">Manage Principal, President, and Vice Principal messages.</Typography>
-          </Box>
-        </TitleGroup>
-      </HeaderContainer>
 
       <TableWrapper>
         <TableCard>

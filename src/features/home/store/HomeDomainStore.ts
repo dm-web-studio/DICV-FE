@@ -1,6 +1,7 @@
 import { observable, computed } from 'mobx';
 import type { InfoItem, StatItem } from '../types';
 import type { HomeRootStore } from './HomeRootStore';
+import { siteSettingsStore } from '../../../shared/stores/SiteSettingsStore';
 
 import AutoStoriesIcon from '@mui/icons-material/AutoStories'; // Active Learning
 import SupportAgentIcon from '@mui/icons-material/SupportAgent'; // Expert Teachers
@@ -34,12 +35,16 @@ export class HomeDomainStore {
   ];
 
   // Config for the blue stats strip
-  @observable accessor statStripItems: StatItem[] = [
-    { label: 'Students', value: '2500+', icon: PeopleIcon },
-    { label: 'Qualified Teachers', value: '120+', icon: SchoolIcon },
-    { label: 'Years of Excellence', value: '25+', icon: MenuBookIcon },
-    { label: 'Awards & Achievements', value: '100+', icon: EmojiEventsIcon },
-  ];
+  @computed
+  get statStripItems(): StatItem[] {
+    const stats = siteSettingsStore.settings?.stats;
+    return [
+      { label: 'Students Enrolled', value: stats ? `${stats.studentsEnrolled}+` : '2500+', icon: PeopleIcon },
+      { label: 'Classes', value: stats ? `${stats.classes}+` : '120+', icon: SchoolIcon },
+      { label: 'Courses', value: stats ? `${stats.courses}+` : '25+', icon: MenuBookIcon },
+      { label: 'Awards & Achievements', value: stats ? `${stats.awards}+` : '100+', icon: EmojiEventsIcon },
+    ];
+  }
 
   @observable accessor quotationText = `Education is the most powerful weapon which you can use to change the world.`;
   @observable accessor quotationAuthor = `- Nelson Mandela`;

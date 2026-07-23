@@ -55,7 +55,7 @@ export const Thumbnail = styled(Box)(({ theme }) => ({
 export const AlbumNameText = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'selected',
 })<{ selected?: boolean }>(({ theme, selected }) => ({
-  color: selected ? theme.badgeColors.blue.text : 'inherit',
+  color: selected ? theme.badgeColors.blue.text : theme.palette.text.primary,
 }));
 
 export const EmptyStateText = styled(Typography)(({ theme }) => ({

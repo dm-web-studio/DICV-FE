@@ -19,7 +19,7 @@ export const AlbumListPanel = observer(function AlbumListPanel() {
   return (
     <ListPanelContainer>
       <ListHeader>
-        <Typography variant="h2">Albums</Typography>
+        <Typography variant="h2" color="text.primary">Albums</Typography>
         <Button 
           variant="contained" 
           startIcon={<AddIcon />} 

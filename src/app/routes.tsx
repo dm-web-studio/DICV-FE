@@ -19,6 +19,7 @@ import NoticeAdminPage from '../features/admin-notices/pages/NoticeAdminPage';
 import FacultyAdminPage from '../features/admin-faculty/pages/FacultyAdminPage';
 import StaffDeskAdminPage from '../features/admin-staff-desk/pages/StaffDeskAdminPage';
 import AdminGalleryPage from '../features/admin-gallery/pages/AdminGalleryPage';
+import { AdminLayout } from '../shared/components/AdminLayout/AdminLayout';
 
 export const router = createBrowserRouter([
   {
@@ -45,9 +46,13 @@ export const router = createBrowserRouter([
   },
   {
     path: '/admin',
-    element: <RequireAuth />,
+    element: (
+      <RequireAuth>
+        <AdminLayout />
+      </RequireAuth>
+    ),
     children: [
-      { index: true, element: <div>Admin Dashboard</div> },
+      { index: true, element: <div style={{ padding: 24 }}>Admin Dashboard Placeholder</div> },
       { path: 'notices', element: <NoticeAdminPage /> },
       { path: 'faculty', element: <FacultyAdminPage /> },
       { path: 'staff-desk', element: <StaffDeskAdminPage /> },

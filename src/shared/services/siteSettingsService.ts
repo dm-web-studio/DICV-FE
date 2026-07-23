@@ -27,4 +27,9 @@ export const siteSettingsService = {
     const { data } = await apiClient.get<ApiSuccess<SiteSettings>>('/site/settings');
     return data;
   },
+  
+  async updateSettings(settings: SiteSettings): Promise<ApiSuccess<SiteSettings>> {
+    const { data } = await apiClient.put<ApiSuccess<SiteSettings>>('/admin/site/settings', settings);
+    return data;
+  },
 };

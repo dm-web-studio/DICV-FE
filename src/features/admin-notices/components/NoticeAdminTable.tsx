@@ -1,14 +1,13 @@
 import { observer } from 'mobx-react-lite';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+
 import MenuItem from '@mui/material/MenuItem';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import { NOTICE_CATEGORIES, NOTICE_CATEGORY_LABELS, type Notice } from '../../../shared/api/apiTypes';
 import { useNoticeAdminStore } from '../store/NoticeAdminStoreContext';
-import { FilterBar, TableWrapper, StyledDataTable, PageContainer, HeaderContainer, TitleGroup, TitleIcon, PageTitle, SearchField, FilterSelect, TableCard } from './NoticeAdminTable.styles';
+import { FilterBar, TableWrapper, StyledDataTable, PageContainer, SearchField, FilterSelect, TableCard, FilterFormControl, Spacer } from './NoticeAdminTable.styles';
 import { useNoticeAdminColumns } from './NoticeAdminTableColumns';
 
 export const NoticeAdminTable = observer(function NoticeAdminTable() {
@@ -17,23 +16,6 @@ export const NoticeAdminTable = observer(function NoticeAdminTable() {
 
   return (
     <PageContainer>
-      <HeaderContainer>
-        <TitleGroup>
-          <TitleIcon />
-          <Box>
-            <PageTitle variant="h2">Notices</PageTitle>
-            <Typography variant="body2" color="text.secondary">Create, manage and publish notices for your school community.</Typography>
-          </Box>
-        </TitleGroup>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() => ui.openDrawer('create')}
-        >
-          Add Notice
-        </Button>
-      </HeaderContainer>
-
       <TableWrapper>
         <FilterBar>
           <SearchField
@@ -51,25 +33,35 @@ export const NoticeAdminTable = observer(function NoticeAdminTable() {
               }
             }}
           />
-          <FilterSelect
-            displayEmpty
-            value={ui.category || ''}
-            onChange={(e: any) => ui.setCategory(e.target.value ? e.target.value as string : null)}
-            sx={{ minWidth: 150 }}
+          <FilterFormControl size="small">
+            <FilterSelect
+              displayEmpty
+              value={ui.category || ''}
+              onChange={(e: any) => ui.setCategory(e.target.value ? e.target.value as string : null)}
+            >
+              <MenuItem value="">All Categories</MenuItem>
+              {NOTICE_CATEGORIES.map((cat) => (
+                <MenuItem key={cat} value={cat}>{NOTICE_CATEGORY_LABELS[cat]}</MenuItem>
+              ))}
+            </FilterSelect>
+          </FilterFormControl>
+          <FilterFormControl size="small">
+            <FilterSelect
+              value={ui.sort}
+              onChange={(e: any) => ui.setSort(e.target.value as string)}
+            >
+              <MenuItem value="newest">Newest First</MenuItem>
+              <MenuItem value="oldest">Oldest First</MenuItem>
+            </FilterSelect>
+          </FilterFormControl>
+          <Spacer />
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={() => ui.openDrawer('create')}
           >
-            <MenuItem value="">All Categories</MenuItem>
-            {NOTICE_CATEGORIES.map((cat) => (
-              <MenuItem key={cat} value={cat}>{NOTICE_CATEGORY_LABELS[cat]}</MenuItem>
-            ))}
-          </FilterSelect>
-          <FilterSelect
-            value={ui.sort}
-            onChange={(e: any) => ui.setSort(e.target.value as string)}
-            sx={{ minWidth: 150 }}
-          >
-            <MenuItem value="newest">Newest First</MenuItem>
-            <MenuItem value="oldest">Oldest First</MenuItem>
-          </FilterSelect>
+            Add Notice
+          </Button>
         </FilterBar>
 
         <TableCard>

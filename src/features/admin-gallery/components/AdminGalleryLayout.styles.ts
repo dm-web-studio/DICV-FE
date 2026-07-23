@@ -4,8 +4,8 @@ import Grid from '@mui/material/Grid';
 
 export const LayoutRoot = styled(Box)(({ theme }) => ({
   flexGrow: 1,
-  height: 'calc(100vh - 120px)',
-  padding: theme.spacing(3),
+  height: '100%',
+  padding: theme.spacing(4),
 }));
 
 export const LayoutGrid = styled(Grid)({

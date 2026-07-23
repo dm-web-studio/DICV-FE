@@ -1,12 +1,9 @@
 import { styled } from '@mui/material/styles';
-import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 
-export const StyledAssignmentIndIcon = styled(AssignmentIndIcon)(({ theme }) => ({
-  fontSize: 32,
-  color: theme.palette.primary.main,
-}));
+
 
 export const StaffDeskAvatar = styled(Avatar)(() => ({
   width: 40,

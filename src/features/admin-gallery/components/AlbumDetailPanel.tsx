@@ -1,18 +1,14 @@
 import { observer } from 'mobx-react-lite';
 import { Box, Typography, Button, CircularProgress } from '@mui/material';
 import { 
-  CloudUploadOutlined as UploadIcon, 
-  EditOutlined as EditIcon, 
-  DeleteOutlined as DeleteIcon, 
   PhotoCameraOutlined as CameraIcon,
-  CalendarTodayOutlined as CalendarIcon,
-  ImageOutlined as ImageIcon
 } from '@mui/icons-material';
 import { useAdminGalleryStore } from '../store/AdminGalleryStoreContext';
 import { useRef } from 'react';
 import { showConfirmation } from '../../../shared/stores/ConfirmDialogStore';
 import { 
   DetailPanelContainer, 
+  EmptyStateContent,
   DetailContentContainer, 
   HeaderStack, 
   CoverImageContainer, 
@@ -21,9 +17,15 @@ import {
   ContentBox, 
   TitleText, 
   MetadataStack, 
-  MetadataItemStack, 
+  MetadataItemStack,
   MetadataItemText, 
-  ActionButtonsStack 
+  ActionButtonsStack,
+  EmptyStateIcon,
+  MetadataCalendarIcon,
+  MetadataImageIcon,
+  ActionUploadIcon,
+  ActionEditIcon,
+  ActionDeleteIcon
 } from './AlbumDetailPanel.styles';
 
 export const AlbumDetailPanel = observer(function AlbumDetailPanel() {
@@ -36,7 +38,15 @@ export const AlbumDetailPanel = observer(function AlbumDetailPanel() {
   if (!album) {
     return (
       <DetailPanelContainer>
-        <Typography variant="body1" color="text.secondary">Select an album to view details</Typography>
+        <EmptyStateContent spacing={2}>
+          <EmptyStateIcon />
+          <Typography variant="h3" color="text.secondary">
+            No Album Selected
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Select an album from the list on the left to view its details, or create a new album to get started.
+          </Typography>
+        </EmptyStateContent>
       </DetailPanelContainer>
     );
   }
@@ -80,7 +90,7 @@ export const AlbumDetailPanel = observer(function AlbumDetailPanel() {
   return (
     <DetailContentContainer>
       <HeaderStack>
-        <CoverImageContainer sx={album.coverImageUrl ? { backgroundImage: `url(${album.coverImageUrl})` } : {}}>
+        <CoverImageContainer imageUrl={album.coverImageUrl}>
           <ChangeCoverButtonWrapper>
             <ChangeCoverButton 
               size="small" 
@@ -94,20 +104,20 @@ export const AlbumDetailPanel = observer(function AlbumDetailPanel() {
 
         <ContentBox>
           {/* Line 1: Title */}
-          <TitleText variant="h2">
+          <TitleText variant="h2" color="text.primary">
             {album.name}
           </TitleText>
           
           {/* Line 2: Calendar & Photos */}
           <MetadataStack>
             <MetadataItemStack>
-              <CalendarIcon sx={{ fontSize: 16 }} />
+              <MetadataCalendarIcon />
               <MetadataItemText variant="body2">
                 {new Date(album.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
               </MetadataItemText>
             </MetadataItemStack>
             <MetadataItemStack>
-              <ImageIcon sx={{ fontSize: 16 }} />
+              <MetadataImageIcon />
               <MetadataItemText variant="body2">
                 {album.imageCount} Photos
               </MetadataItemText>
@@ -130,7 +140,7 @@ export const AlbumDetailPanel = observer(function AlbumDetailPanel() {
           <ActionButtonsStack>
             <Button 
               variant="contained" 
-              startIcon={domain.isSaving ? <CircularProgress size={16} color="inherit" /> : <UploadIcon sx={{ fontSize: 18 }} />} 
+              startIcon={domain.isSaving ? <CircularProgress size={16} color="inherit" /> : <ActionUploadIcon />} 
               onClick={handleUploadClick}
               disabled={domain.isSaving}
             >
@@ -139,7 +149,7 @@ export const AlbumDetailPanel = observer(function AlbumDetailPanel() {
             <Button 
               variant="outlined" 
               color="inherit" 
-              startIcon={<EditIcon sx={{ fontSize: 18 }} />} 
+              startIcon={<ActionEditIcon />} 
               onClick={() => ui.openEditAlbumDialog(album)}
             >
               Edit Album
@@ -147,7 +157,7 @@ export const AlbumDetailPanel = observer(function AlbumDetailPanel() {
             <Button 
               variant="outlined" 
               color="error" 
-              startIcon={<DeleteIcon sx={{ fontSize: 18 }} />} 
+              startIcon={<ActionDeleteIcon />} 
               onClick={handleDelete}
             >
               Delete Album
