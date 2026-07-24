@@ -1,27 +1,28 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import { authStore } from '../store/AuthStore';
-
-const FormContainer = styled('form')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-  width: '100%',
-  maxWidth: 400,
-  padding: theme.spacing(3),
-  backgroundColor: theme.palette.background.paper,
-  borderRadius: theme.shape.borderRadius,
-  boxShadow: theme.shadows[1],
-}));
+import {
+  FormContainer,
+  HeaderBox,
+  LogoCircle,
+  Title,
+  Subtitle,
+  StyledButton
+} from './LoginForm.styles';
 
 export function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('admin@example.com');
+  const [password, setPassword] = useState('changeme123');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -45,41 +46,76 @@ export function LoginForm() {
 
   return (
     <FormContainer onSubmit={handleSubmit}>
-      <Typography variant="h2" align="center" gutterBottom>
-        Admin Login
-      </Typography>
+      <HeaderBox>
+        <LogoCircle>
+          <AdminPanelSettingsOutlinedIcon />
+        </LogoCircle>
+        <Title>Admin Portal</Title>
+        <Subtitle>Sign in to manage DICV website content</Subtitle>
+      </HeaderBox>
 
       {error && <Alert severity="error">{error}</Alert>}
 
       <TextField
-        label="Email"
+        label="Email Address"
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
         fullWidth
         autoComplete="email"
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <EmailOutlinedIcon fontSize="small" />
+              </InputAdornment>
+            ),
+          }
+        }}
       />
 
       <TextField
         label="Password"
-        type="password"
+        type={showPassword ? 'text' : 'password'}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
         fullWidth
         autoComplete="current-password"
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <LockOutlinedIcon fontSize="small" />
+              </InputAdornment>
+            ),
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                  size="small"
+                >
+                  {showPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }
+        }}
       />
 
-      <Button
+      <StyledButton
         type="submit"
         variant="contained"
         color="primary"
         fullWidth
         disabled={loading}
+        disableElevation
       >
-        {loading ? 'Logging in...' : 'Login'}
-      </Button>
+        {loading ? 'Signing in...' : 'Sign In'}
+      </StyledButton>
     </FormContainer>
   );
 }

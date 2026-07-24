@@ -19,7 +19,6 @@ export class NoticeRootStore {
       reaction(
         () => ({
           category: this.ui.categoryFilter,
-          year: this.ui.yearFilter,
           sort: this.ui.sortFilter,
           page: this.ui.page,
           search: this.ui.searchQuery

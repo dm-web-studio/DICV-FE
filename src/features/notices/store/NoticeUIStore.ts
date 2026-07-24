@@ -3,7 +3,6 @@ import { observable, action } from 'mobx';
 export class NoticeUIStore {
   @observable accessor searchQuery = '';
   @observable accessor categoryFilter: string | null = null;
-  @observable accessor yearFilter: string | null = null;
   @observable accessor sortFilter: 'newest' | 'oldest' = 'newest';
   @observable accessor page = 1;
   @observable accessor selectedNoticeSlug: string | null = null;
@@ -20,11 +19,6 @@ export class NoticeUIStore {
     this.page = 1;
   }
 
-  @action
-  setYearFilter(year: string | null): void {
-    this.yearFilter = year;
-    this.page = 1;
-  }
 
   @action
   setSortFilter(sort: 'newest' | 'oldest'): void {

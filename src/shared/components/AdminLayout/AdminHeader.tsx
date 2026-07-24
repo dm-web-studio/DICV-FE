@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import { 
   SettingsOutlined as SettingsIcon, 
-  AccountCircleOutlined as UserIcon,
+  LogoutOutlined as LogoutIcon,
   DashboardOutlined as DashboardIcon,
   CampaignOutlined as NoticesIcon,
   PeopleAltOutlined as FacultyIcon,
@@ -13,6 +13,7 @@ import {
 } from '@mui/icons-material';
 import { useAdminLayoutStore } from './store/AdminLayoutStoreContext';
 import { HeaderContainer, PageTitle, TitleGroup, IconWrapper, HeaderActions } from './AdminHeader.styles';
+import { authStore } from '../../../features/auth/store/AuthStore';
 
 const getPageInfo = (pathname: string) => {
   if (pathname.startsWith('/admin/notices')) return { 
@@ -72,9 +73,9 @@ export const AdminHeader = observer(function AdminHeader() {
           </IconButton>
         </Tooltip>
         
-        <Tooltip title="Profile">
-          <IconButton>
-            <UserIcon />
+        <Tooltip title="Logout">
+          <IconButton onClick={() => authStore.logout()}>
+            <LogoutIcon />
           </IconButton>
         </Tooltip>
       </HeaderActions>

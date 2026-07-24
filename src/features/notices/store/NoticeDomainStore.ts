@@ -16,11 +16,6 @@ export class NoticeDomainStore {
     this.uiStore = uiStore;
   }
 
-  @computed
-  get categories(): string[] {
-    const cats = new Set(this.notices.map(n => n.category));
-    return Array.from(cats).filter(Boolean);
-  }
 
   @computed
   get totalPages(): number {
@@ -48,9 +43,7 @@ export class NoticeDomainStore {
       if (this.uiStore.categoryFilter && this.uiStore.categoryFilter !== 'All Categories') {
         params.category = this.uiStore.categoryFilter;
       }
-      if (this.uiStore.yearFilter && this.uiStore.yearFilter !== 'All Years') {
-        params.year = this.uiStore.yearFilter;
-      }
+
       if (this.uiStore.sortFilter) {
         params.sort = this.uiStore.sortFilter;
       }
