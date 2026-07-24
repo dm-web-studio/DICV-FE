@@ -9,6 +9,7 @@ import {
   PeopleAltOutlined as FacultyIcon,
   DeskOutlined as StaffDeskIcon,
   PhotoLibraryOutlined as GalleryIcon,
+  EmailOutlined as EmailIcon,
 } from '@mui/icons-material';
 import { useAdminLayoutStore } from './store/AdminLayoutStoreContext';
 import { HeaderContainer, PageTitle, TitleGroup, IconWrapper, HeaderActions } from './AdminHeader.styles';
@@ -33,6 +34,11 @@ const getPageInfo = (pathname: string) => {
     title: 'Gallery', 
     subtitle: 'Manage photo albums and gallery images.', 
     icon: <GalleryIcon /> 
+  };
+  if (pathname.startsWith('/admin/contacts')) return { 
+    title: 'Contact Submissions', 
+    subtitle: 'View and manage messages sent through the Contact Us form.', 
+    icon: <EmailIcon /> 
   };
   return { 
     title: 'Dashboard', 

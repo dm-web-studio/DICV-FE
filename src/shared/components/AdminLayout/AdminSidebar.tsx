@@ -12,6 +12,7 @@ import {
   PeopleAltOutlined as FacultyIcon,
   DeskOutlined as StaffDeskIcon,
   PhotoLibraryOutlined as GalleryIcon,
+  EmailOutlined as EmailIcon,
   PublicOutlined as PublicSiteIcon,
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon
@@ -37,6 +38,7 @@ const NAV_ITEMS = [
   { label: 'Faculty', path: '/admin/faculty', icon: <FacultyIcon /> },
   { label: 'Staff Desk', path: '/admin/staff-desk', icon: <StaffDeskIcon /> },
   { label: 'Gallery', path: '/admin/gallery', icon: <GalleryIcon /> },
+  { label: 'Contacts', path: '/admin/contacts', icon: <EmailIcon /> },
 ];
 
 export const AdminSidebar = observer(function AdminSidebar() {

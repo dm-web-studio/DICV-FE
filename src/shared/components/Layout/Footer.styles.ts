@@ -30,6 +30,7 @@ export const SectionHeading = styled(Typography)(({ theme }) => ({
   fontWeight: 600,
   letterSpacing: '0.5px',
   textAlign: 'left',
+  color: 'inherit',
 }));
 
 export const FooterLink = styled(RouterLink)(({ theme }) => ({
@@ -65,6 +66,7 @@ export const ContactIconWrapper = styled(Box)(({ theme }) => ({
 export const ContactText = styled(Typography)({
   textAlign: 'left',
   lineHeight: 1.6,
+  color: 'inherit',
 });
 
 export const BottomBar = styled(Box)(({ theme }) => ({
@@ -100,6 +102,7 @@ export const BrandTitle = styled(Typography)({
   display: 'block',
   textAlign: 'left',
   lineHeight: 1.1,
+  color: 'inherit',
 });
 
 export const BrandSubtitle = styled(Typography)(({ theme }) => ({
@@ -110,6 +113,7 @@ export const BrandSubtitle = styled(Typography)(({ theme }) => ({
   fontSize: '0.85em',
   marginTop: theme.spacing(0.5),
   lineHeight: 1.1,
+  color: 'inherit',
 }));
 
 export const SocialStack = styled(Stack)(({ theme }) => ({

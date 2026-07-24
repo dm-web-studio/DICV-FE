@@ -19,6 +19,7 @@ import NoticeAdminPage from '../features/admin-notices/pages/NoticeAdminPage';
 import FacultyAdminPage from '../features/admin-faculty/pages/FacultyAdminPage';
 import StaffDeskAdminPage from '../features/admin-staff-desk/pages/StaffDeskAdminPage';
 import AdminGalleryPage from '../features/admin-gallery/pages/AdminGalleryPage';
+import AdminContactPage from '../features/admin-contact/pages/AdminContactPage';
 import { DashboardAdminPage } from '../features/admin-dashboard/components/DashboardAdminPage';
 import { AdminLayout } from '../shared/components/AdminLayout/AdminLayout';
 
@@ -58,6 +59,7 @@ export const router = createBrowserRouter([
       { path: 'faculty', element: <FacultyAdminPage /> },
       { path: 'staff-desk', element: <StaffDeskAdminPage /> },
       { path: 'gallery', element: <AdminGalleryPage /> },
+      { path: 'contacts', element: <AdminContactPage /> },
     ],
   },
 ]);
