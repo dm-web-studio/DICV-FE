@@ -74,3 +74,23 @@ export interface Notice {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface ContactSubmission {
+  _id: ID;
+  name: string;
+  email: string;
+  phone?: string;
+  subject: string;
+  message: string;
+  status: 'unread' | 'read' | 'resolved';
+  createdAt: string;
+}
+
+export interface AdminDashboardStats {
+  totalFaculty: number;
+  totalNotices: number;
+  totalAlbums: number;
+  totalContacts: number;
+  recentContacts: ContactSubmission[];
+  recentNotices: Notice[];
+}

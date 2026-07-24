@@ -1,3 +1,7 @@
+import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import { useAdminGalleryStore } from '../store/AdminGalleryStoreContext';
 import { AlbumListPanel } from './AlbumListPanel';
 import { AlbumDetailPanel } from './AlbumDetailPanel';
 import { AlbumPhotosPanel } from './AlbumPhotosPanel';
@@ -12,7 +16,18 @@ import {
   PhotosPanelWrapper 
 } from './AdminGalleryLayout.styles';
 
-export function AdminGalleryLayout() {
+export const AdminGalleryLayout = observer(function AdminGalleryLayout() {
+  const { ui } = useAdminGalleryStore();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.state?.openAdd) {
+      ui.openAddAlbumDialog();
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location, navigate, ui]);
+
   return (
     <LayoutRoot>
       <LayoutGrid container spacing={3}>
@@ -34,4 +49,4 @@ export function AdminGalleryLayout() {
       <AlbumDialogs />
     </LayoutRoot>
   );
-}
+});
