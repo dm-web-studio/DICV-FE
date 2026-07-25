@@ -63,7 +63,8 @@ export class NoticeAdminDomainStore {
     try {
       await noticeAdminService.create(formData);
       runInAction(() => {
-        toastStore.show('Notice created successfully', 'success');
+        const isPopup = formData.get('showAsPopup') === 'true';
+        toastStore.show(isPopup ? 'Notice created and set as active popup' : 'Notice created successfully', 'success');
         this.uiStore.closeDrawer();
       });
       await this.fetchList();
@@ -88,7 +89,8 @@ export class NoticeAdminDomainStore {
     try {
       await noticeAdminService.update(id, formData);
       runInAction(() => {
-        toastStore.show('Notice updated successfully', 'success');
+        const isPopup = formData.get('showAsPopup') === 'true';
+        toastStore.show(isPopup ? 'Notice updated and set as active popup' : 'Notice updated successfully', 'success');
         this.uiStore.closeDrawer();
       });
       await this.fetchList();

@@ -136,6 +136,7 @@ export const NoticeFormDrawer = observer(function NoticeFormDrawer() {
           <Box>
             <SectionTitle variant="caption">Media</SectionTitle>
             <MultiImageUploader
+              key={isOpen ? (ui.selectedId || 'create') : 'closed'}
               maxFiles={1}
               existingImages={ui.draftImages.filter(img => img.publicId !== 'pending')}
               uploadFn={mockUploadFn}
@@ -169,7 +170,16 @@ export const NoticeFormDrawer = observer(function NoticeFormDrawer() {
               />
               <FormControlLabel
                 control={<Checkbox checked={ui.draftShowAsPopup} onChange={(e) => ui.setDraftShowAsPopup(e.target.checked)} />}
-                label="Show as Popup"
+                label={
+                  <CheckboxLabelContainer>
+                    Show as Popup
+                    {ui.draftShowAsPopup && (
+                      <Tooltip title="Only one notice can be shown as a popup at a time. Saving this will disable any previously active popup notice." arrow placement="right">
+                        <InfoOutlinedIcon fontSize="small" color="primary" />
+                      </Tooltip>
+                    )}
+                  </CheckboxLabelContainer>
+                }
               />
             </Stack>
           </Box>

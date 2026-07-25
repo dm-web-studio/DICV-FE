@@ -66,7 +66,9 @@ export const Card = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const CardIcon = styled(Box)<{ colorType: 'primary' | 'secondary' }>(({ theme, colorType }) => ({
+export const CardIcon = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'colorType',
+})<{ colorType: 'primary' | 'secondary' }>(({ theme, colorType }) => ({
   width: '48px',
   height: '48px',
   borderRadius: '50%',

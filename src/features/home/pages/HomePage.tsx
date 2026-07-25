@@ -5,6 +5,7 @@ import { HomeInfoStrip } from '../components/HomeInfoStrip';
 import { HomeStatsStrip } from '../components/HomeStatsStrip';
 import { HomePrincipalSection } from '../components/HomePrincipalSection';
 import { HomeNoticesGallerySection } from '../components/HomeNoticesGallerySection';
+import { NoticePopupModal } from '../components/NoticePopupModal';
 
 
 
@@ -29,6 +30,7 @@ export function HomePage() {
         <HomePrincipalSection />
         <HomeNoticesGallerySection />
       </StrictContentWrapper>
+      <NoticePopupModal />
     </HomeStoreProvider>
   );
 }

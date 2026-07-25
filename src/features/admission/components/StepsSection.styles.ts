@@ -82,7 +82,9 @@ export const IconOuter = styled(Box)(({ theme }) => ({
   border: `1px solid ${theme.palette.divider}`,
 }));
 
-export const IconInner = styled(Box)<{ colorType: 'primary' | 'secondary' }>(({ theme, colorType }) => ({
+export const IconInner = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'colorType',
+})<{ colorType: 'primary' | 'secondary' }>(({ theme, colorType }) => ({
   width: 64,
   height: 64,
   borderRadius: '50%',
@@ -94,7 +96,9 @@ export const IconInner = styled(Box)<{ colorType: 'primary' | 'secondary' }>(({ 
   fontSize: 32,
 }));
 
-export const BottomBadge = styled(Box)<{ colorType: 'primary' | 'secondary' }>(({ theme, colorType }) => {
+export const BottomBadge = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'colorType',
+})<{ colorType: 'primary' | 'secondary' }>(({ theme, colorType }) => {
   const badgeTheme = colorType === 'primary' ? theme.badgeColors.blue : theme.badgeColors.orange;
   return {
     position: 'absolute',
@@ -116,7 +120,9 @@ export const BottomBadge = styled(Box)<{ colorType: 'primary' | 'secondary' }>((
   };
 });
 
-export const StepNumber = styled(Typography)<{ colorType: 'primary' | 'secondary' }>(({ theme, colorType }) => ({
+export const StepNumber = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'colorType',
+})<{ colorType: 'primary' | 'secondary' }>(({ theme, colorType }) => ({
   color: theme.palette[colorType].main,
   marginBottom: theme.spacing(2),
 }));

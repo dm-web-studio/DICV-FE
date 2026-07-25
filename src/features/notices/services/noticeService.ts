@@ -16,5 +16,14 @@ export const noticeService = {
   async getNoticeBySlug(slug: string): Promise<Notice> {
     const { data } = await apiClient.get<ApiSuccess<Notice>>(`/notices/${slug}`);
     return data.data;
+  },
+
+  async getPopupNotice(): Promise<Notice | null> {
+    try {
+      const { data } = await apiClient.get<ApiSuccess<Notice | null>>('/notices/popup');
+      return data.data;
+    } catch {
+      return null;
+    }
   }
 };

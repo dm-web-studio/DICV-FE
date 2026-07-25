@@ -64,7 +64,9 @@ export const InfoItemBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const IconCircle = styled(Box)<{ $isAlternate?: boolean }>(({ theme, $isAlternate }) => ({
+export const IconCircle = styled(Box, {
+  shouldForwardProp: (prop) => prop !== '$isAlternate',
+})<{ $isAlternate?: boolean }>(({ theme, $isAlternate }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -78,7 +80,9 @@ export const IconCircle = styled(Box)<{ $isAlternate?: boolean }>(({ theme, $isA
   },
 }));
 
-export const InfoItemTitle = styled(Typography)<{ $isAlternate?: boolean }>(({ theme, $isAlternate }) => ({
+export const InfoItemTitle = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== '$isAlternate',
+})<{ $isAlternate?: boolean }>(({ theme, $isAlternate }) => ({
   marginTop: theme.spacing(1),
   color: $isAlternate ? theme.palette.secondary.main : theme.palette.primary.main,
 }));

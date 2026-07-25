@@ -78,7 +78,9 @@ export const DecorativeTitle = styled(Typography)(({ theme }) => ({
   }
 }));
 
-export const CardHeaderIcon = styled(Box)<{ isGold?: boolean }>(({ theme, isGold }) => ({
+export const CardHeaderIcon = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'isGold',
+})<{ isGold?: boolean }>(({ theme, isGold }) => ({
   width: '38px',
   height: '38px',
   borderRadius: '50%',

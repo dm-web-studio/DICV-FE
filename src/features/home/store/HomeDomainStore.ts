@@ -1,5 +1,7 @@
-import { observable, computed } from 'mobx';
+import { observable, action, computed, runInAction } from 'mobx';
 import type { InfoItem, StatItem } from '../types';
+import type { Notice } from '../../../shared/api/apiTypes';
+import { noticeService } from '../../notices/services/noticeService';
 import type { HomeRootStore } from './HomeRootStore';
 import { siteSettingsStore } from '../../../shared/stores/SiteSettingsStore';
 
@@ -48,4 +50,27 @@ export class HomeDomainStore {
 
   @observable accessor quotationText = `Education is the most powerful weapon which you can use to change the world.`;
   @observable accessor quotationAuthor = `- Nelson Mandela`;
+
+  @observable accessor popupNotice: Notice | null = null;
+  @observable accessor isNoticePopupOpen: boolean = false;
+
+  @action
+  setNoticePopupOpen(open: boolean): void {
+    this.isNoticePopupOpen = open;
+  }
+
+  @action
+  async fetchPopupNotice(): Promise<void> {
+    const notice = await noticeService.getPopupNotice() as any as Notice | null;
+    runInAction(() => {
+      this.popupNotice = notice;
+      if (notice) {
+        // Check if user has dismissed it in this session
+        const dismissed = sessionStorage.getItem(`dismissedNoticePopups_${notice.slug}`);
+        if (!dismissed) {
+          this.isNoticePopupOpen = true;
+        }
+      }
+    });
+  }
 }

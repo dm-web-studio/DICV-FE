@@ -50,7 +50,9 @@ export const StatBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const IconWrapper = styled(Box)<{ colorType: 'primary' | 'secondary' }>(({ theme, colorType }) => ({
+export const IconWrapper = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'colorType',
+})<{ colorType: 'primary' | 'secondary' }>(({ theme, colorType }) => ({
   width: 48,
   height: 48,
   borderRadius: '50%',

@@ -21,6 +21,7 @@ export class HomeRootStore {
     void this.staffDesk.domain.fetchByType('principal');
     // NoticeRootStore automatically fetches on init via its UI store defaults
     void this.gallery.domain.fetchHighlights();
+    void this.domain.fetchPopupNotice();
   }
 
   dispose(): void {

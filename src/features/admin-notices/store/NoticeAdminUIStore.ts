@@ -80,7 +80,7 @@ export class NoticeAdminUIStore {
       this.draftBody = notice.body ?? '';
       this.draftIsPinned = notice.isPinned ?? false;
       this.draftShowAsPopup = notice.showAsPopup ?? false;
-      this.draftImages = notice.imageUrl ? [{ url: notice.imageUrl, publicId: notice.imagePublicId || '' }] : [];
+      this.draftImages = notice.imageUrl ? [{ url: notice.imageUrl, publicId: notice.imagePublicId || 'existing' }] : [];
     } else {
       this.draftTitle = '';
       this.draftSlug = '';

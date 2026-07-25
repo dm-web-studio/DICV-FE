@@ -15,6 +15,16 @@ export function useUploadQueue(
     itemsRef.current = items;
   }, [items]);
 
+  const prevExistingImages = useRef(existingImages);
+  useEffect(() => {
+    const current = JSON.stringify(existingImages);
+    const prev = JSON.stringify(prevExistingImages.current);
+    if (current !== prev) {
+      setFinalImages(existingImages);
+      prevExistingImages.current = existingImages;
+    }
+  }, [existingImages]);
+
   // Clean up object URLs only on unmount (handleRemoveNew handles active removals)
   useEffect(() => {
     return () => {
