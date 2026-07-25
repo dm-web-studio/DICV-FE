@@ -93,6 +93,16 @@ export class AuthStore {
       throw err;
     }
   }
+
+  @action
+  async forgotPassword(email: string): Promise<void> {
+    await authService.forgotPassword(email);
+  }
+
+  @action
+  async resetPassword(token: string, password: string): Promise<void> {
+    await authService.resetPassword(token, password);
+  }
 }
 
 export const authStore = new AuthStore();

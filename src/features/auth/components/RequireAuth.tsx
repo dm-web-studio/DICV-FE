@@ -11,7 +11,7 @@ export const RequireAuth = observer(function RequireAuth({ children }: { childre
   }
 
   if (!authStore.isAuthenticated) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to="/admin/login" state={{ from: location }} replace />;
   }
 
   return children ? <>{children}</> : <Outlet />;

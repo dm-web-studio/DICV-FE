@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link as RouterLink } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
+import Link from '@mui/material/Link';
 import InputAdornment from '@mui/material/InputAdornment';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -16,31 +17,42 @@ import {
   LogoCircle,
   Title,
   Subtitle,
-  StyledButton
+  StyledButton,
+  ForgotPasswordWrapper
 } from './LoginForm.styles';
 
 export function LoginForm() {
-  const [email, setEmail] = useState('admin@example.com');
-  const [password, setPassword] = useState('changeme123');
+  const [formData, setFormData] = useState({
+    email: 'debjanibose.271176@gmail.com',
+    password: 'admin@007',
+  });
+  const [status, setStatus] = useState({
+    loading: false,
+    error: null as string | null,
+  });
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/admin';
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
-    setLoading(true);
+    setStatus({ loading: true, error: null });
 
     try {
-      await authStore.login({ email, password });
+      await authStore.login({ email: formData.email, password: formData.password });
       navigate(from, { replace: true });
     } catch (err: any) {
-      setError(err.response?.data?.error?.message || 'Login failed. Please check your credentials.');
-    } finally {
-      setLoading(false);
+      setStatus({
+        loading: false,
+        error: err.response?.data?.error?.message || 'Login failed. Please check your credentials.',
+      });
     }
   };
 
@@ -54,13 +66,14 @@ export function LoginForm() {
         <Subtitle>Sign in to manage DICV website content</Subtitle>
       </HeaderBox>
 
-      {error && <Alert severity="error">{error}</Alert>}
+      {status.error && <Alert severity="error">{status.error}</Alert>}
 
       <TextField
         label="Email Address"
+        name="email"
         type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        value={formData.email}
+        onChange={handleChange}
         required
         fullWidth
         autoComplete="email"
@@ -77,9 +90,10 @@ export function LoginForm() {
 
       <TextField
         label="Password"
+        name="password"
         type={showPassword ? 'text' : 'password'}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        value={formData.password}
+        onChange={handleChange}
         required
         fullWidth
         autoComplete="current-password"
@@ -106,15 +120,21 @@ export function LoginForm() {
         }}
       />
 
+      <ForgotPasswordWrapper>
+        <Link component={RouterLink} to="/admin/forgot-password" variant="body2">
+          Forgot Password?
+        </Link>
+      </ForgotPasswordWrapper>
+
       <StyledButton
         type="submit"
         variant="contained"
         color="primary"
         fullWidth
-        disabled={loading}
+        disabled={status.loading}
         disableElevation
       >
-        {loading ? 'Signing in...' : 'Sign In'}
+        {status.loading ? 'Signing in...' : 'Sign In'}
       </StyledButton>
     </FormContainer>
   );

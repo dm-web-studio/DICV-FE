@@ -55,3 +55,16 @@ export const StyledButton = styled(Button)(({ theme }) => ({
   marginTop: theme.spacing(1),
   borderRadius: theme.spacing(1),
 }));
+
+export const ForgotPasswordWrapper = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  width: '100%',
+  marginTop: theme.spacing(-1),
+  marginBottom: theme.spacing(1),
+}));
+
+export const CenteredLinkWrapper = styled(Box)(({ theme }) => ({
+  marginTop: theme.spacing(2),
+  textAlign: 'center',
+}));

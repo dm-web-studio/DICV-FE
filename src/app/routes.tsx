@@ -1,6 +1,11 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import { ErrorPage } from '../shared/pages/ErrorPage';
+import { NotFoundPage } from '../shared/pages/NotFoundPage';
+
 import { LoginPage } from '../features/auth/pages/LoginPage';
+import { ForgotPasswordPage } from '../features/auth/pages/ForgotPasswordPage';
+import { ResetPasswordPage } from '../features/auth/pages/ResetPasswordPage';
 import { RequireAuth } from '../features/auth/components/RequireAuth';
 import { AppLayout } from '../shared/components/Layout/AppLayout';
 import NoticesPage from '../features/notices/pages/NoticesPage';
@@ -27,6 +32,7 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: <AppLayout />,
+    errorElement: <ErrorPage />,
     children: [
       { index: true, element: <HomePage /> },
       { path: 'about', element: <AboutPage /> },
@@ -43,8 +49,16 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: '/login',
+    path: '/admin/login',
     element: <LoginPage />,
+  },
+  {
+    path: '/admin/forgot-password',
+    element: <ForgotPasswordPage />,
+  },
+  {
+    path: '/admin/reset-password/:token',
+    element: <ResetPasswordPage />,
   },
   {
     path: '/admin',
@@ -61,6 +75,10 @@ export const router = createBrowserRouter([
       { path: 'gallery', element: <AdminGalleryPage /> },
       { path: 'contacts', element: <AdminContactPage /> },
     ],
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />,
   },
 ]);
 

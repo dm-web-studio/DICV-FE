@@ -18,5 +18,11 @@ export const authService = {
     const config = token ? { headers: { Authorization: `Bearer ${token}` } } : undefined;
     const { data } = await rawApiClient.get<ApiSuccess<User>>('/auth/me', config);
     return data.data;
+  },
+  async forgotPassword(email: string): Promise<void> {
+    await rawApiClient.post('/auth/forgot-password', { email });
+  },
+  async resetPassword(token: string, password: string): Promise<void> {
+    await rawApiClient.post(`/auth/reset-password/${token}`, { password });
   }
 };
