@@ -23,8 +23,8 @@ import {
 
 export function LoginForm() {
   const [formData, setFormData] = useState({
-    email: 'debjanibose.271176@gmail.com',
-    password: 'admin@007',
+    email: '',
+    password: '',
   });
   const [status, setStatus] = useState({
     loading: false,
