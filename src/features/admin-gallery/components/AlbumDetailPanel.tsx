@@ -27,6 +27,7 @@ import {
   ActionEditIcon,
   ActionDeleteIcon
 } from './AlbumDetailPanel.styles';
+import { UploadProgress } from '../../../shared/components/UploadProgress';
 
 export const AlbumDetailPanel = observer(function AlbumDetailPanel() {
   const { domain, ui } = useAdminGalleryStore();
@@ -68,9 +69,12 @@ export const AlbumDetailPanel = observer(function AlbumDetailPanel() {
 
   const handleCoverChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      const formData = new FormData();
-      formData.append('image', e.target.files[0]);
-      await domain.updateAlbum(album._id, formData);
+      const file = e.target.files[0];
+      const payload = {
+        name: album.name,
+        description: album.description || '',
+      };
+      await domain.updateAlbum(album._id, payload, file);
       if (coverInputRef.current) coverInputRef.current.value = '';
     }
   };
@@ -165,6 +169,20 @@ export const AlbumDetailPanel = observer(function AlbumDetailPanel() {
           </ActionButtonsStack>
         </ContentBox>
       </HeaderStack>
+
+      {domain.batchUploadProgress !== null && (
+        <UploadProgress 
+          progress={domain.batchUploadProgress.progress} 
+          label={`Uploading photo ${domain.batchUploadProgress.current} of ${domain.batchUploadProgress.total} to storage bucket...`} 
+        />
+      )}
+
+      {domain.uploadProgress !== null && !domain.batchUploadProgress && (
+        <UploadProgress 
+          progress={domain.uploadProgress} 
+          label="Uploading cover to storage bucket..." 
+        />
+      )}
 
       <input 
         type="file" 

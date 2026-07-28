@@ -9,3 +9,4 @@ export const DrawerContent = styled(Box)(({ theme }) => ({
   flex: 1,
   overflowY: 'auto',
 }));
+

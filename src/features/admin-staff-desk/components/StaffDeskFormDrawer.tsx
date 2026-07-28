@@ -7,7 +7,10 @@ import { ImageUpload } from '../../../shared/components/ImageUpload';
 import { AdminDrawer } from '../../../shared/components/AdminDrawer/AdminDrawer';
 import { CharCountTextArea } from '../../../shared/components/CharCountTextArea/CharCountTextArea';
 import { useStaffDeskAdminStore } from '../store/StaffDeskAdminStoreContext';
-import { DrawerContent } from './StaffDeskFormDrawer.styles';
+import { 
+  DrawerContent
+} from './StaffDeskFormDrawer.styles';
+import { UploadProgress } from '../../../shared/components/UploadProgress';
 
 export const StaffDeskFormDrawer = observer(function StaffDeskFormDrawer() {
   const { ui, domain } = useStaffDeskAdminStore();
@@ -31,10 +34,12 @@ export const StaffDeskFormDrawer = observer(function StaffDeskFormDrawer() {
 
   const handleSave = async () => {
     if (!ui.editingDesk) return;
-    const formData = ui.getFormData();
+    const payload = ui.getPayload();
+    const photoFile = ui.draftPhotoFile || undefined;
+    const signatureFile = ui.draftSignatureFile || undefined;
 
     try {
-      await domain.updateStaffDesk(ui.editingDesk.type, formData);
+      await domain.updateStaffDesk(ui.editingDesk.type, payload, photoFile, signatureFile);
     } catch (error) {
       // Error handled by store
     }
@@ -64,6 +69,12 @@ export const StaffDeskFormDrawer = observer(function StaffDeskFormDrawer() {
       }
     >
       <DrawerContent>
+        {domain.uploadProgress !== null && (
+          <UploadProgress 
+            progress={domain.uploadProgress} 
+            label="Uploading image(s) to storage bucket..." 
+          />
+        )}
         {ui.formFieldsConfig.map((field) => {
           if (field.type === 'image') {
             const isPhoto = field.name === 'photo';

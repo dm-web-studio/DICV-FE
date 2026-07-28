@@ -8,7 +8,10 @@ import { ImageUpload } from '../../../shared/components/ImageUpload';
 import { AdminDrawer } from '../../../shared/components/AdminDrawer/AdminDrawer';
 import { CharCountTextArea } from '../../../shared/components/CharCountTextArea/CharCountTextArea';
 import { useFacultyAdminStore } from '../store/FacultyAdminStoreContext';
-import { DrawerContent } from './FacultyFormDrawer.styles';
+import {
+  DrawerContent
+} from './FacultyFormDrawer.styles';
+import { UploadProgress } from '../../../shared/components/UploadProgress';
 
 export const FacultyFormDrawer = observer(function FacultyFormDrawer() {
   const { ui, domain } = useFacultyAdminStore();
@@ -23,13 +26,14 @@ export const FacultyFormDrawer = observer(function FacultyFormDrawer() {
   };
 
   const handleSave = async () => {
-    const formData = ui.getFormData();
+    const payload = ui.getPayload();
+    const file = ui.draftPhotoFile || undefined;
 
     try {
       if (ui.drawerMode === 'create') {
-        await domain.createFaculty(formData);
+        await domain.createFaculty(payload, file);
       } else {
-        await domain.updateFaculty(ui.editingFaculty!._id, formData);
+        await domain.updateFaculty(ui.editingFaculty!._id, payload, file);
       }
     } catch (error) {
       // Error handled by store
@@ -58,6 +62,12 @@ export const FacultyFormDrawer = observer(function FacultyFormDrawer() {
       }
     >
       <DrawerContent>
+        {domain.uploadProgress !== null && (
+          <UploadProgress 
+            progress={domain.uploadProgress} 
+            label="Uploading photo to storage bucket..." 
+          />
+        )}
         {ui.formFieldsConfig.map((field) => {
           if (field.type === 'image') {
             return (
@@ -81,7 +91,7 @@ export const FacultyFormDrawer = observer(function FacultyFormDrawer() {
                 options={[]}
                 value={ui.draftDegrees}
                 onChange={(_event, newValue) => {
-                  const processed = newValue.flatMap(val => 
+                  const processed = newValue.flatMap(val =>
                     typeof val === 'string' ? val.split(',').map(v => v.trim()).filter(Boolean) : val
                   );
                   ui.setDraftDegrees(processed as string[]);

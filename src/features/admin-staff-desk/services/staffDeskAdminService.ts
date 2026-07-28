@@ -16,10 +16,8 @@ export const staffDeskAdminService = {
     ];
   },
   
-  async update(type: 'principal' | 'president' | 'vice-principal', formData: FormData): Promise<StaffDesk> {
-    const { data } = await apiClient.put<ApiSuccess<StaffDesk>>(`/admin/staff-desk/${type}`, formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+  async update(type: 'principal' | 'president' | 'vice-principal', payload: Record<string, any>): Promise<StaffDesk> {
+    const { data } = await apiClient.put<ApiSuccess<StaffDesk>>(`/admin/staff-desk/${type}`, payload);
     return data.data;
   },
 };

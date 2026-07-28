@@ -107,21 +107,22 @@ export class FacultyAdminUIStore {
     this.initDraft(null);
   }
 
-  getFormData(): FormData {
-    const formData = new FormData();
-    formData.append('name', this.draftName);
-    formData.append('designation', this.draftDesignation);
-    formData.append('experience', this.draftExperience);
-    formData.append('description', this.draftDescription);
+  getPayload(): Record<string, any> {
+    const payload: Record<string, any> = {
+      name: this.draftName,
+      designation: this.draftDesignation,
+      experience: this.draftExperience,
+      description: this.draftDescription,
+      degrees: this.draftDegrees,
+    };
     
-    this.draftDegrees.forEach((d) => formData.append('degrees[]', d));
-    
-    if (this.draftPhotoFile) {
-      formData.append('photo', this.draftPhotoFile);
-    } else if (!this.draftPreviewUrl && this.drawerMode === 'edit') {
-      formData.append('removePhoto', 'true');
+    if (!this.draftPhotoFile && !this.draftPreviewUrl && this.drawerMode === 'edit') {
+      payload.removePhoto = true;
+    } else if (!this.draftPhotoFile && this.drawerMode === 'edit' && this.draftPreviewUrl) {
+       payload.photoUrl = this.editingFaculty?.photoUrl;
+       payload.photoPublicId = this.editingFaculty?.photoPublicId;
     }
     
-    return formData;
+    return payload;
   }
 }

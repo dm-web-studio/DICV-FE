@@ -19,7 +19,12 @@ import { CharCountTextArea } from '../../../shared/components/CharCountTextArea'
 import { MultiImageUploader } from '../../../shared/components/MultiImageUploader';
 import { AdminDrawer } from '../../../shared/components/AdminDrawer';
 import { NOTICE_CATEGORIES, NOTICE_CATEGORY_LABELS, type NoticeCategory } from '../../../shared/api/apiTypes';
-import { DrawerHeaderIcon, SectionTitle, CheckboxLabelContainer } from './NoticeFormDrawer.styles';
+import { 
+  DrawerHeaderIcon, 
+  SectionTitle, 
+  CheckboxLabelContainer
+} from './NoticeFormDrawer.styles';
+import { UploadProgress } from '../../../shared/components/UploadProgress';
 
 export const NoticeFormDrawer = observer(function NoticeFormDrawer() {
   const { ui, domain } = useNoticeAdminStore();
@@ -44,12 +49,14 @@ export const NoticeFormDrawer = observer(function NoticeFormDrawer() {
   };
 
   const handleSave = async () => {
-    const fd = ui.getFormData();
+    const payload = ui.getPayload();
+    const file = ui.draftImages.some(img => img.publicId === 'pending') && ui.draftFile ? ui.draftFile : undefined;
+    
     try {
       if (isEditing && ui.selectedId) {
-        await domain.updateNotice(ui.selectedId, fd);
+        await domain.updateNotice(ui.selectedId, payload, file);
       } else {
-        await domain.createNotice(fd);
+        await domain.createNotice(payload, file);
       }
     } catch (err) {
       // Error handled in store
@@ -75,7 +82,13 @@ export const NoticeFormDrawer = observer(function NoticeFormDrawer() {
         </>
       }
     >
-        <Stack spacing={4}>
+        {domain.uploadProgress !== null && (
+          <UploadProgress 
+            progress={domain.uploadProgress} 
+            label="Uploading image to storage bucket..." 
+          />
+        )}
+        <Stack spacing={4} sx={{ mt: domain.uploadProgress !== null ? 0 : undefined }}>
           <Box>
             <SectionTitle variant="caption">Basic Details</SectionTitle>
             <Stack spacing={3}>

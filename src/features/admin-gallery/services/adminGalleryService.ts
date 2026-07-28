@@ -7,17 +7,13 @@ export const adminGalleryService = {
     return data;
   },
 
-  async createAlbum(formData: FormData): Promise<{ data: GalleryAlbum }> {
-    const { data } = await apiClient.post<{ data: GalleryAlbum }>('/admin/gallery/albums', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+  async createAlbum(payload: { name: string; slug: string; description?: string; coverImageUrl?: string; coverImagePublicId?: string }): Promise<{ data: GalleryAlbum }> {
+    const { data } = await apiClient.post<{ data: GalleryAlbum }>('/admin/gallery/albums', payload);
     return data;
   },
 
-  async updateAlbum(id: string, formData: FormData): Promise<{ data: GalleryAlbum }> {
-    const { data } = await apiClient.put<{ data: GalleryAlbum }>(`/admin/gallery/albums/${id}`, formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+  async updateAlbum(id: string, payload: { name?: string; description?: string; removeCoverImage?: string; coverImageUrl?: string; coverImagePublicId?: string }): Promise<{ data: GalleryAlbum }> {
+    const { data } = await apiClient.put<{ data: GalleryAlbum }>(`/admin/gallery/albums/${id}`, payload);
     return data;
   },
 
@@ -30,10 +26,8 @@ export const adminGalleryService = {
     return data;
   },
 
-  async uploadPhoto(formData: FormData): Promise<{ data: GalleryImage }> {
-    const { data } = await apiClient.post<{ data: GalleryImage }>('/admin/gallery', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+  async uploadPhoto(payload: { album: string; caption?: string; order?: number; imageUrl: string; cloudinaryPublicId: string }): Promise<{ data: GalleryImage }> {
+    const { data } = await apiClient.post<{ data: GalleryImage }>('/admin/gallery', payload);
     return data;
   },
 

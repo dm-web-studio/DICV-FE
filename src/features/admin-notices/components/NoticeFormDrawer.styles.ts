@@ -22,3 +22,4 @@ export const CheckboxLabelContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   gap: theme.spacing(1),
 }));
+

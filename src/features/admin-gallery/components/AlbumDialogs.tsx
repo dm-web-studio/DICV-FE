@@ -8,8 +8,9 @@ import {
   StyledDialogTitle, 
   StyledDialogContent, 
   DialogFormStack, 
-  StyledDialogActions 
+  StyledDialogActions
 } from './AlbumDialogs.styles';
+import { UploadProgress } from '../../../shared/components/UploadProgress';
 
 export const AlbumDialogs = observer(function AlbumDialogs() {
   const { ui, domain } = useAdminGalleryStore();
@@ -17,21 +18,10 @@ export const AlbumDialogs = observer(function AlbumDialogs() {
   // --- Add Album Logic ---
   const handleAddSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('name', ui.draftAlbumName);
-    
-    // Auto-generate slug from name if creating
-    const slug = ui.draftAlbumName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-    formData.append('slug', slug);
-    
-    if (ui.draftAlbumDescription) {
-      formData.append('description', ui.draftAlbumDescription);
-    }
-    if (ui.draftAlbumCoverFile) {
-      formData.append('image', ui.draftAlbumCoverFile);
-    }
+    const payload = ui.getCreateAlbumPayload();
+    const file = ui.draftAlbumCoverFile || undefined;
 
-    const success = await domain.createAlbum(formData);
+    const success = await domain.createAlbum(payload, file);
     if (success) {
       ui.closeAddAlbumDialog();
     }
@@ -42,17 +32,10 @@ export const AlbumDialogs = observer(function AlbumDialogs() {
     e.preventDefault();
     if (!domain.selectedAlbum) return;
 
-    const formData = new FormData();
-    formData.append('name', ui.draftAlbumName);
-    formData.append('description', ui.draftAlbumDescription);
-    
-    if (ui.draftAlbumCoverFile) {
-      formData.append('image', ui.draftAlbumCoverFile);
-    } else if (domain.selectedAlbum.coverImageUrl && !ui.draftAlbumCoverPreview) {
-      formData.append('removeCoverImage', 'true');
-    }
+    const payload = ui.getEditAlbumPayload(domain.selectedAlbum);
+    const file = ui.draftAlbumCoverFile || undefined;
 
-    const success = await domain.updateAlbum(domain.selectedAlbum._id, formData);
+    const success = await domain.updateAlbum(domain.selectedAlbum._id, payload, file);
     if (success) {
       ui.closeEditAlbumDialog();
     }
@@ -112,6 +95,12 @@ export const AlbumDialogs = observer(function AlbumDialogs() {
         <Divider />
         
         <StyledDialogContent>
+            {domain.uploadProgress !== null && (
+              <UploadProgress 
+                progress={domain.uploadProgress} 
+                label="Uploading cover to storage bucket..." 
+              />
+            )}
           <DialogFormStack>
             {dialogConfig.fields.map(field => {
               if (field.type === 'text') {

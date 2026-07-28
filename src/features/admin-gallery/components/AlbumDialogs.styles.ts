@@ -20,3 +20,4 @@ export const StyledDialogActions = styled(DialogActions)(({ theme }) => ({
   padding: theme.spacing(2),
   backgroundColor: theme.badgeColors.blue.bg,
 }));
+

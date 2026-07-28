@@ -4,6 +4,9 @@ import { noticeAdminService } from '../services/noticeAdminService';
 import { toastStore } from '../../../shared/stores/ToastStore';
 import type { NoticeAdminUIStore } from './NoticeAdminUIStore';
 import type { Notice } from '../../../shared/api/apiTypes';
+import { cloudinaryUploadService } from '../../../shared/services/cloudinaryUploadService';
+
+const UPLOAD_FOLDER = 'dicv/notices';
 
 export class NoticeAdminDomainStore {
   @observable accessor notices: Notice[] = [];
@@ -11,6 +14,7 @@ export class NoticeAdminDomainStore {
   @observable accessor pinnedCount: number = 0;
   @observable accessor isLoading: boolean = false;
   @observable accessor isSaving: boolean = false;
+  @observable accessor uploadProgress: number | null = null;
   @observable accessor error: string | null = null;
 
   uiStore: NoticeAdminUIStore;
@@ -58,12 +62,22 @@ export class NoticeAdminDomainStore {
   }
 
   @action
-  async createNotice(formData: FormData): Promise<void> {
+  async createNotice(payload: Record<string, any>, file?: File): Promise<void> {
     this.isSaving = true;
+    this.uploadProgress = file ? 0 : null;
     try {
-      await noticeAdminService.create(formData);
+      if (file) {
+        const { secure_url, public_id } = await cloudinaryUploadService.uploadFile(
+          file,
+          UPLOAD_FOLDER,
+          (progress) => runInAction(() => { this.uploadProgress = progress; })
+        );
+        payload.imageUrl = secure_url;
+        payload.imagePublicId = public_id;
+      }
+      await noticeAdminService.create(payload);
       runInAction(() => {
-        const isPopup = formData.get('showAsPopup') === 'true';
+        const isPopup = payload.showAsPopup === true;
         toastStore.show(isPopup ? 'Notice created and set as active popup' : 'Notice created successfully', 'success');
         this.uiStore.closeDrawer();
       });
@@ -79,17 +93,28 @@ export class NoticeAdminDomainStore {
     } finally {
       runInAction(() => {
         this.isSaving = false;
+        this.uploadProgress = null;
       });
     }
   }
 
   @action
-  async updateNotice(id: string, formData: FormData): Promise<void> {
+  async updateNotice(id: string, payload: Record<string, any>, file?: File): Promise<void> {
     this.isSaving = true;
+    this.uploadProgress = file ? 0 : null;
     try {
-      await noticeAdminService.update(id, formData);
+      if (file) {
+        const { secure_url, public_id } = await cloudinaryUploadService.uploadFile(
+          file,
+          UPLOAD_FOLDER,
+          (progress) => runInAction(() => { this.uploadProgress = progress; })
+        );
+        payload.imageUrl = secure_url;
+        payload.imagePublicId = public_id;
+      }
+      await noticeAdminService.update(id, payload);
       runInAction(() => {
-        const isPopup = formData.get('showAsPopup') === 'true';
+        const isPopup = payload.showAsPopup === true;
         toastStore.show(isPopup ? 'Notice updated and set as active popup' : 'Notice updated successfully', 'success');
         this.uiStore.closeDrawer();
       });
@@ -105,6 +130,7 @@ export class NoticeAdminDomainStore {
     } finally {
       runInAction(() => {
         this.isSaving = false;
+        this.uploadProgress = null;
       });
     }
   }

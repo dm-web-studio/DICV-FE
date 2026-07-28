@@ -86,4 +86,29 @@ export class AdminGalleryUIStore {
       this.previewPhotoIndex = (this.previewPhotoIndex - 1 + totalPhotos) % totalPhotos;
     }
   }
+
+  getCreateAlbumPayload(): Record<string, any> {
+    const payload: Record<string, any> = {
+      name: this.draftAlbumName,
+      slug: this.draftAlbumName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+    };
+    if (this.draftAlbumDescription) {
+      payload.description = this.draftAlbumDescription;
+    }
+    return payload;
+  }
+
+  getEditAlbumPayload(originalAlbum: GalleryAlbum): Record<string, any> {
+    const payload: Record<string, any> = {
+      name: this.draftAlbumName,
+      description: this.draftAlbumDescription,
+    };
+    if (!this.draftAlbumCoverFile && !this.draftAlbumCoverPreview) {
+      payload.removeCoverImage = true;
+    } else if (!this.draftAlbumCoverFile && this.draftAlbumCoverPreview) {
+      payload.coverImageUrl = originalAlbum.coverImageUrl;
+      payload.coverImagePublicId = originalAlbum.coverImagePublicId;
+    }
+    return payload;
+  }
 }

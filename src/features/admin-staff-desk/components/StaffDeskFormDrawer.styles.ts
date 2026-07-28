@@ -1,7 +1,6 @@
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
-
 export const DrawerContent = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -9,3 +8,4 @@ export const DrawerContent = styled(Box)(({ theme }) => ({
   padding: theme.spacing(3),
   overflowY: 'auto',
 }));
+

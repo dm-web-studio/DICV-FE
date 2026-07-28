@@ -127,21 +127,24 @@ export class NoticeAdminUIStore {
     this.draftFile = file;
   }
 
-  getFormData(): FormData {
-    const fd = new FormData();
-    fd.append('title', this.draftTitle);
-    fd.append('slug', this.draftSlug);
-    fd.append('category', this.draftCategory);
-    fd.append('excerpt', this.draftExcerpt);
-    fd.append('body', this.draftBody);
-    fd.append('isPinned', String(this.draftIsPinned));
-    fd.append('showAsPopup', String(this.draftShowAsPopup));
+  getPayload(): Record<string, any> {
+    const payload: Record<string, any> = {
+      title: this.draftTitle,
+      slug: this.draftSlug,
+      category: this.draftCategory,
+      excerpt: this.draftExcerpt,
+      body: this.draftBody,
+      isPinned: this.draftIsPinned,
+      showAsPopup: this.draftShowAsPopup,
+    };
 
     if (this.draftImages.length === 0) {
-      fd.append('removeImage', 'true');
-    } else if (this.draftImages.some(img => img.publicId === 'pending') && this.draftFile) {
-      fd.append('image', this.draftFile);
+      payload.removeImage = true;
+    } else if (this.draftImages[0]?.publicId !== 'pending') {
+      // Keep existing image if not removed and not pending
+      payload.imageUrl = this.draftImages[0]?.url;
+      payload.imagePublicId = this.draftImages[0]?.publicId;
     }
-    return fd;
+    return payload;
   }
 }

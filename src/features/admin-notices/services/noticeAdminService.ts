@@ -17,16 +17,12 @@ export const noticeAdminService = {
     const { data } = await apiClient.get<ApiSuccess<Notice[]>>('/admin/notices', { params });
     return data;
   },
-  async create(formData: FormData): Promise<Notice> {
-    const { data } = await apiClient.post<ApiSuccess<Notice>>('/admin/notices', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+  async create(payload: Record<string, any>): Promise<Notice> {
+    const { data } = await apiClient.post<ApiSuccess<Notice>>('/admin/notices', payload);
     return data.data;
   },
-  async update(id: string, formData: FormData): Promise<Notice> {
-    const { data } = await apiClient.put<ApiSuccess<Notice>>(`/admin/notices/${id}`, formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+  async update(id: string, payload: Record<string, any>): Promise<Notice> {
+    const { data } = await apiClient.put<ApiSuccess<Notice>>(`/admin/notices/${id}`, payload);
     return data.data;
   },
   async remove(id: string): Promise<void> {

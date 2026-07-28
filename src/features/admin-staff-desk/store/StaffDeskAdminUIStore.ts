@@ -142,23 +142,26 @@ export class StaffDeskAdminUIStore {
     this.initDraft(null);
   }
 
-  getFormData(): FormData {
-    const formData = new FormData();
-    formData.append('name', this.draftName);
-    formData.append('message', this.draftMessage);
+  getPayload(): Record<string, any> {
+    const payload: Record<string, any> = {
+      name: this.draftName,
+      message: this.draftMessage,
+    };
     
     if (this.editingDesk?.type === 'principal' && this.draftHomeMessage) {
-      formData.append('homeMessage', this.draftHomeMessage);
+      payload.homeMessage = this.draftHomeMessage;
     }
     
-    if (this.draftPhotoFile) {
-      formData.append('photo', this.draftPhotoFile);
+    if (!this.draftPhotoFile && this.draftPreviewUrl) {
+      payload.photoUrl = this.editingDesk?.photoUrl;
+      payload.photoPublicId = this.editingDesk?.photoPublicId;
     }
     
-    if (this.draftSignatureFile) {
-      formData.append('signature', this.draftSignatureFile);
+    if (!this.draftSignatureFile && this.draftSignaturePreviewUrl) {
+      payload.signatureUrl = this.editingDesk?.signatureUrl;
+      payload.signaturePublicId = this.editingDesk?.signaturePublicId;
     }
     
-    return formData;
+    return payload;
   }
 }

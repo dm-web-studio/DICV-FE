@@ -33,9 +33,9 @@ export class FacultyDomainStore {
   async fetchLeadership(): Promise<void> {
     this.isLoadingLeadership = true;
     try {
-      const data = await facultyService.getAll({ 
-        limit: 3, 
-        designation: 'President,Principal,Vice Principal,Vice-Principal' 
+      const data = await facultyService.getAll({
+        limit: 3,
+        designation: 'Principal,Vice Principal,Vice-Principal,Teacher'
       });
       runInAction(() => {
         this.leadershipList = data;

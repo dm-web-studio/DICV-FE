@@ -3,6 +3,10 @@ import { adminGalleryService } from '../services/adminGalleryService';
 import type { GalleryAlbum, GalleryImage } from '../types';
 import type { AdminGalleryUIStore } from './AdminGalleryUIStore';
 import { toastStore } from '../../../shared/stores/ToastStore';
+import { cloudinaryUploadService } from '../../../shared/services/cloudinaryUploadService';
+
+const COVERS_UPLOAD_FOLDER = 'dicv/gallery-covers';
+const PHOTOS_UPLOAD_FOLDER = 'dicv/gallery';
 
 export class AdminGalleryDomainStore {
   @observable accessor albums: GalleryAlbum[] = [];
@@ -10,6 +14,8 @@ export class AdminGalleryDomainStore {
   @observable accessor isAlbumsLoading = false;
   @observable accessor isPhotosLoading = false;
   @observable accessor isSaving = false;
+  @observable accessor uploadProgress: number | null = null;
+  @observable accessor batchUploadProgress: { current: number, total: number, progress: number } | null = null;
   @observable accessor error: string | null = null;
 
   private uiStore: AdminGalleryUIStore;
@@ -68,10 +74,20 @@ export class AdminGalleryDomainStore {
   }
 
   @action
-  async createAlbum(formData: FormData): Promise<boolean> {
+  async createAlbum(payload: Record<string, any>, file?: File): Promise<boolean> {
     this.isSaving = true;
+    this.uploadProgress = file ? 0 : null;
     try {
-      await adminGalleryService.createAlbum(formData);
+      if (file) {
+        const { secure_url, public_id } = await cloudinaryUploadService.uploadFile(
+          file,
+          COVERS_UPLOAD_FOLDER,
+          (progress) => runInAction(() => { this.uploadProgress = progress; })
+        );
+        payload.coverImageUrl = secure_url;
+        payload.coverImagePublicId = public_id;
+      }
+      await adminGalleryService.createAlbum(payload as any);
       await this.fetchAlbums();
       toastStore.show('Album created successfully', 'success');
       return true;
@@ -79,15 +95,28 @@ export class AdminGalleryDomainStore {
       toastStore.show(err instanceof Error ? err.message : 'Failed to create album', 'error');
       return false;
     } finally {
-      runInAction(() => { this.isSaving = false; });
+      runInAction(() => { 
+        this.isSaving = false; 
+        this.uploadProgress = null;
+      });
     }
   }
 
   @action
-  async updateAlbum(id: string, formData: FormData): Promise<boolean> {
+  async updateAlbum(id: string, payload: Record<string, any>, file?: File): Promise<boolean> {
     this.isSaving = true;
+    this.uploadProgress = file ? 0 : null;
     try {
-      await adminGalleryService.updateAlbum(id, formData);
+      if (file) {
+        const { secure_url, public_id } = await cloudinaryUploadService.uploadFile(
+          file,
+          COVERS_UPLOAD_FOLDER,
+          (progress) => runInAction(() => { this.uploadProgress = progress; })
+        );
+        payload.coverImageUrl = secure_url;
+        payload.coverImagePublicId = public_id;
+      }
+      await adminGalleryService.updateAlbum(id, payload);
       await this.fetchAlbums();
       toastStore.show('Album updated successfully', 'success');
       return true;
@@ -95,7 +124,10 @@ export class AdminGalleryDomainStore {
       toastStore.show(err instanceof Error ? err.message : 'Failed to update album', 'error');
       return false;
     } finally {
-      runInAction(() => { this.isSaving = false; });
+      runInAction(() => { 
+        this.isSaving = false; 
+        this.uploadProgress = null;
+      });
     }
   }
 
@@ -121,24 +153,51 @@ export class AdminGalleryDomainStore {
   }
 
   @action
-  async uploadPhotos(albumId: string, files: File[]): Promise<void> {
+  async uploadPhotos(albumId: string, files: File[], onProgress?: (fileIndex: number, progress: number) => void): Promise<void> {
     this.isSaving = true;
+    this.batchUploadProgress = { current: 0, total: files.length, progress: 0 };
     let successCount = 0;
     let failCount = 0;
 
-    for (const file of files) {
-      const formData = new FormData();
-      formData.append('album', albumId);
-      formData.append('image', file);
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      if (!file) continue;
+      
+      runInAction(() => {
+        if (this.batchUploadProgress) {
+          this.batchUploadProgress.current = i + 1;
+          this.batchUploadProgress.progress = 0;
+        }
+      });
       try {
-        await adminGalleryService.uploadPhoto(formData);
+        const { secure_url, public_id } = await cloudinaryUploadService.uploadFile(
+          file, 
+          PHOTOS_UPLOAD_FOLDER,
+          (progress) => {
+            runInAction(() => {
+              if (this.batchUploadProgress) {
+                this.batchUploadProgress.progress = progress;
+              }
+            });
+            onProgress?.(i, progress);
+          }
+        );
+        
+        await adminGalleryService.uploadPhoto({
+          album: albumId,
+          imageUrl: secure_url,
+          cloudinaryPublicId: public_id,
+        });
         successCount++;
       } catch (err) {
         failCount++;
       }
     }
     
-    runInAction(() => { this.isSaving = false; });
+    runInAction(() => { 
+      this.isSaving = false;
+      this.batchUploadProgress = null;
+    });
 
     if (failCount === 0) {
       toastStore.show(`Successfully uploaded ${successCount} photos`, 'success');
