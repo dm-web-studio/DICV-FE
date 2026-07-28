@@ -1,0 +1,94 @@
+import { observer } from 'mobx-react-lite';
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
+
+import MenuItem from '@mui/material/MenuItem';
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchIcon from '@mui/icons-material/Search';
+import { NOTICE_CATEGORIES, NOTICE_CATEGORY_LABELS, type Notice } from '../../../shared/api/apiTypes';
+import { useNoticeAdminStore } from '../store/NoticeAdminStoreContext';
+import { FilterBar, TableWrapper, StyledDataTable, PageContainer, SearchField, FilterSelect, TableCard, FilterFormControl, Spacer } from './NoticeAdminTable.styles';
+import { useNoticeAdminColumns } from './NoticeAdminTableColumns';
+
+export const NoticeAdminTable = observer(function NoticeAdminTable() {
+  const { ui, domain } = useNoticeAdminStore();
+  const columns = useNoticeAdminColumns();
+
+  return (
+    <PageContainer>
+      <TableWrapper>
+        <FilterBar>
+          <SearchField
+            placeholder="Search titles..."
+            value={ui.search}
+            margin="dense"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => ui.setSearch(e.target.value)}
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon fontSize="small" />
+                  </InputAdornment>
+                ),
+              }
+            }}
+          />
+          <FilterFormControl size="small">
+            <FilterSelect
+              displayEmpty
+              value={ui.category || ''}
+              onChange={(e: any) => ui.setCategory(e.target.value ? e.target.value as string : null)}
+            >
+              <MenuItem value="">All Categories</MenuItem>
+              {NOTICE_CATEGORIES.map((cat) => (
+                <MenuItem key={cat} value={cat}>{NOTICE_CATEGORY_LABELS[cat]}</MenuItem>
+              ))}
+            </FilterSelect>
+          </FilterFormControl>
+          <FilterFormControl size="small">
+            <FilterSelect
+              value={ui.sort}
+              onChange={(e: any) => ui.setSort(e.target.value as string)}
+            >
+              <MenuItem value="newest">Newest First</MenuItem>
+              <MenuItem value="oldest">Oldest First</MenuItem>
+            </FilterSelect>
+          </FilterFormControl>
+          <Spacer />
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={() => ui.openDrawer('create')}
+          >
+            Add Notice
+          </Button>
+        </FilterBar>
+
+        <TableCard>
+          <StyledDataTable
+            rows={domain.notices}
+            columns={columns}
+            getRowId={(row: Notice) => row._id!}
+            loading={domain.isLoading}
+            rowCount={domain.total}
+            paginationMode="server"
+            paginationModel={{ page: ui.page - 1, pageSize: ui.pageSize }}
+            pageSizeOptions={[20, 50, 100]}
+            density="standard"
+            disableColumnMenu
+            showCellVerticalBorder={false}
+            showColumnVerticalBorder={false}
+            getRowClassName={(params) => params.indexRelativeToCurrentPage % 2 === 0 ? 'even-row' : 'odd-row'}
+            onPaginationModelChange={(model: { page: number; pageSize: number }) => {
+              if (ui.pageSize !== model.pageSize) {
+                ui.setPageSize(model.pageSize);
+              } else if (ui.page !== model.page + 1) {
+                ui.setPage(model.page + 1);
+              }
+            }}
+          />
+        </TableCard>
+      </TableWrapper>
+    </PageContainer>
+  );
+});
