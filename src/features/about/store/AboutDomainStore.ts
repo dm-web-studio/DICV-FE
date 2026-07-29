@@ -16,7 +16,7 @@ export class AboutDomainStore {
     { value: '6+', label: 'Sports disciplines' }
   ];
 
-  @observable accessor affiliations: string[] = ['WBPSC', 'NIOS', 'English & Bengali medium'];
+  @observable accessor affiliations: string[] = ['WBBSE', 'WBCHSE', 'NIOS', 'English & Bengali medium'];
 
   @observable accessor mission: string = "To deliver quality academic and practical learning, continuously develop our faculty, and equip every student to become able, responsible individuals ready for the road ahead.";
 

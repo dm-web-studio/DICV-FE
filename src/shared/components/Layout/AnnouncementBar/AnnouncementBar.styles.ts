@@ -22,16 +22,7 @@ export const BarContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const SingleNoticeWrapper = styled(Box)({
-  flexGrow: 1,
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  textAlign: 'center',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-});
+
 
 // We need an outer wrapper with overflow hidden for the marquee
 export const MarqueeWrapper = styled(Box)({
