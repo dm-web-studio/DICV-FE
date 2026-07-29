@@ -4,10 +4,12 @@ import Pagination from '@mui/material/Pagination';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useNoticeStore } from '../store/NoticeStoreContext';
 import { NoticeCard } from './NoticeCard';
-import { 
-  ContainerCard, 
-  ListContainer, 
-  HeaderRow, 
+import { EmptyState } from '../../../shared/components/EmptyState';
+import CampaignOutlinedIcon from '@mui/icons-material/CampaignOutlined';
+import {
+  ContainerCard,
+  ListContainer,
+  HeaderRow,
   PaginationWrapper,
   ListTitleIcon,
   ListTitle,
@@ -48,9 +50,12 @@ export const NoticeList = observer(function NoticeList() {
           {domain.error}
         </MessageText>
       ) : domain.notices.length === 0 ? (
-        <MessageText color="text.secondary">
-          No notices found matching your criteria.
-        </MessageText>
+        <EmptyState
+          icon={<CampaignOutlinedIcon />}
+          title="No Notices Found"
+          description="We couldn't find any notices matching your current filter. Please select a different category or check back later."
+          className="notice-list-empty-state"
+        />
       ) : (
         <ListContainer>
           {domain.notices.map((notice, index) => (

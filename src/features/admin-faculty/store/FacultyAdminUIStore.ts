@@ -25,6 +25,7 @@ export class FacultyAdminUIStore {
   @observable accessor draftExperience = '';
   @observable accessor draftDescription = '';
   @observable accessor draftDegrees: string[] = [];
+  @observable accessor draftDegreesInput = '';
   @observable accessor draftPhotoFile: File | null = null;
   @observable accessor draftPreviewUrl: string | null = null;
 
@@ -35,16 +36,18 @@ export class FacultyAdminUIStore {
       { name: 'draftName', label: 'Name', type: 'text', required: true },
       { name: 'draftDesignation', label: 'Designation', type: 'text', required: true },
       { name: 'draftExperience', label: 'Experience', type: 'text', required: true, placeholder: 'e.g. 5 Years' },
-      { name: 'draftDegrees', label: 'Degrees', type: 'autocomplete' },
+      { name: 'draftDegrees', label: 'Degrees', type: 'autocomplete', required: true },
       { name: 'draftDescription', label: 'Description (Optional)', type: 'textarea', maxChars: 1000, minRows: 4 },
     ];
   }
 
   @computed
   get isFormValid(): boolean {
+    const hasDegrees = this.draftDegrees.length > 0 || this.draftDegreesInput.trim() !== '';
     return this.draftName.trim() !== '' && 
            this.draftExperience.trim() !== '' && 
-           this.draftDesignation.trim() !== '';
+           this.draftDesignation.trim() !== '' &&
+           hasDegrees;
   }
 
   @action
@@ -60,6 +63,11 @@ export class FacultyAdminUIStore {
   @action
   setDraftDegrees(degrees: string[]): void {
     this.draftDegrees = degrees;
+  }
+
+  @action
+  setDraftDegreesInput(value: string): void {
+    this.draftDegreesInput = value;
   }
 
   @action
@@ -79,6 +87,7 @@ export class FacultyAdminUIStore {
         typeof d === 'string' ? d.split(',').map(v => v.trim()).filter(Boolean) : d
       );
       this.draftDegrees = parsedDegrees as string[];
+      this.draftDegreesInput = '';
       this.draftPreviewUrl = faculty.photoUrl || null;
       this.draftPhotoFile = null;
     } else {
@@ -87,6 +96,7 @@ export class FacultyAdminUIStore {
       this.draftExperience = '';
       this.draftDescription = '';
       this.draftDegrees = [];
+      this.draftDegreesInput = '';
       this.draftPhotoFile = null;
       this.draftPreviewUrl = null;
     }
@@ -108,12 +118,17 @@ export class FacultyAdminUIStore {
   }
 
   getPayload(): Record<string, any> {
+    const finalDegrees = [...this.draftDegrees];
+    if (this.draftDegreesInput.trim() !== '') {
+      finalDegrees.push(this.draftDegreesInput.trim());
+    }
+
     const payload: Record<string, any> = {
       name: this.draftName,
       designation: this.draftDesignation,
       experience: this.draftExperience,
       description: this.draftDescription,
-      degrees: this.draftDegrees,
+      degrees: finalDegrees,
     };
     
     if (!this.draftPhotoFile && !this.draftPreviewUrl && this.drawerMode === 'edit') {

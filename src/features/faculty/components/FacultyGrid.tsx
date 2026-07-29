@@ -1,8 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import Alert from '@mui/material/Alert';
 import Skeleton from '@mui/material/Skeleton';
+import PersonOffOutlinedIcon from '@mui/icons-material/PersonOffOutlined';
 import { useFacultyStore } from '../store/FacultyStoreContext';
 import { FacultyCard } from './FacultyCard';
+import { EmptyState } from '../../../shared/components/EmptyState';
 import { GridContainer, FlexContainer, FlexItem } from './FacultyGrid.styles';
 
 export const FacultyGrid = observer(function FacultyGrid() {
@@ -33,7 +35,11 @@ export const FacultyGrid = observer(function FacultyGrid() {
   if (domain.facultyList.length === 0) {
     return (
       <GridContainer>
-        <Alert severity="info">No faculty members found.</Alert>
+        <EmptyState
+          icon={<PersonOffOutlinedIcon />}
+          title="No Faculty Members Found"
+          description="Faculty profiles will be updated shortly"
+        />
       </GridContainer>
     );
   }

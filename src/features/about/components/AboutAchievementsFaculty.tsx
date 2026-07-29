@@ -3,7 +3,9 @@ import { observer } from 'mobx-react-lite';
 import { useAboutStore } from '../store/AboutStoreContext';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
+import PersonOffOutlinedIcon from '@mui/icons-material/PersonOffOutlined';
 import { ACHIEVEMENT_ICONS } from '../constants';
+import { EmptyState } from '../../../shared/components/EmptyState';
 import {
   SectionWrapper,
   SectionHead,
@@ -65,19 +67,29 @@ export const AboutAchievementsFaculty = observer(() => {
               <PeopleOutlinedIcon />
             </CardHeaderIcon>
           </CardTop>
-          {domain.topLeadership.map((member) => (
-            <Row key={member.name}>
-              <Dot className="row-dot">{member.initials}</Dot>
-              <Box>
-                <RowTitle variant="body1">
-                  {member.name}
-                </RowTitle>
-                <RowDesc variant="body2">
-                  {member.title}
-                </RowDesc>
-              </Box>
-            </Row>
-          ))}
+          
+          {domain.topLeadership.length > 0 ? (
+            domain.topLeadership.map((member) => (
+              <Row key={member.name}>
+                <Dot className="row-dot">{member.initials}</Dot>
+                <Box>
+                  <RowTitle variant="body1">
+                    {member.name}
+                  </RowTitle>
+                  <RowDesc variant="body2">
+                    {member.title}
+                  </RowDesc>
+                </Box>
+              </Row>
+            ))
+          ) : (
+            <EmptyState 
+              icon={<PersonOffOutlinedIcon />} 
+              title="Faculty profiles will be updated shortly" 
+              className="about-empty-state" 
+            />
+          )}
+
           <ActionLink to="/faculty">View full faculty →</ActionLink>
         </Card>
       </GridContainer>

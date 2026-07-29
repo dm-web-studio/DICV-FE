@@ -153,7 +153,8 @@ export const ActionLink = styled(Link)(({ theme }) => ({
   fontSize: '12.8px',
   fontWeight: 700,
   color: theme.palette.primary.dark,
-  marginTop: theme.spacing(3.5),
+  marginTop: 'auto',
+  paddingTop: theme.spacing(3.5),
   textDecoration: 'none',
   cursor: 'pointer',
   '&:hover': {

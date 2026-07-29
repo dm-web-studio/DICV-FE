@@ -61,7 +61,7 @@ export const admissionProcedureConfig: AdmissionProcedure = {
     },
     {
       question: 'What is the mode of fee payment?',
-      answer: "Fees can be paid online through the admission portal, or offline at the school's accounts office via cash, cheque, or card.",
+      answer: "Fees can be paid offline at the school's accounts office via cash, cheque, UPI or card.",
     },
   ],
 };
