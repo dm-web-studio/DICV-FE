@@ -176,5 +176,5 @@ export const BodyText = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'preserveBreaks',
 })<{ preserveBreaks?: boolean }>(({ preserveBreaks }) => ({
   fontSize: 14,
-  whiteSpace: preserveBreaks ? 'pre-line' : 'normal',
+  whiteSpace: preserveBreaks ? 'pre-wrap' : 'normal',
 }));

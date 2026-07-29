@@ -9,7 +9,6 @@ import { announcementBarStore } from '../../../stores/AnnouncementBarStore';
 import type { Notice } from '../../../../features/notices/types';
 import {
   BarContainer,
-  SingleNoticeWrapper,
   MarqueeWrapper,
   MarqueeTrack,
   NoticeLink,
@@ -32,8 +31,6 @@ export const AnnouncementBar = observer(function AnnouncementBar() {
     announcementBarStore.dismiss();
   };
 
-  const hasMultiple = pinnedNotices.length > 1;
-
   // Render a list of notices with a hidden pseudo-duplicate list at the end for the marquee effect.
   // We duplicate it 4 times so even on ultrawide screens with short text, the track doesn't empty out
   // before the animation loops (transform: translateX(-50%) shifts exactly half the total width).
@@ -46,31 +43,20 @@ export const AnnouncementBar = observer(function AnnouncementBar() {
     ));
   };
 
-  const firstNotice = pinnedNotices[0];
-
   return (
     <BarContainer role="region" aria-label="School announcements">
-      {!hasMultiple && firstNotice ? (
-        <SingleNoticeWrapper>
-          <NoticeLink to={`/notices?highlight=${firstNotice.slug}`}>
-            <CampaignIcon color="secondary" fontSize="inherit" sx={{ mr: 0.5, opacity: 0.8 }} />
-            {firstNotice.title}
-          </NoticeLink>
-        </SingleNoticeWrapper>
-      ) : (
-        <MarqueeWrapper>
-          <MarqueeTrack>
-            <Box sx={{ display: 'flex', flexShrink: 0 }}>
-              {renderNotices()}
-              {renderNotices()}
-            </Box>
-            <Box aria-hidden="true" sx={{ display: 'flex', flexShrink: 0 }}>
-              {renderNotices()}
-              {renderNotices()}
-            </Box>
-          </MarqueeTrack>
-        </MarqueeWrapper>
-      )}
+      <MarqueeWrapper>
+        <MarqueeTrack>
+          <Box sx={{ display: 'flex', flexShrink: 0 }}>
+            {renderNotices()}
+            {renderNotices()}
+          </Box>
+          <Box aria-hidden="true" sx={{ display: 'flex', flexShrink: 0 }}>
+            {renderNotices()}
+            {renderNotices()}
+          </Box>
+        </MarqueeTrack>
+      </MarqueeWrapper>
 
       <CloseButtonContainer>
         <IconButton 

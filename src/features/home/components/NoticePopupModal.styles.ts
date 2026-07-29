@@ -17,6 +17,11 @@ export const StyledDialog = styled(Dialog)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
     maxHeight: 'calc(100% - 64px)',
+    [theme.breakpoints.down('sm')]: {
+      margin: theme.spacing(2),
+      width: `calc(100% - ${theme.spacing(4)})`,
+      borderRadius: theme.spacing(3),
+    }
   },
 }));
 
@@ -26,6 +31,9 @@ export const ModalHeader = styled(Box)(({ theme }) => ({
   padding: theme.spacing(4, 5),
   borderBottom: `1px solid ${theme.palette.divider}`,
   position: 'relative',
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(2.5, 3),
+  },
 }));
 
 export const BellIconWrapper = styled(Box)(({ theme }) => ({
@@ -39,6 +47,14 @@ export const BellIconWrapper = styled(Box)(({ theme }) => ({
   color: theme.palette.primary.contrastText,
   marginRight: theme.spacing(3),
   position: 'relative',
+  [theme.breakpoints.down('sm')]: {
+    width: 40,
+    height: 40,
+    marginRight: theme.spacing(2),
+    '& svg': {
+      fontSize: 20,
+    }
+  },
   '&::after': {
     content: '""',
     position: 'absolute',
@@ -79,6 +95,9 @@ export const CategoryBadge = styled(Box)(({ theme }) => ({
   fontSize: 12,
   textTransform: 'uppercase',
   marginRight: theme.spacing(10), // space for absolute close button
+  [theme.breakpoints.down('sm')]: {
+    display: 'none',
+  },
 }));
 
 export const CloseButton = styled(IconButton)({
@@ -93,6 +112,10 @@ export const NoticeHeader = styled(Box)(({ theme }) => ({
   justifyContent: 'space-between',
   alignItems: 'flex-start',
   gap: theme.spacing(2),
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    gap: theme.spacing(1),
+  },
 }));
 
 export const ModalContent = styled(Box)(({ theme }) => ({
@@ -102,6 +125,10 @@ export const ModalContent = styled(Box)(({ theme }) => ({
   gap: theme.spacing(3),
   overflowY: 'auto',
   flex: 1,
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(3),
+    gap: theme.spacing(2.5),
+  },
 }));
 
 export const NoticeTitle = styled(Typography)(({ theme }) => ({
@@ -156,6 +183,7 @@ export const BodyContent = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.primary,
   fontSize: 14,
   lineHeight: 1.6,
+  whiteSpace: 'pre-wrap',
 }));
 
 export const ModalFooter = styled(Box)(({ theme }) => ({
@@ -165,6 +193,12 @@ export const ModalFooter = styled(Box)(({ theme }) => ({
   padding: theme.spacing(3, 5),
   borderTop: `1px solid ${theme.palette.divider}`,
   backgroundColor: theme.palette.background.paper,
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(2.5, 3),
+    flexDirection: 'column-reverse',
+    gap: theme.spacing(2),
+    alignItems: 'stretch',
+  },
 }));
 
 export const StyledFormControlLabel = styled(FormControlLabel)(({ theme }) => ({

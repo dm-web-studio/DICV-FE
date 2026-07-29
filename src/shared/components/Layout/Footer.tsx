@@ -194,7 +194,7 @@ export const Footer = observer(function Footer(): React.JSX.Element {
                     <AccessTimeIcon />
                   </ContactIconWrapper>
                   <ContactText variant="body2">
-                    Mon - Sat: 9:00 AM - 4:00 PM<br />
+                    Mon - Sat: 8:00 AM - 2:00 PM<br />
                     Sunday: Closed
                   </ContactText>
                 </ContactRow>
