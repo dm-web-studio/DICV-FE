@@ -14,4 +14,7 @@ export default defineConfig({
     }),
     react()
   ],
+  esbuild: {
+    drop: ['console', 'debugger'],
+  } as any,
 });

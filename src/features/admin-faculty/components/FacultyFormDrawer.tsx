@@ -90,6 +90,10 @@ export const FacultyFormDrawer = observer(function FacultyFormDrawer() {
                 freeSolo
                 options={[]}
                 value={ui.draftDegrees}
+                inputValue={ui.draftDegreesInput}
+                onInputChange={(_event, newInputValue) => {
+                  ui.setDraftDegreesInput(newInputValue);
+                }}
                 onChange={(_event, newValue) => {
                   const processed = newValue.flatMap(val =>
                     typeof val === 'string' ? val.split(',').map(v => v.trim()).filter(Boolean) : val

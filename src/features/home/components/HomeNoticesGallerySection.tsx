@@ -20,7 +20,6 @@ import {
   NoticeTitleText,
   NoticesColumn,
   GalleryColumn,
-  EmptyStateText,
   NoticeLinkWrapper,
   NoticeContentColumn,
   NoticeTitleRow,
@@ -32,13 +31,16 @@ import {
 } from './HomeNoticesGallerySection.styles';
 
 import { NoticeCategoryBadge } from '../../../shared/components/NoticeCategoryBadge';
+import { EmptyState } from '../../../shared/components/EmptyState';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import CampaignOutlinedIcon from '@mui/icons-material/CampaignOutlined';
+import PhotoLibraryOutlinedIcon from '@mui/icons-material/PhotoLibraryOutlined';
 
 export const HomeNoticesGallerySection = observer(function HomeNoticesGallerySection() {
 
   const { notices, domain, gallery } = useHomeStore();
-  
+
   const noticesData = domain.latestNotices;
   const { isLoading: noticesLoading, error: noticesError } = notices.domain;
 
@@ -52,10 +54,10 @@ export const HomeNoticesGallerySection = observer(function HomeNoticesGallerySec
           <DecorativeTitle variant="h2">
             LATEST NOTICES
           </DecorativeTitle>
-          <ViewAllLink 
+          <ViewAllLink
             component={Link}
-            to="/notices" 
-            variant="body2" 
+            to="/notices"
+            variant="body2"
           >
             View All
           </ViewAllLink>
@@ -63,15 +65,17 @@ export const HomeNoticesGallerySection = observer(function HomeNoticesGallerySec
 
         {noticesLoading && <CircularProgress size={24} />}
         {noticesError && <Alert severity="error">{noticesError}</Alert>}
-        
+
         {!noticesLoading && !noticesError && noticesData.length === 0 && (
-          <EmptyStateText variant="body1" color="text.secondary">
-            No recent notices.
-          </EmptyStateText>
+          <EmptyState
+            icon={<CampaignOutlinedIcon />}
+            title="No recent notices"
+            description="There are currently no new announcements."
+          />
         )}
 
         {noticesData.map((notice, index) => {
-          
+
           return (
             <NoticeLinkWrapper key={notice.slug} to={`/notices/${notice.slug}`}>
               <NoticeItemCard>
@@ -95,7 +99,7 @@ export const HomeNoticesGallerySection = observer(function HomeNoticesGallerySec
                       )}
                     </NoticeBadgesWrapper>
                   </NoticeTitleRow>
-                  
+
                   <NoticeMetaRow>
                     <NoticeMetaItem>
                       <CalendarTodayIcon />
@@ -123,10 +127,10 @@ export const HomeNoticesGallerySection = observer(function HomeNoticesGallerySec
           <DecorativeTitle variant="h2">
             GALLERY HIGHLIGHTS
           </DecorativeTitle>
-          <ViewAllLink 
+          <ViewAllLink
             component={Link}
-            to="/gallery" 
-            variant="body2" 
+            to="/gallery"
+            variant="body2"
           >
             View All
           </ViewAllLink>
@@ -134,9 +138,11 @@ export const HomeNoticesGallerySection = observer(function HomeNoticesGallerySec
 
         {isLoadingGallery && <CircularProgress size={24} sx={{ display: 'block', m: 'auto' }} />}
         {!isLoadingGallery && highlights.length === 0 && (
-          <EmptyStateText variant="body1" color="text.secondary">
-            No gallery highlights available.
-          </EmptyStateText>
+          <EmptyState
+            icon={<PhotoLibraryOutlinedIcon />}
+            title="No gallery highlights"
+            description="Images will be showcased here soon."
+          />
         )}
         {!isLoadingGallery && highlights.length > 0 && (
           <GalleryGrid>

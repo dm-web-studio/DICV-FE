@@ -33,12 +33,19 @@ export class FacultyDomainStore {
   async fetchLeadership(): Promise<void> {
     this.isLoadingLeadership = true;
     try {
-      const data = await facultyService.getAll({
-        limit: 3,
-        designation: 'Principal,Vice Principal,Vice-Principal,Teacher'
-      });
+      // Fetch them independently but concurrently to guarantee one of each in specific order
+      const [presidentRes, vicePresidentRes, teacherRes] = await Promise.all([
+        facultyService.getAll({ limit: 1, designation: 'President,Principal' }),
+        facultyService.getAll({ limit: 1, designation: 'Vice President,Vice-President,Vice Principal,Vice-Principal' }),
+        facultyService.getAll({ limit: 1, designation: 'Teacher' })
+      ]);
+      
       runInAction(() => {
-        this.leadershipList = data;
+        this.leadershipList = [
+          ...presidentRes,
+          ...vicePresidentRes,
+          ...teacherRes
+        ];
       });
     } catch (err) {
       console.error('Failed to fetch leadership faculty', err);
