@@ -93,27 +93,64 @@ export const LogoImage = styled('img')(({ theme }) => ({
 export const BrandContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  gap: theme.spacing(1.5),
+  gap: theme.spacing(2),
   marginBottom: theme.spacing(3),
 }));
 
-export const BrandTitle = styled(Typography)({
+export const CollapsibleText = styled('span')(({ theme }) => ({
+  display: 'inline-block',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  verticalAlign: 'bottom',
+  transition: 'max-width 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease-out',
+  maxWidth: '500px',
+  opacity: 1,
+  [theme.breakpoints.down('lg')]: {
+    maxWidth: 0,
+    opacity: 0,
+  },
+}));
+
+export const ShowOnCollapseText = styled('span')(({ theme }) => ({
+  display: 'inline-block',
+  overflow: 'hidden',
+  whiteSpace: 'pre',
+  verticalAlign: 'bottom',
+  transition: 'max-width 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease-out',
+  maxWidth: 0,
+  opacity: 0,
+  [theme.breakpoints.down('lg')]: {
+    maxWidth: '100px',
+    opacity: 1,
+  },
+}));
+
+export const BrandTitle = styled(Typography)(({ theme }) => ({
   fontWeight: 700,
   display: 'block',
   textAlign: 'left',
   lineHeight: 1.1,
+  whiteSpace: 'nowrap',
   color: 'inherit',
-});
+  fontSize: '18px',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '16px',
+  },
+}));
 
 export const BrandSubtitle = styled(Typography)(({ theme }) => ({
   fontWeight: 400,
   display: 'block',
   textAlign: 'left',
   letterSpacing: '0.15em',
-  fontSize: '0.85em',
-  marginTop: theme.spacing(0.5),
   lineHeight: 1.1,
   color: 'inherit',
+  whiteSpace: 'nowrap',
+  fontSize: '12px',
+  marginTop: theme.spacing(1.25),
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '11px',
+  },
 }));
 
 export const SocialStack = styled(Stack)(({ theme }) => ({
@@ -137,22 +174,6 @@ export const FooterCaption = styled(Typography)(({ theme }) => ({
   color: alpha(theme.palette.common.white, 0.5),
 }));
 
-export const ColumnDivider = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'isLast',
-})<{ isLast?: boolean }>(({ theme, isLast }) => ({
-  height: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  [theme.breakpoints.up('md')]: {
-    borderRight: isLast ? 'none' : `1px solid ${alpha(theme.palette.common.white, 0.1)}`,
-    paddingRight: isLast ? 0 : theme.spacing(3),
-  },
-  [theme.breakpoints.down('md')]: {
-    borderBottom: isLast ? 'none' : `1px solid ${alpha(theme.palette.common.white, 0.1)}`,
-    paddingBottom: isLast ? 0 : theme.spacing(3),
-  },
-}));
-
 export const FooterContainer = styled(Box)(({ theme }) => ({
   paddingLeft: theme.spacing(6),
   paddingRight: theme.spacing(6),
@@ -168,5 +189,71 @@ export const ColumnContent = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   height: '100%',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-start',
 });
+
+export const BrandColumnContainer = styled(Box)(({ theme }) => ({
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  [theme.breakpoints.up('md')]: {
+    borderRight: `1px solid ${alpha(theme.palette.common.white, 0.1)}`,
+    paddingRight: theme.spacing(3),
+  },
+  [theme.breakpoints.down('md')]: {
+    borderBottom: `1px solid ${alpha(theme.palette.common.white, 0.1)}`,
+    paddingBottom: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+  },
+}));
+
+export const LinkColumnContainer = styled(Box)(({ theme }) => ({
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  [theme.breakpoints.up('sm')]: {
+    borderRight: `1px solid ${alpha(theme.palette.common.white, 0.1)}`,
+    paddingRight: theme.spacing(3),
+  },
+  [theme.breakpoints.down('sm')]: {
+    borderBottom: `1px solid ${alpha(theme.palette.common.white, 0.1)}`,
+    paddingBottom: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+  },
+}));
+
+export const ContactColumnContainer = styled(Box)({
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+});
+
+export const ManagementText = styled(Box)(({ theme }) => ({
+  marginTop: theme.spacing(2),
+  color: alpha(theme.palette.common.white, 0.6),
+  lineHeight: 1.5,
+  textAlign: 'left',
+  fontSize: '11px',
+  '& .MuiTypography-root': {
+    fontSize: '11px',
+    color: alpha(theme.palette.common.white, 0.4),
+    display: 'block',
+    marginTop: theme.spacing(0.5),
+  },
+}));
+
+export const AffiliationCodesContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: theme.spacing(2),
+  color: alpha(theme.palette.common.white, 0.6),
+  '& .code-item': {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(1),
+    '& .label': {
+      fontWeight: 600,
+      color: alpha(theme.palette.common.white, 0.8),
+    },
+  },
+}));

@@ -3,12 +3,11 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import { layoutStore } from '../../stores/LayoutStore';
-import dicvLogo from '../../../assets/dicv-logo.png';
+import dicvLogo from '../../../assets/dicv-logo-vector.svg';
 import {
   NavRow,
   LogoContainer,
@@ -22,6 +21,12 @@ import {
   DrawerHeader,
   MobileNavLink,
   StyledListItemButton,
+  CollapsibleText,
+  ShowOnCollapseText,
+  DrawerLogoImage,
+  DrawerSchoolName,
+  DrawerSchoolSubtitle,
+  DrawerNavList,
 } from './Navbar.styles';
 
 const NAV_LINKS = [
@@ -49,8 +54,13 @@ export const Navbar = observer(function Navbar() {
         <LogoContainer to="/">
           <LogoImage src={dicvLogo} alt="DICV Logo" />
           <Box>
-            <SchoolName variant="h2">DICV PUBLIC</SchoolName>
-            <SchoolSubtitle variant="body2">HIGH SCHOOL</SchoolSubtitle>
+            <SchoolName variant="h1">
+              <CollapsibleText>Durgapur Iswar Chandra Vidyasagar (</CollapsibleText>DICV<CollapsibleText>)</CollapsibleText>
+              <ShowOnCollapseText> PUBLIC</ShowOnCollapseText>
+            </SchoolName>
+            <SchoolSubtitle variant="body2">
+              <CollapsibleText>PUBLIC&nbsp;</CollapsibleText>HIGH SCHOOL (H.S)
+            </SchoolSubtitle>
           </Box>
         </LogoContainer>
 
@@ -84,17 +94,17 @@ export const Navbar = observer(function Navbar() {
       >
         <DrawerContainer onClick={handleCloseDrawer}>
           <DrawerHeader>
-            <LogoImage src={dicvLogo} alt="DICV Logo" sx={{ width: 40, height: 40 }} />
+            <DrawerLogoImage src={dicvLogo} alt="DICV Logo" />
             <Box>
-              <Typography variant="subtitle1" sx={{ fontWeight: 700, lineHeight: 1.1, color: 'primary.main' }}>
+              <DrawerSchoolName variant="subtitle1">
                 DICV PUBLIC
-              </Typography>
-              <Typography variant="caption" sx={{ color: 'text.secondary', letterSpacing: '0.1em' }}>
-                HIGH SCHOOL
-              </Typography>
+              </DrawerSchoolName>
+              <DrawerSchoolSubtitle variant="caption">
+                HIGH SCHOOL (H.S)
+              </DrawerSchoolSubtitle>
             </Box>
           </DrawerHeader>
-          <List sx={{ pt: 1 }}>
+          <DrawerNavList>
             {NAV_LINKS.map((link) => (
               <ListItem key={link.path} disablePadding>
                 <MobileNavLink to={link.path}>
@@ -106,7 +116,7 @@ export const Navbar = observer(function Navbar() {
                 </MobileNavLink>
               </ListItem>
             ))}
-          </List>
+          </DrawerNavList>
         </DrawerContainer>
       </Drawer>
     </>

@@ -52,7 +52,7 @@ export const ContactInfoCard = observer(function ContactInfoCard() {
                 Address
               </InfoLabel>
               <InfoText variant="body2">
-                DICV Public High School<br />
+                Durgapur Iswar Chandra Vidyasagar (DICV) Public High School (H.S)<br />
                 {address}
               </InfoText>
             </Box>

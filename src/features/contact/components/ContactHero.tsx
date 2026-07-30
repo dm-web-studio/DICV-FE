@@ -11,7 +11,7 @@ export const ContactHero: FC = () => {
       <Underline />
       <HeroText variant="body1" color="text.secondary">
         We'd love to hear from you. Reach out to us for any queries, feedback,
-        or more information about DICV Public High School.
+        or more information about Durgapur Iswar Chandra Vidyasagar (DICV) Public High School (H.S).
       </HeroText>
     </HeroContainer>
   );

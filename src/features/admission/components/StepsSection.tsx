@@ -33,7 +33,7 @@ export const StepsSection = observer(function StepsSection() {
   return (
     <SectionContainer>
       <SectionTitle variant="h1">
-        Steps to Join DICV Public High School
+        Steps to Join Durgapur Iswar Chandra Vidyasagar (DICV) Public High School (H.S)
       </SectionTitle>
       <CardsContainer>
         <ConnectingLine />
