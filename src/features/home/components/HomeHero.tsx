@@ -11,7 +11,7 @@ const HeroImage = styled('img')({
 export function HomeHero() {
   return (
     <Box>
-      <HeroImage src={homeHeroImg} alt="DICV Public High School Campus" />
+      <HeroImage src={homeHeroImg} alt="Durgapur Iswar Chandra Vidyasagar (DICV) Public High School (H.S) Campus" />
     </Box>
   );
 }
