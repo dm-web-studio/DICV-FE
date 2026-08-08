@@ -3,7 +3,7 @@ import { observable, action } from 'mobx';
 export type GalleryLayoutMode = 'masonry' | 'grid';
 
 export class GalleryUIStore {
-  @observable accessor layoutMode: GalleryLayoutMode = 'masonry';
+  @observable accessor layoutMode: GalleryLayoutMode = 'grid';
   @observable accessor isLightboxOpen = false;
   @observable accessor activeImageIndex: number | null = null;
   @observable accessor page = 1; // Used for image pagination within an album
